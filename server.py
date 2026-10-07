@@ -1,6 +1,7 @@
-"""Local demonstration only. Public documents only; no login or LLM calls."""
+"""Local support handbook. Public documents only; no authentication service."""
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
+from urllib.parse import urlsplit, parse_qs
 from pathlib import Path
 from evidence import Index
 
@@ -25,14 +26,24 @@ class Handler(BaseHTTPRequestHandler):
         self.wfile.write(body)
 
     def do_GET(self):
+        url = urlsplit(self.path)
         routes = {'/': ('index.html', 'text/html; charset=utf-8'),
                   '/app.js': ('app.js', 'application/javascript; charset=utf-8'),
-                  '/style.css': ('style.css', 'text/css; charset=utf-8')}
-        if self.path == '/health':
+                  '/style.css': ('style.css', 'text/css; charset=utf-8'),
+                  '/Gandom.woff2': ('Gandom.woff2', 'font/woff2')}
+        if url.path == '/health':
             return self.send(200, {'status': 'ok', 'mode': 'extractive-bm25'})
-        if self.path not in routes:
+        if url.path == '/api/documents':
+            documents = [{'id': d.id, 'title': d.title, 'text': d.text, 'source': d.source}
+                         for d in INDEX.documents if d.scope == 'public']
+            doc_id = parse_qs(url.query).get('id', [None])[0]
+            if doc_id is not None:
+                match = next((d for d in documents if d['id'] == doc_id), None)
+                return self.send(200, match) if match else self.send(404, {'error': 'Document not found'})
+            return self.send(200, {'documents': documents, 'dataset': 'synthetic-runbooks/v1'})
+        if url.path not in routes:
             return self.send(404, {'error': 'Not found'})
-        file, mime = routes[self.path]
+        file, mime = routes[url.path]
         self.send(200, (ROOT / 'web' / file).read_bytes(), mime)
 
     def do_POST(self):

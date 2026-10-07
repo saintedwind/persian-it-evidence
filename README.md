@@ -1,99 +1,60 @@
-# Persian IT Evidence
+# دفتر پشتیبانی
 
-A Persian-aware, source-linked search assistant for IT support runbooks. Built as an **AI-assisted independent portfolio project**, connecting practical IT operations with retrieval engineering and evaluation.
+A Persian support handbook: find a runbook, inspect its source, and prepare a support ticket when the issue remains unresolved.
 
-**Status: v0.1, working local baseline.** This release uses BM25 lexical retrieval and returns verbatim source excerpts. It does **not** use an LLM, embeddings, or a production RAG pipeline. Documents and evaluation questions are synthetic; no customer deployment is claimed.
+**v0.2 — local working prototype.** The 12 public runbooks are synthetic examples, not an organization's approved procedures. Questions are not stored and ticket drafts are not submitted.
 
-![Persian demo with a cited VPN runbook](reports/demo.png)
+## Run
 
-## Why this project
-
-An IT support answer should be traceable to an approved document. This project starts with a measurable retrieval baseline before adding semantic search or generation. The interesting engineering questions are whether the right source is found, whether unsupported questions are rejected, and whether restricted documents stay out of public results.
-
-## Run in two minutes
-
-Requires Python 3.11 or newer. No package installation, API key, model download, or paid service is needed.
+Requires Python 3.11+, with no package installation or service credentials.
 
 ```sh
 python server.py
 # Open http://127.0.0.1:8765
-```
-
-CLI:
-
-```sh
-python evidence.py "خطای گواهی VPN دارم"
 python -m unittest discover -s tests -v
 python evaluate.py --check
 ```
 
-The server binds to loopback only. The optional CLI `--scope staff` demonstrates trusted application access; it is not an authentication mechanism. The HTTP endpoint always uses public scope and rejects extra fields such as `scope`.
+## What changed
 
-API example:
+- Browse a public guide directory and open documents directly.
+- Search in Persian, inspect ranked results, and select a source text.
+- Copy a guide with its identifier or prepare an editable ticket with problem, device, error, reproduction steps and guide consulted.
+- Keyboard navigation, a search shortcut, request timeout, and protection against stale search responses.
+- An ink-and-paper layout using the locally bundled Gandom typeface. Font copyright and license are preserved in `web/Gandom-LICENSE.txt`; upstream: https://github.com/rastikerdar/gandom-font.
 
-```sh
-curl http://127.0.0.1:8765/api/ask -H "Content-Type: application/json" -d '{"question":"VPN certificate clock"}'
-```
+## Retrieval and access
 
-Response includes `status`, `answer`, `citations`, and `retrieved`. `evidence_found` means a lexical relevance heuristic passed, not that a human-quality answer was verified.
+Persian normalization and tokenization feed a BM25 ranker. A fixed lexical-coverage heuristic determines whether to show a result. Text is displayed verbatim; relevance is not a guarantee that a procedure solves the issue.
 
-## Measured results — 7 October 2026
+Public access is enforced before scoring and before building the directory. The browser cannot request a staff role. The CLI's `--scope staff` is a trusted local test switch, not authentication.
 
-| Check | Observed result |
+| Endpoint | Behavior |
+|---|---|
+| `GET /health` | Process health |
+| `GET /api/documents` | Public directory |
+| `GET /api/documents?id=IT-004` | Public document, or 404 for absent/restricted IDs |
+| `POST /api/ask` | JSON containing only `question`; ranked excerpts and status |
+
+The browser creates ticket drafts locally. Clipboard permission depends on the browser; text remains selectable when automatic copying is unavailable.
+
+## Validation
+
+The v0.2 suite contains 23 unit/API tests covering input validation, normalization, exact source text, access isolation, directory routes, restricted document lookup, and font delivery. All 23 tests passed locally on 7 October 2026. Run the commands above to reproduce the checks. Browser layout and end-to-end interaction checks are pending: the local browser preview was unavailable in the build environment.
+
+The unchanged 24-question synthetic benchmark contains 18 answerable and 6 unanswerable cases:
+
+| Metric | Result |
 |---|---:|
-| Unit and local HTTP integration tests | 18 passed |
-| Synthetic evaluation questions | 24 |
-| Answerable / unanswerable questions | 18 / 6 |
 | Recall@3 on answerable questions | 16/18 = 88.9% |
-| MRR@3 on answerable questions | 0.889 |
-| Correct cited source or abstention | 22/24 = 91.7% |
+| MRR@3 | 0.889 |
+| Correct source or abstention | 22/24 = 91.7% |
 | Abstention on unanswerable questions | 6/6 |
-| Restricted documents in public results | 0 in this evaluation |
 
-These are **small, author-written smoke tests**, not independent held-out evaluation or evidence of production accuracy. Both datasets were authored together. The fixed coverage threshold was present before the first run; no test questions were removed after seeing failures. Lexical overlap and manually written English tags make this dataset easier than real support traffic. English-tag matches are not general cross-language semantic understanding.
+See `reports/evaluation.json` and `reports/FAILURE_ANALYSIS.md`. These author-written smoke tests are not an independent holdout or a production accuracy estimate. Two paraphrase failures remain; interface changes do not improve the retrieval score.
 
-Read the [complete result data](reports/evaluation.json) and [failure analysis](reports/FAILURE_ANALYSIS.md). Local tests passed on Windows. The same tests and evaluation also passed on GitHub's Ubuntu runner: [verified CI run](https://github.com/saintedwind/persian-it-evidence/actions/runs/37599503259).
+## Limits
 
-## Architecture
+The corpus has 12 public examples and one synthetic restricted fixture. Indirect wording can fail; topic words can also retrieve an irrelevant procedure. There is no organization login, ingestion workflow, document approval, editing service or ticket-system integration. The standard-library HTTP server binds to loopback and is intended for local use, not public deployment. No customer adoption or savings are claimed.
 
-```text
-Persian web UI / CLI
-        |
-HTTP input validation (public scope only)
-        |
-Scope filtering BEFORE corpus statistics and ranking
-        |
-Persian normalization -> tokenization -> BM25
-        |
-Coverage heuristic -> source excerpt or abstention
-```
-
-- Arabic/Persian character normalization and zero-width space handling.
-- Deterministic ranking with stable document-ID tie-breaking.
-- Source identifiers and exact evidence excerpts.
-- Public/staff filtering before scoring; public responses never contain restricted excerpts.
-- Tests exercise HTTP behavior, caller-supplied scope rejection, normalization, source fidelity, and file-path isolation.
-- Browser renders text with `textContent`; generated source strings are never interpreted as HTML.
-- No remote requests, query storage, or real secrets are needed for this demo.
-
-## Limitations and next experiments
-
-1. Indirect paraphrases fail. Compare a multilingual embedding retriever against this frozen baseline using a separate new evaluation set.
-2. Lexical coverage is not entailment. A question that contains topic words can retrieve a related but non-answering passage. Abstention is not calibrated.
-3. There is no instruction-following model, so this version cannot establish LLM prompt-injection resistance.
-4. Scope filtering is not enterprise authorization. Production needs authenticated identities, audited ingestion, document ownership, and enforced authorization at every route.
-5. Rebuilding counts per request is intentionally simple for 13 documents; this has not been load-tested at scale.
-6. Python's standard-library HTTP server is for local demonstration only. Do not expose it to the Internet.
-7. Documents are manually authored synthetic examples; no ingestion pipeline, OCR, document versioning, or feedback persistence exists yet.
-
-See [ROADMAP.md](ROADMAP.md) for release gates. Each new claim must point to a reproducible artifact. No employer data should enter this repository without permission and redaction.
-
-## Data and authorship
-
-All 13 runbooks (12 public, 1 restricted) and all 24 questions were created for this project. They are not company procedures or security guidance for any real environment. Code, tests, documentation, and initial evaluation were developed with AI assistance. The portfolio owner should be able to explain, modify, and reproduce them before presenting the work in an interview.
-
-Project owner: Peyman Gholamhosseini. No employment, client adoption, cost reduction, or real-world accuracy claim is implied.
-
-## راهنمای فارسی
-
-این نسخه، نقطه شروع قابل اجرا و قابل اندازه‌گیری است. پرسش را وارد کنید تا متن راهنمای مرتبط همراه شناسه منبع نمایش داده شود. اگر پوشش واژگانی کافی نباشد، برنامه اعلام می‌کند شواهد کافی ندارد. دو شکست ثبت‌شده مربوط به پرسش‌هایی هستند که مفهوم را با واژگان متفاوت بیان می‌کنند. مرحله بعد، آزمایش جست‌وجوی معنایی روی یک مجموعه ارزیابی جداگانه است.
+Maintained by Peyman Gholamhosseini. Independent project; not an Azarab product or deployment.

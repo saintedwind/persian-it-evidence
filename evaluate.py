@@ -28,7 +28,7 @@ def evaluate():
                'correct_source_or_abstention': sum(r['correct'] for r in rows) / len(rows),
                'unanswerable_abstention': sum(r['returned'] is None for r in negative) / len(negative),
                'restricted_document_leaks': sum('STAFF-001' in r['retrieved'] for r in rows)}
-    return {'benchmark': 'synthetic-author-written-v1', 'limitations': 'Small lexical smoke test; not a held-out benchmark. No LLM, no real users. Latency is local single-run, not an SLA.', 'metrics': metrics, 'cases': rows}
+    return {'benchmark': 'synthetic-author-written-v1', 'limitations': 'Small lexical smoke test; not a held-out benchmark. No real users. Latency is local single-run, not an SLA.', 'metrics': metrics, 'cases': rows}
 
 
 if __name__ == '__main__':

@@ -1,4 +1,4 @@
-"""Dependency-free, Persian-aware retrieval baseline. No generative model."""
+"""Dependency-free Persian runbook search with traceable source excerpts."""
 from __future__ import annotations
 from collections import Counter
 from dataclasses import dataclass
