@@ -8,7 +8,7 @@ Dates are planning targets, not claims of completed work. The owner learns and v
 - [x] Public-scope local API and Persian browser UI.
 - [x] 18 local tests, 24-question evaluation, retained failure cases.
 - [x] Documentation, screenshot, and CI configuration.
-- [ ] Publish repository and observe GitHub Actions actually passing.
+- [x] Publish repository and observe GitHub Actions actually passing (7 October 2026).
 - [ ] Owner independently runs the demo, explains BM25 vs embeddings, and fixes a small retrieval issue.
 
 ## v0.2 — next 7–14 working days

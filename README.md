@@ -52,7 +52,7 @@ Response includes `status`, `answer`, `citations`, and `retrieved`. `evidence_fo
 
 These are **small, author-written smoke tests**, not independent held-out evaluation or evidence of production accuracy. Both datasets were authored together. The fixed coverage threshold was present before the first run; no test questions were removed after seeing failures. Lexical overlap and manually written English tags make this dataset easier than real support traffic. English-tag matches are not general cross-language semantic understanding.
 
-Read the [complete result data](reports/evaluation.json) and [failure analysis](reports/FAILURE_ANALYSIS.md). GitHub Actions configuration is included but has not run on GitHub yet. Local testing used Windows and Python; Linux CI remains unverified until pushed.
+Read the [complete result data](reports/evaluation.json) and [failure analysis](reports/FAILURE_ANALYSIS.md). Local tests passed on Windows. The same tests and evaluation also passed on GitHub's Ubuntu runner: [verified CI run](https://github.com/saintedwind/persian-it-evidence/actions/runs/37599503259).
 
 ## Architecture
 
