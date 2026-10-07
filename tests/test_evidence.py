@@ -100,6 +100,31 @@ class ApiTests(unittest.TestCase):
             self.assertIn('frame-ancestors', response.headers['Content-Security-Policy'])
             self.assertIn(b'id="question"', response.read())
 
+    def test_catalog_has_public_documents_only(self):
+        with urlopen(self.url + '/api/documents') as response:
+            docs = json.load(response)['documents']
+        self.assertEqual(len(docs), 12)
+        self.assertTrue(all(not d['id'].startswith('STAFF') for d in docs))
+
+    def test_catalog_does_not_trust_scope_query(self):
+        with urlopen(self.url + '/api/documents?scope=staff') as response:
+            self.assertNotIn('STAFF-001', response.read().decode())
+
+    def test_public_document_can_be_read(self):
+        with urlopen(self.url + '/api/documents?id=IT-004') as response:
+            self.assertEqual(json.load(response)['id'], 'IT-004')
+
+    def test_private_document_cannot_be_read_directly(self):
+        for doc_id in ['STAFF-001', 'does-not-exist', '..%2Fdata%2Fdocuments.json']:
+            with self.subTest(doc_id=doc_id), self.assertRaises(HTTPError) as ctx:
+                urlopen(self.url + '/api/documents?id=' + doc_id)
+            self.assertEqual(ctx.exception.code, 404)
+
+    def test_local_font_is_valid_woff2(self):
+        with urlopen(self.url + '/Gandom.woff2') as response:
+            self.assertEqual(response.headers['Content-Type'], 'font/woff2')
+            self.assertEqual(response.read(4), b'wOF2')
+
 
 if __name__ == '__main__':
     unittest.main()
