@@ -16,10 +16,10 @@ These two cases remain in the dataset. Adding their exact words to document tags
 - Most direct topic queries work on the tiny synthetic corpus.
 - The restricted document was not retrieved by public queries tested here. This does not prove enterprise security.
 - All six unanswerable questions abstained in this dataset. This does not mean the coverage heuristic rejects all unsupported or adversarial questions.
-- An exact source excerpt cannot hallucinate new wording, but it can still be irrelevant, outdated, incomplete, or wrong.
-- No generative answer was evaluated. The score is source-selection/abstention agreement, not answer factuality.
+- An exact source excerpt can still be irrelevant, outdated, incomplete, or wrong.
+- The score measures source selection or abstention; it does not verify the correctness of a procedure.
 - Latency in the JSON is a single local observation; it is not comparable cloud throughput or a service-level commitment.
 
 ## Next controlled experiment
 
-Freeze v0.1 and its data. Add multilingual embeddings as a separately selectable retriever. Create a new paraphrase-heavy set with at least 60 questions, answer spans, unanswerable counterexamples, and conflicting-document cases. Split tuning and evaluation before changing thresholds. Where possible, have another person write/review questions without seeing retriever output. Report the lexical baseline and semantic retriever on the same frozen test set, including regressions, model revision, hardware, and license. Add an LLM only after retrieval quality and citation checks are measurable.
+Freeze v0.1 and its data. Add multilingual embeddings as a separately selectable retriever. Create a new paraphrase-heavy set with at least 60 questions, answer spans, unanswerable counterexamples, and conflicting-document cases. Split tuning and evaluation before changing thresholds. Where possible, have another person write/review questions without seeing retriever output. Report the lexical baseline and semantic retriever on the same frozen test set, including regressions, model revision, hardware, and license.

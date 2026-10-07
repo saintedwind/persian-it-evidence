@@ -1,6 +1,6 @@
 {
   "benchmark": "synthetic-author-written-v1",
-  "limitations": "Small lexical smoke test; not a held-out benchmark. No LLM, no real users. Latency is local single-run, not an SLA.",
+  "limitations": "Small lexical smoke test; not a held-out benchmark. No real users. Latency is local single-run, not an SLA.",
   "metrics": {
     "cases": 24,
     "answerable": 18,
@@ -24,7 +24,7 @@
       ],
       "correct": true,
       "reciprocal_rank": 1.0,
-      "latency_ms": 2.194
+      "latency_ms": 3.757
     },
     {
       "id": "q02",
@@ -36,7 +36,7 @@
       ],
       "correct": true,
       "reciprocal_rank": 1.0,
-      "latency_ms": 1.501
+      "latency_ms": 2.012
     },
     {
       "id": "q03",
@@ -50,7 +50,7 @@
       ],
       "correct": true,
       "reciprocal_rank": 1.0,
-      "latency_ms": 1.224
+      "latency_ms": 2.847
     },
     {
       "id": "q04",
@@ -64,7 +64,7 @@
       ],
       "correct": true,
       "reciprocal_rank": 1.0,
-      "latency_ms": 1.192
+      "latency_ms": 2.842
     },
     {
       "id": "q05",
@@ -78,7 +78,7 @@
       ],
       "correct": true,
       "reciprocal_rank": 1.0,
-      "latency_ms": 1.185
+      "latency_ms": 1.944
     },
     {
       "id": "q06",
@@ -90,7 +90,7 @@
       ],
       "correct": true,
       "reciprocal_rank": 1.0,
-      "latency_ms": 1.204
+      "latency_ms": 1.967
     },
     {
       "id": "q07",
@@ -104,7 +104,7 @@
       ],
       "correct": true,
       "reciprocal_rank": 1.0,
-      "latency_ms": 1.323
+      "latency_ms": 1.891
     },
     {
       "id": "q08",
@@ -118,7 +118,7 @@
       ],
       "correct": true,
       "reciprocal_rank": 1.0,
-      "latency_ms": 1.305
+      "latency_ms": 1.887
     },
     {
       "id": "q09",
@@ -131,7 +131,7 @@
       ],
       "correct": true,
       "reciprocal_rank": 1.0,
-      "latency_ms": 1.306
+      "latency_ms": 1.887
     },
     {
       "id": "q10",
@@ -145,7 +145,7 @@
       ],
       "correct": true,
       "reciprocal_rank": 1.0,
-      "latency_ms": 1.236
+      "latency_ms": 1.878
     },
     {
       "id": "q11",
@@ -159,7 +159,7 @@
       ],
       "correct": true,
       "reciprocal_rank": 1.0,
-      "latency_ms": 1.168
+      "latency_ms": 2.788
     },
     {
       "id": "q12",
@@ -171,7 +171,7 @@
       ],
       "correct": true,
       "reciprocal_rank": 1.0,
-      "latency_ms": 1.163
+      "latency_ms": 3.049
     },
     {
       "id": "q13",
@@ -183,7 +183,7 @@
       ],
       "correct": true,
       "reciprocal_rank": 1.0,
-      "latency_ms": 1.163
+      "latency_ms": 1.977
     },
     {
       "id": "q14",
@@ -195,7 +195,7 @@
       ],
       "correct": true,
       "reciprocal_rank": 1.0,
-      "latency_ms": 1.152
+      "latency_ms": 1.908
     },
     {
       "id": "q15",
@@ -207,7 +207,7 @@
       ],
       "correct": true,
       "reciprocal_rank": 1.0,
-      "latency_ms": 1.182
+      "latency_ms": 1.853
     },
     {
       "id": "q16",
@@ -219,7 +219,7 @@
       ],
       "correct": true,
       "reciprocal_rank": 1.0,
-      "latency_ms": 1.162
+      "latency_ms": 1.846
     },
     {
       "id": "q17",
@@ -233,7 +233,7 @@
       ],
       "correct": false,
       "reciprocal_rank": 0,
-      "latency_ms": 1.181
+      "latency_ms": 1.867
     },
     {
       "id": "q18",
@@ -245,7 +245,7 @@
       ],
       "correct": false,
       "reciprocal_rank": 0,
-      "latency_ms": 1.164
+      "latency_ms": 2.365
     },
     {
       "id": "q19",
@@ -258,7 +258,7 @@
       ],
       "correct": true,
       "reciprocal_rank": 0,
-      "latency_ms": 1.22
+      "latency_ms": 3.748
     },
     {
       "id": "q20",
@@ -268,7 +268,7 @@
       "retrieved": [],
       "correct": true,
       "reciprocal_rank": 0,
-      "latency_ms": 1.179
+      "latency_ms": 2.393
     },
     {
       "id": "q21",
@@ -278,7 +278,7 @@
       "retrieved": [],
       "correct": true,
       "reciprocal_rank": 0,
-      "latency_ms": 1.144
+      "latency_ms": 1.979
     },
     {
       "id": "q22",
@@ -292,7 +292,7 @@
       ],
       "correct": true,
       "reciprocal_rank": 0,
-      "latency_ms": 1.19
+      "latency_ms": 1.888
     },
     {
       "id": "q23",
@@ -302,7 +302,7 @@
       "retrieved": [],
       "correct": true,
       "reciprocal_rank": 0,
-      "latency_ms": 1.269
+      "latency_ms": 1.846
     },
     {
       "id": "q24",
@@ -312,7 +312,7 @@
       "retrieved": [],
       "correct": true,
       "reciprocal_rank": 0,
-      "latency_ms": 1.403
+      "latency_ms": 1.849
     }
   ]
 }
