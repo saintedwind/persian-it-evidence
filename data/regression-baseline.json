@@ -1,0 +1,27 @@
+{
+  "description": "Frozen successful cases from measured v0.2. Known failures q17/q18 remain in evaluation, not hidden or tuned away. Not an independent holdout.",
+  "accepted": {
+    "q01": "IT-001",
+    "q02": "IT-002",
+    "q03": "IT-003",
+    "q04": "IT-004",
+    "q05": "IT-005",
+    "q06": "IT-006",
+    "q07": "IT-007",
+    "q08": "IT-008",
+    "q09": "IT-009",
+    "q10": "IT-010",
+    "q11": "IT-011",
+    "q12": "IT-012",
+    "q13": "IT-001",
+    "q14": "IT-002",
+    "q15": "IT-004",
+    "q16": "IT-008",
+    "q19": null,
+    "q20": null,
+    "q21": null,
+    "q22": null,
+    "q23": null,
+    "q24": null
+  }
+}
