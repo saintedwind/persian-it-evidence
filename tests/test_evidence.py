@@ -1,6 +1,7 @@
 import json
 import threading
 import unittest
+from unittest.mock import patch
 from urllib.request import Request, urlopen
 from urllib.error import HTTPError
 from http.server import ThreadingHTTPServer
@@ -128,3 +129,15 @@ class ApiTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class DraftRouteTests(unittest.TestCase):
+    setUpClass = classmethod(ApiTests.setUpClass.__func__)
+    tearDownClass = classmethod(ApiTests.tearDownClass.__func__)
+    # Reuse the HTTP fixture, not inherited test cases.
+    def test_local_draft_endpoint(self):
+        with patch('server.draft', return_value={'status':'draft_ready','draft':'sample'}) as call:
+            req=Request(self.url+'/api/draft',data=json.dumps({'question':'VPN'}).encode(),headers={'Content-Type':'application/json'})
+            with urlopen(req) as response:
+                self.assertEqual(json.load(response)['status'],'draft_ready')
+            self.assertEqual(call.call_args.args[1],'VPN')
