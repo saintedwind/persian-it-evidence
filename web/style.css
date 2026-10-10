@@ -5,3 +5,5 @@
 @media(min-width:1050px){.intro{padding-top:42px}h1 br{display:none}.intro-note{width:255px}.desk{padding-top:2px}}
 @media(max-width:760px){.masthead{padding:20px 23px;min-height:88px}main{padding:0 23px 25px}.intro{padding:30px 0;gap:20px}h1{font-size:46px}.intro-note{display:none}.lead{font-size:15px}.desktop{display:none}.workspace{grid-template-columns:1fr;gap:23px;padding-top:23px}.directory{border-left:0;padding:0;order:2;border-top:1px solid var(--line);padding-top:22px}.desk{order:1}.directory #catalog{display:grid;grid-template-columns:1fr 1fr;gap:0 22px}.search-line button{padding:10px 14px}.search-line button span{display:none}.search-line input{padding:12px;font-size:14px}.welcome,#document{padding:22px}.welcome h2{font-size:25px}#answer{font-size:16px}footer{padding:20px 23px;flex-direction:column}.brand{font-size:21px}.edition{font-size:11px}.ticket{padding:20px}.document-actions{align-items:flex-start;flex-direction:column}}
 @media(prefers-reduced-motion:no-preference){button{transition:background .15s,color .15s}}
+
+#draft-button{margin-bottom:20px}#draft-output{white-space:pre-wrap;line-height:2}

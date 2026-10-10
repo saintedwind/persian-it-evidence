@@ -4,6 +4,7 @@ const state = {documents: [], current: null, question: '', controller: null, seq
 const digits = n => String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
 function notify(text) { $('#feedback').textContent = text; }
 function renderDocument(doc) {
+  $('#draft-panel').hidden = true;
   if (state.current && state.current.id !== doc.id) $('#ticket').hidden = true;
   state.current = doc;
   $('#document').hidden = false; $('#no-result').hidden = true;
@@ -13,6 +14,7 @@ function renderDocument(doc) {
   document.querySelectorAll('.candidate').forEach(el => el.setAttribute('aria-pressed', String(el.dataset.id === doc.id)));
 }
 function resetView() {
+  $('#draft-panel').hidden = true;
   $('#welcome').hidden = true; $('#result').hidden = false;
   $('#document').hidden = true; $('#ticket').hidden = true; $('#no-result').hidden = true;
   $('#candidates').replaceChildren(); state.current = null; notify('');
@@ -79,3 +81,21 @@ $('#copy-ticket').addEventListener('click', () => copy($('#ticket-text').value, 
 $('#copy-guide').addEventListener('click', () => { const d=state.current; if(d) copy(`${d.title}\n${d.text || d.excerpt}\nمنبع: ${d.id} | ${d.source}`); });
 document.addEventListener('keydown', event => { if(event.key === '/' && !['INPUT','TEXTAREA'].includes(document.activeElement.tagName) && !document.activeElement.isContentEditable) {event.preventDefault(); $('#question').focus();} });
 loadCatalog();
+
+fetch('/health').then(r => r.json()).then(data => { $('#draft-button').hidden = !data.local_draft; }).catch(() => {});
+$('#draft-button').addEventListener('click', async () => {
+  const question = $('#question').value.trim();
+  if (!question || question.length > 400) { notify('برای پاسخ کوتاه، پرسش را در ۱ تا ۴۰۰ نویسه بنویسید.'); $('#question').focus(); return; }
+  const sequence = state.sequence;
+  const button = $('#draft-button'); button.disabled = true;
+  $('#draft-panel').hidden = false; $('#draft-output').textContent = 'در حال آماده‌سازی؛ ممکن است تا ۹۰ ثانیه طول بکشد…'; $('#draft-source').textContent = '';
+  const controller = new AbortController(); const timer = setTimeout(() => controller.abort(), 95000);
+  try {
+    const response = await fetch('/api/draft', {method:'POST', signal:controller.signal, headers:{'Content-Type':'application/json'}, body:JSON.stringify({question})});
+    if (!response.ok) throw new Error(); const data = await response.json();
+    if (sequence !== state.sequence || question !== $('#question').value.trim()) { $('#draft-panel').hidden = true; return; }
+    $('#draft-output').textContent = data.status === 'draft_ready' ? data.draft : data.status === 'busy' ? 'درخواست قبلی هنوز در حال پردازش است.' : 'پاسخ قابل استفاده آماده نشد. متن اصلی راهنما را بررسی کنید.';
+    if (data.status === 'draft_ready') $('#draft-source').textContent = 'منبع: ' + data.citations.map(d => d.id + ' — ' + d.title).join('، ');
+  } catch { if (sequence === state.sequence) $('#draft-output').textContent = 'پاسخ دریافت نشد؛ راهنمای اصلی همچنان در دسترس است.'; }
+  finally { clearTimeout(timer); button.disabled = false; }
+});
