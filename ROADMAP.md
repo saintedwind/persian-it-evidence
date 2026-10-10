@@ -4,6 +4,10 @@
 
 Public directory, source selection, local ticket drafts, bundled typography, responsive layout and 23 unit/API tests.
 
+## v0.3
+
+Optional local sentence selection, 39 automated tests, per-case regression gate, operator notes and an evidence-based case study. Model quality remains experimental.
+
 ## Next practical milestones
 
 1. Collect feedback from three willing testers without private support data.

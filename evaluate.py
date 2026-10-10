@@ -6,6 +6,20 @@ from time import perf_counter
 from evidence import Index, ROOT
 
 
+def regressions(report):
+    """Preserve every successful v0.2 case; allow known failures to improve."""
+    baseline = json.loads((ROOT / 'data/regression-baseline.json').read_text(encoding='utf-8'))
+    current = {row['id']: row for row in report['cases']}
+    errors = []
+    for case_id, source in baseline['accepted'].items():
+        row = current.get(case_id)
+        if row is None or row['returned'] != source:
+            errors.append(f'{case_id}: previously accepted source/abstention regressed')
+    if report['metrics']['restricted_document_leaks']:
+        errors.append('restricted document appeared in public retrieval')
+    return errors
+
+
 def evaluate():
     index = Index.load()
     cases = json.loads((ROOT / 'data/evaluation.json').read_text(encoding='utf-8'))['cases']
@@ -33,11 +47,14 @@ def evaluate():
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--check', action='store_true', help='Enforce access isolation and minimum smoke-test retrieval only')
+    parser.add_argument('--check', action='store_true', help='Enforce access isolation and every previously passing golden case')
     args = parser.parse_args()
     report = evaluate()
     (ROOT / 'reports').mkdir(exist_ok=True)
     (ROOT / 'reports/evaluation.json').write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')
     print(json.dumps(report['metrics'], indent=2))
-    if args.check and (report['metrics']['restricted_document_leaks'] or report['metrics']['recall_at_3'] < .7):
-        raise SystemExit(1)
+    if args.check:
+        errors = regressions(report)
+        if errors:
+            print('\n'.join(errors))
+            raise SystemExit(1)

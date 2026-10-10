@@ -4,6 +4,7 @@ import json
 from urllib.parse import urlsplit, parse_qs
 from pathlib import Path
 from evidence import Index
+from local_draft import draft, enabled
 
 ROOT = Path(__file__).resolve().parent
 INDEX = Index.load()
@@ -32,7 +33,7 @@ class Handler(BaseHTTPRequestHandler):
                   '/style.css': ('style.css', 'text/css; charset=utf-8'),
                   '/Gandom.woff2': ('Gandom.woff2', 'font/woff2')}
         if url.path == '/health':
-            return self.send(200, {'status': 'ok', 'mode': 'extractive-bm25'})
+            return self.send(200, {'status': 'ok', 'mode': 'extractive-bm25', 'local_draft': enabled()})
         if url.path == '/api/documents':
             documents = [{'id': d.id, 'title': d.title, 'text': d.text, 'source': d.source}
                          for d in INDEX.documents if d.scope == 'public']
@@ -47,7 +48,7 @@ class Handler(BaseHTTPRequestHandler):
         self.send(200, (ROOT / 'web' / file).read_bytes(), mime)
 
     def do_POST(self):
-        if self.path != '/api/ask':
+        if self.path not in {'/api/ask', '/api/draft'}:
             return self.send(404, {'error': 'Not found'})
         try:
             size = int(self.headers.get('Content-Length', '0'))
@@ -57,7 +58,7 @@ class Handler(BaseHTTPRequestHandler):
             if not isinstance(data, dict) or set(data) != {'question'}:
                 return self.send(400, {'error': 'Only the question field is allowed'})
             # The browser cannot select staff access; trusted application decides scope.
-            self.send(200, INDEX.answer(data['question'], scope='public'))
+            self.send(200, draft(INDEX, data['question']) if self.path == '/api/draft' else INDEX.answer(data['question'], scope='public'))
         except (ValueError, TypeError, UnicodeDecodeError):
             self.send(400, {'error': 'Invalid JSON or question'})
 
