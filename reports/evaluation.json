@@ -24,7 +24,7 @@
       ],
       "correct": true,
       "reciprocal_rank": 1.0,
-      "latency_ms": 3.757
+      "latency_ms": 3.226
     },
     {
       "id": "q02",
@@ -36,7 +36,7 @@
       ],
       "correct": true,
       "reciprocal_rank": 1.0,
-      "latency_ms": 2.012
+      "latency_ms": 2.06
     },
     {
       "id": "q03",
@@ -50,7 +50,7 @@
       ],
       "correct": true,
       "reciprocal_rank": 1.0,
-      "latency_ms": 2.847
+      "latency_ms": 2.797
     },
     {
       "id": "q04",
@@ -64,7 +64,7 @@
       ],
       "correct": true,
       "reciprocal_rank": 1.0,
-      "latency_ms": 2.842
+      "latency_ms": 3.011
     },
     {
       "id": "q05",
@@ -78,7 +78,7 @@
       ],
       "correct": true,
       "reciprocal_rank": 1.0,
-      "latency_ms": 1.944
+      "latency_ms": 2.218
     },
     {
       "id": "q06",
@@ -90,7 +90,7 @@
       ],
       "correct": true,
       "reciprocal_rank": 1.0,
-      "latency_ms": 1.967
+      "latency_ms": 1.896
     },
     {
       "id": "q07",
@@ -104,7 +104,7 @@
       ],
       "correct": true,
       "reciprocal_rank": 1.0,
-      "latency_ms": 1.891
+      "latency_ms": 1.852
     },
     {
       "id": "q08",
@@ -118,7 +118,7 @@
       ],
       "correct": true,
       "reciprocal_rank": 1.0,
-      "latency_ms": 1.887
+      "latency_ms": 1.867
     },
     {
       "id": "q09",
@@ -131,7 +131,7 @@
       ],
       "correct": true,
       "reciprocal_rank": 1.0,
-      "latency_ms": 1.887
+      "latency_ms": 2.049
     },
     {
       "id": "q10",
@@ -145,7 +145,7 @@
       ],
       "correct": true,
       "reciprocal_rank": 1.0,
-      "latency_ms": 1.878
+      "latency_ms": 1.896
     },
     {
       "id": "q11",
@@ -159,7 +159,7 @@
       ],
       "correct": true,
       "reciprocal_rank": 1.0,
-      "latency_ms": 2.788
+      "latency_ms": 3.605
     },
     {
       "id": "q12",
@@ -171,7 +171,7 @@
       ],
       "correct": true,
       "reciprocal_rank": 1.0,
-      "latency_ms": 3.049
+      "latency_ms": 1.879
     },
     {
       "id": "q13",
@@ -183,7 +183,7 @@
       ],
       "correct": true,
       "reciprocal_rank": 1.0,
-      "latency_ms": 1.977
+      "latency_ms": 1.854
     },
     {
       "id": "q14",
@@ -195,7 +195,7 @@
       ],
       "correct": true,
       "reciprocal_rank": 1.0,
-      "latency_ms": 1.908
+      "latency_ms": 1.836
     },
     {
       "id": "q15",
@@ -207,7 +207,7 @@
       ],
       "correct": true,
       "reciprocal_rank": 1.0,
-      "latency_ms": 1.853
+      "latency_ms": 1.834
     },
     {
       "id": "q16",
@@ -219,7 +219,7 @@
       ],
       "correct": true,
       "reciprocal_rank": 1.0,
-      "latency_ms": 1.846
+      "latency_ms": 1.89
     },
     {
       "id": "q17",
@@ -233,7 +233,7 @@
       ],
       "correct": false,
       "reciprocal_rank": 0,
-      "latency_ms": 1.867
+      "latency_ms": 1.88
     },
     {
       "id": "q18",
@@ -245,7 +245,7 @@
       ],
       "correct": false,
       "reciprocal_rank": 0,
-      "latency_ms": 2.365
+      "latency_ms": 1.845
     },
     {
       "id": "q19",
@@ -258,7 +258,7 @@
       ],
       "correct": true,
       "reciprocal_rank": 0,
-      "latency_ms": 3.748
+      "latency_ms": 2.48
     },
     {
       "id": "q20",
@@ -268,7 +268,7 @@
       "retrieved": [],
       "correct": true,
       "reciprocal_rank": 0,
-      "latency_ms": 2.393
+      "latency_ms": 2.268
     },
     {
       "id": "q21",
@@ -278,7 +278,7 @@
       "retrieved": [],
       "correct": true,
       "reciprocal_rank": 0,
-      "latency_ms": 1.979
+      "latency_ms": 1.894
     },
     {
       "id": "q22",
@@ -292,7 +292,7 @@
       ],
       "correct": true,
       "reciprocal_rank": 0,
-      "latency_ms": 1.888
+      "latency_ms": 1.912
     },
     {
       "id": "q23",
@@ -302,7 +302,7 @@
       "retrieved": [],
       "correct": true,
       "reciprocal_rank": 0,
-      "latency_ms": 1.846
+      "latency_ms": 1.832
     },
     {
       "id": "q24",
@@ -312,7 +312,7 @@
       "retrieved": [],
       "correct": true,
       "reciprocal_rank": 0,
-      "latency_ms": 1.849
+      "latency_ms": 1.839
     }
   ]
 }

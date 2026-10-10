@@ -1,0 +1,84 @@
+{
+  "model_manifest": {
+    "model": "Qwen/Qwen3-0.6B-GGUF",
+    "revision": "23749fefcc72300e3a2ad315e1317431b06b590a",
+    "file": "Qwen3-0.6B-Q8_0.gguf",
+    "bytes": 639446688,
+    "sha256": "9465e63a22add5354d9bb4b99e90117043c7124007664907259bd16d043bb031",
+    "runtime": "llama.cpp b11476"
+  },
+  "cases": [
+    {
+      "question": "صف چاپ پرینتر متوقف شده",
+      "seconds": 3.44,
+      "result": {
+        "status": "draft_ready",
+        "draft": "وقتی چاپ متوقف است، وضعیت آنلاین پرینتر و کاغذ را بررسی کنید.\nدر صف چاپ، فقط کار چاپ متعلق به خودتان را لغو و دوباره ارسال کنید.\nاگر صف مشترک متوقف مانده است، شناسه پرینتر و زمان خطا را به پشتیبانی بدهید.",
+        "citations": [
+          {
+            "id": "IT-004",
+            "title": "پرینتر و صف چاپ متوقف",
+            "score": 16.46869,
+            "coverage": 0.8,
+            "excerpt": "وقتی چاپ متوقف است، وضعیت آنلاین پرینتر و کاغذ را بررسی کنید. در صف چاپ، فقط کار چاپ متعلق به خودتان را لغو و دوباره ارسال کنید. اگر صف مشترک متوقف مانده است، شناسه پرینتر و زمان خطا را به پشتیبانی بدهید.",
+            "source": "synthetic-runbooks/v1/printer"
+          }
+        ],
+        "model": "Qwen3-0.6B-Q8_0",
+        "usage": {
+          "prompt_tokens": 235,
+          "completion_tokens": 40,
+          "total_tokens": 275
+        },
+        "selected_steps": [
+          1,
+          2,
+          3
+        ],
+        "mode": "local-model-extractive",
+        "notice": "Model-selected source sentences; selection may be incomplete or irrelevant. Compare the full source."
+      }
+    },
+    {
+      "question": "خطای گواهی VPN دارم",
+      "seconds": 3.28,
+      "result": {
+        "status": "draft_ready",
+        "draft": "در خطای گواهی VPN، ابتدا تاریخ و ساعت دستگاه را با زمان شبکه هماهنگ کنید.\nسپس نسخه کلاینت و نام میزبان را با راهنمای سازمان تطبیق دهید.\nاعتبارسنجی گواهی را غیرفعال نکنید؛ خطای پایدار را با شناسه خطا گزارش کنید.",
+        "citations": [
+          {
+            "id": "IT-002",
+            "title": "اتصال VPN و خطای گواهی",
+            "score": 12.121248,
+            "coverage": 0.75,
+            "excerpt": "در خطای گواهی VPN، ابتدا تاریخ و ساعت دستگاه را با زمان شبکه هماهنگ کنید. سپس نسخه کلاینت و نام میزبان را با راهنمای سازمان تطبیق دهید. اعتبارسنجی گواهی را غیرفعال نکنید؛ خطای پایدار را با شناسه خطا گزارش کنید.",
+            "source": "synthetic-runbooks/v1/vpn"
+          }
+        ],
+        "model": "Qwen3-0.6B-Q8_0",
+        "usage": {
+          "prompt_tokens": 240,
+          "completion_tokens": 44,
+          "total_tokens": 284
+        },
+        "selected_steps": [
+          1,
+          2,
+          3
+        ],
+        "mode": "local-model-extractive",
+        "notice": "Model-selected source sentences; selection may be incomplete or irrelevant. Compare the full source."
+      }
+    },
+    {
+      "question": "قیمت طلا امروز",
+      "seconds": 0.02,
+      "result": {
+        "status": "insufficient_evidence",
+        "draft": null,
+        "citations": [],
+        "model": "Qwen3-0.6B-Q8_0"
+      }
+    }
+  ]
+}
