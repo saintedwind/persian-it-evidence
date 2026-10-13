@@ -1,10 +1,17 @@
 'use strict';
 const $ = selector => document.querySelector(selector);
-const state = {documents: [], current: null, question: '', controller: null, sequence: 0};
+const state = {documents: [], current: null, question: '', controller: null, sequence: 0, draftController: null, draftSequence: 0, ticketContext: null};
+function cancelDraft() {
+  state.draftSequence++;
+  if (state.draftController) state.draftController.abort();
+  state.draftController = null;
+  $('#draft-button').disabled = false;
+  $('#draft-panel').hidden = true;
+}
 const digits = n => String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
 function notify(text) { $('#feedback').textContent = text; }
 function renderDocument(doc) {
-  $('#draft-panel').hidden = true;
+  cancelDraft();
   if (state.current && state.current.id !== doc.id) $('#ticket').hidden = true;
   state.current = doc;
   $('#document').hidden = false; $('#no-result').hidden = true;
@@ -14,7 +21,7 @@ function renderDocument(doc) {
   document.querySelectorAll('.candidate').forEach(el => el.setAttribute('aria-pressed', String(el.dataset.id === doc.id)));
 }
 function resetView() {
-  $('#draft-panel').hidden = true;
+  cancelDraft();
   $('#welcome').hidden = true; $('#result').hidden = false;
   $('#document').hidden = true; $('#ticket').hidden = true; $('#no-result').hidden = true;
   $('#candidates').replaceChildren(); state.current = null; notify('');
@@ -65,7 +72,11 @@ async function search(question) {
 }
 function openTicket() {
   const doc = state.current;
-  $('#ticket-text').value = `موضوع: ${state.question || (doc && doc.title) || ''}\n\nزمان شروع مشکل: \nدستگاه یا نرم‌افزار: \nمتن دقیق خطا: \nمراحل تکرار مشکل: \nاقدام‌های انجام‌شده: \n${doc ? 'راهنمای بررسی‌شده: ' + doc.id + ' — ' + doc.title + '\n' : ''}\nرمز عبور، کد ورود و اطلاعات شخصی دیگران را در تیکت ننویسید.`;
+  const context = JSON.stringify([state.sequence, state.question, doc && doc.id]);
+  if (context !== state.ticketContext) {
+    state.ticketContext = context;
+    $('#ticket-text').value = `موضوع: ${state.question || (doc && doc.title) || ''}\n\nزمان شروع مشکل: \nدستگاه یا نرم‌افزار: \nمتن دقیق خطا: \nمراحل تکرار مشکل: \nاقدام‌های انجام‌شده: \n${doc ? 'راهنمای بررسی‌شده: ' + doc.id + ' — ' + doc.title + '\n' : ''}\nرمز عبور، کد ورود و اطلاعات شخصی دیگران را در تیکت ننویسید.`;
+  }
   $('#ticket').hidden = false; $('#ticket-text').focus();
 }
 async function copy(text, field) {
@@ -87,15 +98,18 @@ $('#draft-button').addEventListener('click', async () => {
   const question = $('#question').value.trim();
   if (!question || question.length > 400) { notify('برای پاسخ کوتاه، پرسش را در ۱ تا ۴۰۰ نویسه بنویسید.'); $('#question').focus(); return; }
   const sequence = state.sequence;
+  cancelDraft(); const draftSequence = state.draftSequence;
   const button = $('#draft-button'); button.disabled = true;
   $('#draft-panel').hidden = false; $('#draft-output').textContent = 'در حال آماده‌سازی؛ ممکن است تا ۹۰ ثانیه طول بکشد…'; $('#draft-source').textContent = '';
   const controller = new AbortController(); const timer = setTimeout(() => controller.abort(), 95000);
+  state.draftController = controller;
   try {
     const response = await fetch('/api/draft', {method:'POST', signal:controller.signal, headers:{'Content-Type':'application/json'}, body:JSON.stringify({question})});
     if (!response.ok) throw new Error(); const data = await response.json();
-    if (sequence !== state.sequence || question !== $('#question').value.trim()) { $('#draft-panel').hidden = true; return; }
+    if (sequence !== state.sequence || draftSequence !== state.draftSequence || question !== $('#question').value.trim()) return;
     $('#draft-output').textContent = data.status === 'draft_ready' ? data.draft : data.status === 'busy' ? 'درخواست قبلی هنوز در حال پردازش است.' : 'پاسخ قابل استفاده آماده نشد. متن اصلی راهنما را بررسی کنید.';
     if (data.status === 'draft_ready') $('#draft-source').textContent = 'منبع: ' + data.citations.map(d => d.id + ' — ' + d.title).join('، ');
-  } catch { if (sequence === state.sequence) $('#draft-output').textContent = 'پاسخ دریافت نشد؛ راهنمای اصلی همچنان در دسترس است.'; }
-  finally { clearTimeout(timer); button.disabled = false; }
+  } catch { if (sequence === state.sequence && draftSequence === state.draftSequence) $('#draft-output').textContent = 'پاسخ دریافت نشد؛ راهنمای اصلی همچنان در دسترس است.'; }
+  finally { clearTimeout(timer); if (draftSequence === state.draftSequence) {button.disabled = false; state.draftController = null;} }
 });
+$('#question').addEventListener('input', cancelDraft);
