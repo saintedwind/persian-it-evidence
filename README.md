@@ -4,6 +4,10 @@ A Persian support handbook: find a runbook, inspect its source, and prepare a su
 
 **v0.4 — local support handbook.** The 12 public runbooks are synthetic examples, not an organization's approved procedures. Questions are not stored and ticket drafts are not submitted.
 
+[Acceptance evidence](reports/RELEASE_CHECKS.md) · [Desktop](reports/handbook-desktop.png) · [Mobile](reports/handbook-mobile.png)
+
+![Persian handbook: source inspection and an editable ticket](reports/handbook-desktop.png)
+
 ## Run
 
 Requires Python 3.11+, with no package installation or service credentials.
