@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-13",
+  "startup": "passed",
+  "route": "POST /api/draft",
+  "inference_seconds": 2.34,
+  "result": {
+    "status": "draft_ready",
+    "draft": "وقتی چاپ متوقف است، وضعیت آنلاین پرینتر و کاغذ را بررسی کنید.\nدر صف چاپ، فقط کار چاپ متعلق به خودتان را لغو و دوباره ارسال کنید.\nاگر صف مشترک متوقف مانده است، شناسه پرینتر و زمان خطا را به پشتیبانی بدهید.",
+    "citations": [
+      {
+        "id": "IT-004",
+        "title": "پرینتر و صف چاپ متوقف",
+        "score": 16.46869,
+        "coverage": 0.8,
+        "excerpt": "وقتی چاپ متوقف است، وضعیت آنلاین پرینتر و کاغذ را بررسی کنید. در صف چاپ، فقط کار چاپ متعلق به خودتان را لغو و دوباره ارسال کنید. اگر صف مشترک متوقف مانده است، شناسه پرینتر و زمان خطا را به پشتیبانی بدهید.",
+        "source": "synthetic-runbooks/v1/printer"
+      }
+    ],
+    "model": "Qwen3-0.6B-Q8_0",
+    "usage": {
+      "prompt_tokens": 235,
+      "completion_tokens": 44,
+      "total_tokens": 279
+    },
+    "selected_steps": [
+      1,
+      2,
+      3
+    ],
+    "mode": "local-model-extractive",
+    "notice": "Model-selected source sentences; selection may be incomplete or irrelevant. Compare the full source."
+  },
+  "shutdown": "stop-file graceful exit code 0; both ports released",
+  "limitations": "Single synthetic case; Windows CPU; not an accuracy benchmark. Interactive Ctrl+C not exercised."
+}

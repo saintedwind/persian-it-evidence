@@ -25,3 +25,9 @@ The unit suite does not need the model and does not measure its answer quality. 
 Questions are not persisted by application access logs; they exist in memory during processing. The optional model receives one public source over loopback with proxies bypassed. Runtime, browser and operating-system behavior are outside this application's logging guarantee. No customer documents, credentials or account data belong in the demonstration corpus.
 
 For a pilot handoff, record a document owner, approval date, access policy, rollback commit, test results, and support contact. None of these organizational approvals is supplied by this prototype.
+
+## v0.4 shutdown and regression review
+
+The launcher checks ports before starting. For unattended runs use a fresh `--stop-file PATH`; creating the file requests normal exit and cleanup of the owned model child. Actual Windows CPU startup, one real inference and marker shutdown returned code 0 and released both ports on 13 October. Interactive Ctrl+C still requires separate desktop verification.
+
+The browser workflow is independent of the Python unit suite and uses controlled model responses to test busy and delayed-result behavior. It uploads desktop/mobile screenshots and a JSON checklist. Inspect that artifact before signing off the appearance; an API pass is not a visual review.
