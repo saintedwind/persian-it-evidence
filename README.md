@@ -2,7 +2,7 @@
 
 A Persian support handbook: find a runbook, inspect its source, and prepare a support ticket when the issue remains unresolved.
 
-**v0.3 — local working prototype.** The 12 public runbooks are synthetic examples, not an organization's approved procedures. Questions are not stored and ticket drafts are not submitted.
+**v0.4 — local support handbook.** The 12 public runbooks are synthetic examples, not an organization's approved procedures. Questions are not stored and ticket drafts are not submitted.
 
 ## Run
 
@@ -14,6 +14,14 @@ python server.py
 python -m unittest discover -s tests -v
 python evaluate.py --check
 ```
+
+## Reliability in v0.4
+
+- Cancelled or late drafts cannot overwrite a newly selected guide or edited question.
+- Closing and reopening a ticket preserves edits in the same workflow; navigation starts a new context.
+- JSON requests are accepted only from local hosts and permitted browser origins. This is a local request boundary, not organizational authentication.
+- The model launcher refuses occupied ports and supports graceful automation shutdown with `--stop-file PATH`. In-flight request threads cannot block application exit.
+- Actual Windows CPU start, one inference and stop-file shutdown passed on 13 October: 2.34 seconds for the inference and both ports released. See `reports/lifecycle-v04.json`.
 
 ## What changed
 
@@ -41,7 +49,7 @@ The browser creates ticket drafts locally. Clipboard permission depends on the b
 
 ## Validation
 
-The v0.3 suite contains 39 unit/API tests, all passing locally on 9 October 2026. Tests cover input validation, public-only access, source-exact selection, malformed/truncated model output, concurrency and regression-gate failures. Model calls in unit tests are mocked. Actual inference evidence is recorded separately below. Browser layout and end-to-end interaction checks remain pending.
+The v0.4 suite contains 44 unit/API tests, all passing locally on 13 October 2026. Tests cover input validation, public-only access, source-exact selection, malformed/truncated model output, concurrency and regression-gate failures. Model calls in unit tests are mocked. Actual inference evidence is recorded separately below. A separate Chromium acceptance workflow checks guide loading, source lookup, editable tickets, delayed drafts, errors and the 390px layout. Its model responses are mocked; screenshots are retained as the handbook-browser-evidence Actions artifact. Check the latest successful run before relying on this workflow.
 
 The unchanged 24-question synthetic benchmark contains 18 answerable and 6 unanswerable cases:
 
@@ -77,7 +85,7 @@ A real Qwen3-0.6B-Q8_0 model runs through llama.cpp on CPU. No paid API, key, or
 python run_local.py --runtime /path/to/llama-server.exe --model /path/to/Qwen3-0.6B-Q8_0.gguf
 ```
 
-The application is at http://127.0.0.1:8765. The new button explicitly requests a source-based draft. Ordinary search never calls the model. Ctrl+C stops both processes. Plain `python server.py` retains the original search-only mode. Model files are excluded from Git.
+The application is at http://127.0.0.1:8765. The new button explicitly requests a source-based draft. Ordinary search never calls the model. Ctrl+C stops both processes. For scripted review, provide `--stop-file /path/to/new-marker` and create that marker to request shutdown; an existing marker is rejected. Plain `python server.py` retains the original search-only mode. Model files are excluded from Git.
 
 The small model's free-form Persian output was unreliable in initial trials. The implemented mode asks it to select numbered source sentences, then renders those sentences verbatim in source order. This is real language-model inference for selection, not free-form answer generation. Selection may still be incomplete or irrelevant; consult the full source.
 

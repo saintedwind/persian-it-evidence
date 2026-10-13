@@ -1,5 +1,6 @@
 """Start the optional local model and handbook; Ctrl+C stops both."""
 import argparse, os, subprocess, sys, time
+import socket
 from pathlib import Path
 from urllib.request import build_opener, ProxyHandler
 
@@ -7,14 +8,22 @@ def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--runtime',required=True,type=Path,help='Path to llama-server executable')
     p.add_argument('--model',required=True,type=Path,help='Path to Qwen3-0.6B-Q8_0.gguf')
+    p.add_argument('--stop-file',type=Path,help='Exit gracefully when this file is created (local automation)')
     args=p.parse_args()
     if not args.runtime.is_file() or not args.model.is_file():p.error('Runtime and model must exist')
+    if args.stop_file and args.stop_file.exists():p.error('Stop file already exists; choose a fresh path')
+    # Refuse occupied ports before starting a child or trusting a health endpoint.
+    for port in (8081,8765):
+        with socket.socket() as probe:
+            try:probe.bind(('127.0.0.1',port))
+            except OSError:p.error(f'Port {port} is unavailable; stop your own instance or choose search-only mode')
     flags=subprocess.CREATE_NO_WINDOW if os.name=='nt' else 0
     children=[]
     try:
         model=subprocess.Popen([str(args.runtime.resolve()),'-m',str(args.model.resolve()),'--host','127.0.0.1','--port','8081','-c','2048','-t','4','-np','1','-n','96','--jinja','--log-disable'],creationflags=flags,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL);children.append(model)
         opener=build_opener(ProxyHandler({}))
         for _ in range(90):
+            if args.stop_file and args.stop_file.exists():return
             if model.poll() is not None:raise RuntimeError('Model exited; check runtime compatibility or port 8081')
             try:
                 with opener.open('http://127.0.0.1:8081/health',timeout=1) as r:
@@ -22,13 +31,14 @@ def main():
             except OSError:time.sleep(1)
         else:raise RuntimeError('Model startup timed out')
         os.environ['HANDBOOK_LOCAL_MODEL']='1'
-        from http.server import ThreadingHTTPServer
-        from server import Handler
-        app=ThreadingHTTPServer(('127.0.0.1',8765),Handler)
+        from server import Handler, LocalServer
+        app=LocalServer(('127.0.0.1',8765),Handler)
         app.timeout=.5
         print('Open http://127.0.0.1:8765 — local model enabled. Ctrl+C stops both.',flush=True)
         try:
-            while model.poll() is None:app.handle_request()
+            while model.poll() is None:
+                if args.stop_file and args.stop_file.exists():return
+                app.handle_request()
             raise RuntimeError('Model stopped unexpectedly')
         finally:app.server_close()
 

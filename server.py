@@ -10,6 +10,12 @@ ROOT = Path(__file__).resolve().parent
 INDEX = Index.load()
 
 
+class LocalServer(ThreadingHTTPServer):
+    # A timed-out request must not prevent the local application from stopping.
+    daemon_threads = True
+    allow_reuse_address = True
+
+
 class Handler(BaseHTTPRequestHandler):
     def setup(self):
         super().setup()
@@ -24,7 +30,10 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header('Cache-Control', 'no-store')
         self.send_header('Content-Security-Policy', "default-src 'self'; script-src 'self'; style-src 'self'; frame-ancestors 'none'")
         self.end_headers()
-        self.wfile.write(body)
+        try:
+            self.wfile.write(body)
+        except (BrokenPipeError, ConnectionResetError, TimeoutError):
+            pass  # The caller may have cancelled; never log its question.
 
     def do_GET(self):
         url = urlsplit(self.path)
@@ -50,6 +59,15 @@ class Handler(BaseHTTPRequestHandler):
     def do_POST(self):
         if self.path not in {'/api/ask', '/api/draft'}:
             return self.send(404, {'error': 'Not found'})
+        host = self.headers.get('Host', '')
+        permitted = {f'127.0.0.1:{self.server.server_port}', f'localhost:{self.server.server_port}'}
+        origin = self.headers.get('Origin')
+        if host not in permitted or (origin and origin not in {'http://' + h for h in permitted}):
+            return self.send(403, {'error': 'Local same-origin requests only'})
+        if self.headers.get('Transfer-Encoding'):
+            return self.send(400, {'error': 'Transfer encoding is not supported'})
+        if self.headers.get('Content-Type', '').split(';')[0].strip().lower() != 'application/json':
+            return self.send(415, {'error': 'Content-Type must be application/json'})
         try:
             size = int(self.headers.get('Content-Length', '0'))
             if not 0 < size <= 16000:
@@ -68,4 +86,8 @@ class Handler(BaseHTTPRequestHandler):
 
 if __name__ == '__main__':
     print('Local demo: http://127.0.0.1:8765 (Ctrl+C to stop)', flush=True)
-    ThreadingHTTPServer(('127.0.0.1', 8765), Handler).serve_forever()
+    with LocalServer(('127.0.0.1', 8765), Handler) as app:
+        try:
+            app.serve_forever()
+        except KeyboardInterrupt:
+            pass
