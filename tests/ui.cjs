@@ -1,6 +1,6 @@
 // Browser acceptance checks. Model responses are controlled here; real CPU
 // inference is recorded separately in reports/lifecycle-v04.json.
-const { chromium } = require('playwright');
+const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const { spawn } = require('node:child_process');
 const { once } = require('node:events');
 const fs = require('node:fs');
@@ -17,7 +17,7 @@ const assert = require('node:assert/strict');
       if (n===49) throw Error('Local server did not become ready');
       await new Promise(resolve => setTimeout(resolve,100));
     }
-    browser = await chromium.launch({headless:true});
+    browser = await chromium.launch({headless:true, ...(process.env.BROWSER_CHANNEL ? {channel:process.env.BROWSER_CHANNEL} : {})});
     const page = await browser.newPage({viewport:{width:1440,height:1000}});
     page.on('pageerror', error => errors.push(error.message));
     await page.route('**/health', route => route.fulfill({json:{status:'ok',local_draft:true}}));
@@ -74,6 +74,21 @@ const assert = require('node:assert/strict');
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth),false);
     await page.screenshot({path:'reports/ui/mobile.png',fullPage:true});
     checks.push('390px layout has no horizontal overflow');
+    await page.locator('#collection').selectOption('reference');
+    await page.locator('.catalog-item').nth(5).waitFor();
+    assert.equal(await page.locator('.catalog-item').count(),6);
+    await page.locator('#question').fill('فیشینگ چیست');
+    await page.locator('#search-button').click();
+    await page.locator('#doc-id').filter({hasText:'REF-PHISHING'}).waitFor();
+    await page.locator('details').first().locator('summary').click();
+    assert.match(await page.locator('#source-hash').innerText(),/SHA-256: [a-f0-9]{64}/);
+    assert.match(await page.locator('#source-link').getAttribute('href'),/^https:\/\/fa.wikipedia.org\/w\/index.php\?oldid=\d+$/);
+    assert.match(await page.locator('#dataset-note').innerText(),/CC BY-SA/);
+    assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth),false);
+    await page.screenshot({path:'reports/ui/reference-mobile.png',fullPage:true});
+    await page.setViewportSize({width:1440,height:1000});
+    await page.screenshot({path:'reports/ui/reference-desktop.png',fullPage:true});
+    checks.push('real Persian collection, source receipt, revision link and 390px reference layout');
     assert.deepEqual(errors,[]);
     checks.push('no uncaught browser errors');
     fs.writeFileSync('reports/ui/results.json',JSON.stringify({checks,model:'mocked',browser:'Chromium',errors},null,2));
