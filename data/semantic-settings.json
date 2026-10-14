@@ -1,0 +1,6 @@
+{
+  "threshold": 0.4,
+  "margin": 0.08,
+  "correct": 22,
+  "false_accepts": 0
+}
