@@ -27,3 +27,9 @@ Only six encyclopedic introductions and twelve synthetic runbooks are present. N
 ## Reproduction
 
 Run the commands in README; ordinary tests run without model dependencies. prepare_semantic.py downloads immutable, hashed files only on explicit invocation. evaluate_semantic.py records the development grid, selected thresholds, raw decisions and environment. live_semantic.py serves real local HTTP on an ephemeral loopback port and stops its server afterward. tests/ui.cjs uses isolated browser state, never the user's browser profile. Native Chrome was used for local browser testing; CI uses Chromium. No browser script/model responses count as real language-generation evaluation.
+
+## Independent GitHub validation
+
+[Run 31](https://github.com/saintedwind/persian-it-evidence/actions/runs/38568779781) completed successfully for code revision `fe9ac63f66a5fec26d5fd1e00675c54b2d785238`: unit/API job 8s, real neural/HTTP job 28s, Chromium job 38s. The obsolete upload-artifact runtime warning was removed by upgrading to v7. Documentation-only changes after this revision do not alter tested code.
+
+[Neural evidence bundle](https://github.com/saintedwind/persian-it-evidence/actions/runs/38568779781/artifacts/11896478892), SHA-256 `a0a536bc417d74f73a2ae75eb5f26ae74d18b10063d32edc6536e13538c43e70`. [Browser evidence bundle](https://github.com/saintedwind/persian-it-evidence/actions/runs/38568779781/artifacts/11896752437), SHA-256 `8705b5afae2113955006c3a63776101b780cbb73d4aed120a54ae6cbacc94116`. CI artifacts have finite retention; checked-in results and local screenshots remain in reports. Published byte digests of all six reference texts were compared against the manifest. Original sample source documents were not rewritten to match benchmark questions.
