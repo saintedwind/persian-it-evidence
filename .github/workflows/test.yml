@@ -28,3 +28,32 @@ jobs:
         with:
           name: handbook-browser-evidence
           path: reports/ui/
+
+  semantic:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements-semantic.txt
+      - run: pip install -r requirements-semantic.txt
+      - run: python prepare_semantic.py
+      - run: python evaluate_semantic.py
+      - run: python live_semantic.py
+      - run: |
+          python - <<'PY'
+          import json
+          r=json.load(open('reports/semantic-v05.json'))
+          assert r['golden']['correct']>=22
+          assert r['audit_hybrid']['correct']>=40 and r['audit_hybrid']['false_accepts']==0
+          assert r['reference_hybrid']['correct']>=35 and r['reference_hybrid']['false_accepts']==0
+          h=json.load(open('reports/live-semantic-v05.json'))
+          assert h['golden']['correct']>=22 and h['audit']['correct']>=40 and h['reference']['correct']>=35
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: persian-neural-evidence
+          path: reports/*v05*.json
