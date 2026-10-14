@@ -1,6 +1,8 @@
 """Local support handbook. Public documents only; no authentication service."""
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
+import os
+from functools import lru_cache
 from urllib.parse import urlsplit, parse_qs
 from pathlib import Path
 from evidence import Index
@@ -8,6 +10,28 @@ from local_draft import draft, enabled
 
 ROOT = Path(__file__).resolve().parent
 INDEX = Index.load()
+
+
+@lru_cache(maxsize=2)
+def get_index(collection='sample'):
+    if collection == 'sample':
+        index = INDEX
+    elif collection == 'reference':
+        from reference import load_reference
+        index = load_reference()
+    else:
+        raise ValueError('Unknown collection')
+    if os.environ.get('HANDBOOK_RETRIEVER', 'lexical') == 'hybrid':
+        from semantic import Encoder, SemanticIndex
+        settings = json.loads((ROOT/'data/semantic-settings.json').read_text(encoding='utf8'))
+        index = SemanticIndex(index.documents, get_encoder(), settings['threshold'], settings['margin'], index.dataset)
+    return index
+
+
+@lru_cache(maxsize=1)
+def get_encoder():
+    from semantic import Encoder
+    return Encoder()
 
 
 class LocalServer(ThreadingHTTPServer):
@@ -42,15 +66,20 @@ class Handler(BaseHTTPRequestHandler):
                   '/style.css': ('style.css', 'text/css; charset=utf-8'),
                   '/Gandom.woff2': ('Gandom.woff2', 'font/woff2')}
         if url.path == '/health':
-            return self.send(200, {'status': 'ok', 'mode': 'extractive-bm25', 'local_draft': enabled()})
+            return self.send(200, {'status': 'ok', 'version':'0.5.0',
+                'retriever': os.environ.get('HANDBOOK_RETRIEVER','lexical'), 'local_draft': enabled()})
         if url.path == '/api/documents':
-            documents = [{'id': d.id, 'title': d.title, 'text': d.text, 'source': d.source}
-                         for d in INDEX.documents if d.scope == 'public']
+            try:
+                index = get_index(parse_qs(url.query).get('collection',['sample'])[0])
+            except ValueError:
+                return self.send(400, {'error':'Unknown collection'})
+            documents = [{'id': d.id, 'title': d.title, 'text': d.text, 'source': d.source, **index.receipt(d)}
+                         for d in index.documents if d.scope == 'public']
             doc_id = parse_qs(url.query).get('id', [None])[0]
             if doc_id is not None:
                 match = next((d for d in documents if d['id'] == doc_id), None)
                 return self.send(200, match) if match else self.send(404, {'error': 'Document not found'})
-            return self.send(200, {'documents': documents, 'dataset': 'synthetic-runbooks/v1'})
+            return self.send(200, {'documents': documents, 'dataset': index.dataset, 'corpus_sha256':index.corpus_digest()})
         if url.path not in routes:
             return self.send(404, {'error': 'Not found'})
         file, mime = routes[url.path]
@@ -73,10 +102,11 @@ class Handler(BaseHTTPRequestHandler):
             if not 0 < size <= 16000:
                 return self.send(413, {'error': 'Request size must be 1–16000 bytes'})
             data = json.loads(self.rfile.read(size))
-            if not isinstance(data, dict) or set(data) != {'question'}:
-                return self.send(400, {'error': 'Only the question field is allowed'})
+            if not isinstance(data, dict) or 'question' not in data or set(data) - {'question','collection'}:
+                return self.send(400, {'error': 'Only question and optional collection are allowed'})
+            index = get_index(data.get('collection','sample'))
             # The browser cannot select staff access; trusted application decides scope.
-            self.send(200, draft(INDEX, data['question']) if self.path == '/api/draft' else INDEX.answer(data['question'], scope='public'))
+            self.send(200, draft(index, data['question']) if self.path == '/api/draft' else index.answer(data['question'], scope='public'))
         except (ValueError, TypeError, UnicodeDecodeError):
             self.send(400, {'error': 'Invalid JSON or question'})
 
@@ -85,6 +115,10 @@ class Handler(BaseHTTPRequestHandler):
 
 
 if __name__ == '__main__':
+    if os.environ.get('HANDBOOK_RETRIEVER','lexical') not in {'lexical','hybrid'}:
+        raise ValueError('HANDBOOK_RETRIEVER must be lexical or hybrid')
+    if os.environ.get('HANDBOOK_RETRIEVER') == 'hybrid':
+        get_index('sample'); get_index('reference')  # Fail startup explicitly if model/dependencies are absent.
     print('Local demo: http://127.0.0.1:8765 (Ctrl+C to stop)', flush=True)
     with LocalServer(('127.0.0.1', 8765), Handler) as app:
         try:

@@ -4,6 +4,7 @@ from collections import Counter
 from dataclasses import dataclass
 import json
 import math
+import hashlib
 from pathlib import Path
 import re
 import unicodedata
@@ -23,6 +24,11 @@ def tokens(text: str) -> list[str]:
     return [w for w in re.findall(r'[^\W_]+', normalize(text), re.UNICODE) if w not in STOP]
 
 
+def identifiers(text):
+    """Opaque letter/digit IDs must match literally; similarity cannot invent them."""
+    return set(re.findall(r'\b[a-z][a-z_-]*\d+\b', normalize(text)))
+
+
 @dataclass(frozen=True)
 class Document:
     id: str
@@ -35,10 +41,21 @@ class Document:
 
 class Index:
     """BM25 scores only documents admitted by a trusted server-side scope."""
-    def __init__(self, documents: list[Document]):
+    def __init__(self, documents: list[Document], dataset='synthetic-runbooks/v1'):
         if len({d.id for d in documents}) != len(documents):
             raise ValueError('Document IDs must be unique')
         self.documents = documents
+        self.dataset = dataset
+
+    @staticmethod
+    def receipt(doc):
+        return {'text_sha256': hashlib.sha256(doc.text.encode('utf8')).hexdigest(),
+                'start_char': 0, 'end_char': len(doc.text), 'start_line': 1,
+                'end_line': len(doc.text.splitlines()) or 1}
+
+    def corpus_digest(self, scope='public'):
+        rows = [vars(d) for d in self.documents if d.scope == 'public' or scope == 'staff']
+        return hashlib.sha256(json.dumps(sorted(rows,key=lambda d:d['id']),ensure_ascii=False,sort_keys=True).encode('utf8')).hexdigest()
 
     @classmethod
     def load(cls, path: Path = ROOT / 'data/documents.json') -> Index:
@@ -52,7 +69,9 @@ class Index:
             raise ValueError('Unknown scope')
         if not isinstance(limit, int) or not 1 <= limit <= 10:
             raise ValueError('limit must be between 1 and 10')
-        docs = [d for d in self.documents if d.scope == 'public' or scope == 'staff']
+        required_ids = identifiers(question)
+        docs = [d for d in self.documents if (d.scope == 'public' or scope == 'staff')
+                and required_ids <= identifiers(d.id + ' ' + d.title + ' ' + d.tags + ' ' + d.text)]
         query = set(tokens(question))
         if not query or not docs:
             return []
@@ -70,7 +89,7 @@ class Index:
             if score:
                 rows.append({'id': doc.id, 'title': doc.title, 'score': round(score, 6),
                              'coverage': len(query & bag.keys()) / len(query),
-                             'excerpt': doc.text, 'source': doc.source})
+                             'excerpt': doc.text, 'source': doc.source, **self.receipt(doc)})
         return sorted(rows, key=lambda r: (-r['score'], r['id']))[:limit]
 
     def answer(self, question: str, scope: str = 'public') -> dict:
@@ -81,7 +100,8 @@ class Index:
         return {'mode': 'extractive-bm25', 'status': 'evidence_found' if accepted else 'insufficient_evidence',
                 'answer': sources[0]['excerpt'] if accepted else 'در منابع مجاز، شواهد کافی پیدا نشد.',
                 'citations': sources, 'retrieved': hits,
-                'notice': 'Synthetic demo documents; excerpts are evidence, not a verified answer.'}
+                'dataset': self.dataset, 'corpus_sha256': self.corpus_digest(scope),
+                'notice': 'Source excerpts require review; not a verified complete answer or approved organizational procedure.'}
 
 
 if __name__ == '__main__':
