@@ -1,3 +1,12 @@
+## 0.5.0 — 2026-10-14
+
+- Add a separate six-document Persian public-reference collection with CC BY-SA attribution, exact byte manifests and immutable revision links.
+- Add UTF-8 text receipts and public-only corpus fingerprints to returned sources.
+- Reject opaque document identifiers absent from the scoped source, including semantic fallback.
+- Add an optional pinned local multilingual ONNX encoder, development-selected screening and reproducible real-model/HTTP comparisons. Keep lexical retrieval the default and preserve known failures.
+- Extend collection-aware desktop/mobile browser checks and source-integrity/API tests to 53 passing cases.
+- Preserve failed initial experiments and disclose evaluation exposure; no independent holdout, approved policies or customer deployment is claimed.
+
 # Changelog
 
 ## 0.4 - 2026-10-13

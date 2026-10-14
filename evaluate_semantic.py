@@ -58,7 +58,7 @@ if __name__ == '__main__':
     r = {'date': '2026-10-14', 'model': MODEL, 'revision': REVISION, 'runtime': platform.platform(),
          'query_set_sha256': hashlib.sha256((ROOT/'data/semantic-cases.json').read_bytes()).hexdigest(),
          'selection': selected, 'development_grid': candidates,
-         'limits': 'Author-written source-selection experiment, no independent reviewers. Second development iteration after inspecting first audit: audit is now a regression/transfer set, NOT an untouched holdout. Parameter selection still uses development cases only. Similarity is not entailment. Reference introductions may be outdated. CPU-only, no paid API.',
+         'limits': 'Author-written source-selection experiment, no independent reviewers. Iterative guard development after inspecting earlier audit: audit is now a regression/transfer set, NOT an untouched holdout. Parameter selection still uses development cases only. Similarity is not entailment. Reference introductions may be outdated. CPU-only, no paid API.',
          'golden': measure(hybrid, [(c['question'],c['expected']) for c in golden]),
          'audit_lexical': measure(lexical, data['audit']), 'audit_hybrid': measure(hybrid, data['audit']),
          'reference_lexical': measure(reference, ref_cases),

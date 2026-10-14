@@ -2,11 +2,11 @@
 
 A Persian support handbook: find a runbook, inspect its source, and prepare a support ticket when the issue remains unresolved.
 
-**v0.4 — local support handbook.** The 12 public runbooks are synthetic examples, not an organization's approved procedures. Questions are not stored and ticket drafts are not submitted.
+**v0.5 — attributed Persian references and an optional multilingual retrieval experiment.** The 12 public runbooks are synthetic examples, not an organization's approved procedures. Questions are not stored and ticket drafts are not submitted.
 
 [Acceptance evidence](reports/RELEASE_CHECKS.md) · [Desktop](reports/handbook-desktop.png) · [Mobile](reports/handbook-mobile.png)
 
-![Persian handbook: source inspection and an editable ticket](reports/handbook-desktop.png)
+![Persian reference collection: source text, revision and text receipt](reports/ui/reference-desktop.png)
 
 ## Run
 
@@ -46,14 +46,14 @@ Public access is enforced before scoring and before building the directory. The 
 | `GET /health` | Process health |
 | `GET /api/documents` | Public directory |
 | `GET /api/documents?id=IT-004` | Public document, or 404 for absent/restricted IDs |
-| `POST /api/ask` | JSON containing only `question`; ranked excerpts and status |
+| `POST /api/ask` | JSON containing `question` and optional `collection` (`sample` or `reference`); ranked excerpts and status |
 | `POST /api/draft` | Explicit optional local sentence selection; bounded question and output |
 
 The browser creates ticket drafts locally. Clipboard permission depends on the browser; text remains selectable when automatic copying is unavailable.
 
 ## Validation
 
-The v0.4 suite contains 44 unit/API tests, all passing locally on 13 October 2026. Tests cover input validation, public-only access, source-exact selection, malformed/truncated model output, concurrency and regression-gate failures. Model calls in unit tests are mocked. Actual inference evidence is recorded separately below. A separate Chromium acceptance workflow checks guide loading, source lookup, editable tickets, delayed drafts, errors and the 390px layout. Its model responses are mocked; screenshots are retained as the handbook-browser-evidence Actions artifact. Check the latest successful run before relying on this workflow.
+The v0.5 suite contains 53 unit/API tests, all passing locally on 14 October 2026. Tests cover input validation, public-only access, source-exact selection, malformed/truncated model output, concurrency and regression-gate failures. Model calls in unit tests are mocked. Actual inference evidence is recorded separately below. A separate Chromium acceptance workflow checks guide loading, source lookup, editable tickets, delayed drafts, errors and the 390px layout. Its model responses are mocked; screenshots are retained as the handbook-browser-evidence Actions artifact. Check the latest successful run before relying on this workflow.
 
 The unchanged 24-question synthetic benchmark contains 18 answerable and 6 unanswerable cases:
 
@@ -76,10 +76,46 @@ The regression gate now preserves each of the 22 previously passing cases, inclu
 
 ## Limits
 
-The corpus has 12 public examples and one synthetic restricted fixture. Indirect wording can fail; topic words can also retrieve an irrelevant procedure. There is no organization login, ingestion workflow, document approval, editing service or ticket-system integration. The standard-library HTTP server binds to loopback and is intended for local use, not public deployment. No customer adoption or savings are claimed.
+The sample corpus has 12 public examples and one synthetic restricted fixture; a separate collection contains six attributed Persian encyclopedia introductions. Indirect wording can fail; topic words can also retrieve an irrelevant procedure. There is no organization login, ingestion workflow, document approval, editing service or ticket-system integration. The standard-library HTTP server binds to loopback and is intended for local use, not public deployment. No customer adoption or savings are claimed.
 
 Maintained by Peyman Gholamhosseini. Independent project; not an Azarab product or deployment.
 
+
+
+## Version 0.5: what is measured
+
+The default remains dependency-free lexical search. A separate, opt-in CPU multilingual retriever rescues some lexical abstentions; it does not generate text. Existing lexical accepted decisions are preserved, except that opaque letter/digit identifiers must actually exist in the selected public source. A narrow missing-facet guard screens monetary requests and credential/contact requests. These guards are not a general semantic or security guarantee.
+
+| Frozen question group | Lexical | Optional multilingual |
+|---|---:|---:|
+| Original synthetic smoke cases | 22/24 | 22/24 |
+| Additional Persian transfer cases | 24/48 | 40/48 |
+| Six real Persian introductions | 34/36 | 35/36 |
+
+The 24 development questions select similarity 0.40 and runner-up margin 0.08. These are heuristics, not probabilities. The 48-case set was inspected during guard development and is now a **regression/transfer set, not a blind holdout**. No independent reviewer or customer traffic was used. A wrong reference source (VPN question → Wi-Fi article) and the two original paraphrase failures remain. Historical unsuccessful iterations are retained in reports. See [full experiment and limitations](reports/VALIDATION_V05.md).
+
+Actual loopback HTTP with the real model reproduced 22/24, 40/48 and 35/36; every returned source-text hash, character bound and public scope was reconciled. Browser checks additionally verify collection changes, revision links, source receipts and the 390px reference layout.
+
+### Run the optional experiment
+
+Python 3.12+; approximately 252 MB of pinned, SHA-256-verified model/tokenizer files. No paid API, login, query upload or automatic import-time download.
+
+```powershell
+python -m pip install -r requirements-semantic.txt
+python prepare_semantic.py
+python evaluate_semantic.py
+python live_semantic.py
+$env:HANDBOOK_RETRIEVER = 'hybrid'
+python server.py
+```
+
+Without `HANDBOOK_RETRIEVER=hybrid`, search uses the lexical baseline. Hybrid startup fails explicitly if its model or dependencies are missing. The base application and unit suite do not require these packages. The pinned quantized model is [Qdrant's ONNX conversion](https://huggingface.co/Qdrant/paraphrase-multilingual-MiniLM-L12-v2-onnx-Q) of Sentence Transformers multilingual MiniLM, Apache-2.0; revision and weight digests live in semantic.py. CPU only, two inference threads, 128-token truncation and full-source verbatim display. Long reference passages can lose ranking information beyond that input limit.
+
+### Real texts, separate from example runbooks
+
+Choose **متون عمومی فارسی با منبع** in the directory. Six unchanged MediaWiki introduction extracts are attributed to Persian Wikipedia contributors under CC BY-SA 4.0, with revision/history links, retrieval timestamp and exact byte digests in [the manifest](data/reference-manifest.json). These are encyclopedic references, potentially outdated, **not approved troubleshooting procedures**. [Attribution and reuse notice](data/PERSIAN_REFERENCE_NOTICE.md). The application reads the checked-in snapshots offline and fails closed on digest/inventory mismatch. Reference text licensing is separate from application code licensing.
+
+Each displayed source has a UTF-8 text SHA-256 receipt; this identifies the stored text, not factual authority. The public corpus fingerprint excludes restricted documents. Collection selection cannot select a staff role. No new organization access control, PDF/OCR ingestion, policy version resolution or customer deployment is claimed.
 
 ## Optional local model (v0.3 experiment)
 
