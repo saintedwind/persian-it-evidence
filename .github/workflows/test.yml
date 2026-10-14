@@ -1,7 +1,15 @@
 name: tests
-on: [push, pull_request]
+on:
+  push:
+    paths-ignore: ['README.md', 'CHANGELOG.md', 'reports/**']
+  pull_request:
+    paths-ignore: ['README.md', 'CHANGELOG.md', 'reports/**']
+  workflow_dispatch:
 permissions:
   contents: read
+concurrency:
+  group: persian-handbook-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   test:
     runs-on: ubuntu-24.04
@@ -23,7 +31,7 @@ jobs:
       - run: npm install --no-save --ignore-scripts playwright@1.62.1
       - run: npx playwright install --with-deps chromium
       - run: node tests/ui.cjs
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: handbook-browser-evidence
@@ -52,7 +60,7 @@ jobs:
           h=json.load(open('reports/live-semantic-v05.json'))
           assert h['golden']['correct']>=22 and h['audit']['correct']>=40 and h['reference']['correct']>=35
           PY
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: persian-neural-evidence
