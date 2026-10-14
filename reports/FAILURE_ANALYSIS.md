@@ -23,3 +23,7 @@ These two cases remain in the dataset. Adding their exact words to document tags
 ## Next controlled experiment
 
 Freeze v0.1 and its data. Add multilingual embeddings as a separately selectable retriever. Create a new paraphrase-heavy set with at least 60 questions, answer spans, unanswerable counterexamples, and conflicting-document cases. Split tuning and evaluation before changing thresholds. Where possible, have another person write/review questions without seeing retriever output. Report the lexical baseline and semantic retriever on the same frozen test set, including regressions, model revision, hardware, and license.
+
+## Version 0.5 follow-up
+
+Both original failures remain in lexical and conservative multilingual modes. The new transfer/reference experiment and additional ID-scope correction are recorded in VALIDATION_V05.md. Its raw unsuccessful iterations remain available; the 48-case transfer set is inspected development evidence, not an independent holdout.
