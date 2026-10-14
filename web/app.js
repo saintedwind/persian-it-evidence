@@ -1,6 +1,6 @@
 'use strict';
 const $ = selector => document.querySelector(selector);
-const state = {documents: [], current: null, question: '', controller: null, sequence: 0, draftController: null, draftSequence: 0, ticketContext: null};
+const state = {collection: 'sample', catalogSequence: 0, documents: [], current: null, question: '', controller: null, sequence: 0, draftController: null, draftSequence: 0, ticketContext: null};
 function cancelDraft() {
   state.draftSequence++;
   if (state.draftController) state.draftController.abort();
@@ -17,6 +17,11 @@ function renderDocument(doc) {
   $('#document').hidden = false; $('#no-result').hidden = true;
   $('#doc-id').textContent = doc.id; $('#doc-title').textContent = doc.title;
   $('#answer').textContent = doc.text || doc.excerpt; $('#source-path').textContent = doc.source;
+  $('#ticket-open').hidden = state.collection === 'reference';
+  $('#document-kind').textContent = state.collection === 'reference' ? 'متن عمومی؛ دستورالعمل سازمانی نیست' : 'متن راهنمای نمونه';
+  $('#source-hash').textContent = doc.text_sha256 ? 'Text SHA-256: ' + doc.text_sha256 : '';
+  const sourceLink = $('#source-link'); sourceLink.hidden = true; sourceLink.removeAttribute('href');
+  if (/^https:\/\/fa\.wikipedia\.org\/w\/index\.php\?oldid=\d+$/.test(doc.source)) { sourceLink.href = doc.source; sourceLink.hidden = false; }
   document.querySelectorAll('.catalog-item').forEach(el => el.setAttribute('aria-current', String(el.dataset.id === doc.id)));
   document.querySelectorAll('.candidate').forEach(el => el.setAttribute('aria-pressed', String(el.dataset.id === doc.id)));
 }
@@ -34,10 +39,11 @@ function openGuide(doc) {
   renderDocument(doc); $('#result').scrollIntoView({block: 'start'});
 }
 async function loadCatalog() {
+  const catalogSequence = ++state.catalogSequence; const collection = state.collection;
   $('#retry-catalog').hidden = true;
   try {
-    const response = await fetch('/api/documents'); if (!response.ok) throw new Error();
-    const data = await response.json(); state.documents = data.documents;
+    const response = await fetch('/api/documents?collection=' + collection); if (!response.ok) throw new Error();
+    const data = await response.json(); if (catalogSequence !== state.catalogSequence) return; state.documents = data.documents;
     $('#doc-count').textContent = digits(data.documents.length); $('#catalog').replaceChildren();
     data.documents.forEach((doc, i) => {
       const button = document.createElement('button');
@@ -46,7 +52,7 @@ async function loadCatalog() {
       const title = document.createElement('span'); title.textContent = doc.title;
       button.append(number, title); button.addEventListener('click', () => openGuide(doc)); $('#catalog').append(button);
     });
-  } catch { $('#catalog').textContent = 'فهرست دریافت نشد. اتصال به برنامه را بررسی کنید.'; $('#retry-catalog').hidden = false; }
+  } catch { if (catalogSequence !== state.catalogSequence) return; $('#catalog').textContent = 'فهرست دریافت نشد. اتصال به برنامه را بررسی کنید.'; $('#retry-catalog').hidden = false; }
 }
 async function search(question) {
   question = question.trim(); if (!question) { $('#question').focus(); return; }
@@ -56,7 +62,7 @@ async function search(question) {
   resetView(); state.question = question; $('#search-button').disabled = true;
   $('#result').setAttribute('aria-busy', 'true'); $('#result-label').textContent = 'جست‌وجو در راهنماها'; $('#status').textContent = 'در حال بررسی…';
   try {
-    const response = await fetch('/api/ask', {method:'POST', signal:controller.signal, headers:{'Content-Type':'application/json'}, body:JSON.stringify({question})});
+    const response = await fetch('/api/ask', {method:'POST', signal:controller.signal, headers:{'Content-Type':'application/json'}, body:JSON.stringify({question, collection:state.collection})});
     if (!response.ok) throw new Error(); const data = await response.json(); if (sequence !== state.sequence) return;
     if (data.status !== 'evidence_found') { $('#status').textContent = 'راهنمای کافی پیدا نشد'; $('#no-result').hidden = false; return; }
     $('#status').textContent = 'این راهنماها را بررسی کنید'; $('#result-label').textContent = digits(data.retrieved.length) + ' نتیجه مرتبط · انتخاب با شما';
@@ -104,7 +110,7 @@ $('#draft-button').addEventListener('click', async () => {
   const controller = new AbortController(); const timer = setTimeout(() => controller.abort(), 95000);
   state.draftController = controller;
   try {
-    const response = await fetch('/api/draft', {method:'POST', signal:controller.signal, headers:{'Content-Type':'application/json'}, body:JSON.stringify({question})});
+    const response = await fetch('/api/draft', {method:'POST', signal:controller.signal, headers:{'Content-Type':'application/json'}, body:JSON.stringify({question, collection:state.collection})});
     if (!response.ok) throw new Error(); const data = await response.json();
     if (sequence !== state.sequence || draftSequence !== state.draftSequence || question !== $('#question').value.trim()) return;
     $('#draft-output').textContent = data.status === 'draft_ready' ? data.draft : data.status === 'busy' ? 'درخواست قبلی هنوز در حال پردازش است.' : 'پاسخ قابل استفاده آماده نشد. متن اصلی راهنما را بررسی کنید.';
@@ -113,3 +119,23 @@ $('#draft-button').addEventListener('click', async () => {
   finally { clearTimeout(timer); if (draftSequence === state.draftSequence) {button.disabled = false; state.draftController = null;} }
 });
 $('#question').addEventListener('input', cancelDraft);
+
+$('#collection').addEventListener('change', () => {
+  state.collection = $('#collection').value;
+  const reference = state.collection === 'reference';
+  $('#main-title').textContent = reference ? 'دنبال چه مطلبی هستید؟' : 'کارتان کجا گیر کرده؟';
+  $('#main-lead').textContent = reference ? 'در متن‌های عمومی فارسی جست‌وجو کنید و نتیجه را با نسخه اصلی منبع تطبیق دهید.' : 'راهنمای مربوط را پیدا کنید، مراحلش را بخوانید و اگر لازم شد، مسئله را به پشتیبانی بسپارید.';
+  $('#intro-note').textContent = reference ? '۶ متن واقعی فارسی · منبع و نسخه مشخص · بدون ادعای تأیید محتوای دانشنامه' : '۱۲ راهنمای نمونه پشتیبانی؛ دستورالعمل سازمانی نیست.';
+  $('#catalog-title').textContent = reference ? 'فهرست متن‌ها' : 'فهرست راهنماها';
+  const examples = reference ? ['فیشینگ چیست','سامانه نام دامنه چه می کند','احراز هویت چندعاملی چیست'] : ['رمز عبور را فراموش کردم','صف چاپ پرینتر متوقف شده','صدای تلفن VoIP یک طرفه است'];
+  const labels = reference ? ['فیشینگ','نام دامنه','احراز هویت'] : ['رمز ورود','صف چاپ','صدای تماس'];
+  document.querySelectorAll('[data-query]').forEach((button,i) => {button.dataset.query = examples[i]; button.textContent = labels[i];});
+  state.sequence++; if (state.controller) state.controller.abort();
+  resetView(); $('#question').value = ''; $('#search-button').disabled = false;
+  $('#result').setAttribute('aria-busy','false'); $('#result').hidden = true; $('#welcome').hidden = reference;
+  $('#catalog').replaceChildren();
+  $('#dataset-note').textContent = state.collection === 'reference'
+    ? 'شش مقدمه واقعی از ویکی‌پدیای فارسی با نسخه و مجوز CC BY-SA 4.0؛ متن دانشنامه‌ای است، ممکن است قدیمی باشد و راهنمای مصوب پشتیبانی نیست.'
+    : 'محتوای این نسخه، راهنمای نمونه است؛ دستورالعمل هیچ سازمانی نیست.';
+  loadCatalog();
+});

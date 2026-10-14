@@ -7,3 +7,5 @@
 @media(prefers-reduced-motion:no-preference){button{transition:background .15s,color .15s}}
 
 #draft-button{margin-bottom:20px}#draft-output{white-space:pre-wrap;line-height:2}
+
+#collection{width:100%;font:inherit;padding:.5rem;margin:.4rem 0 1rem;background:var(--paper,#faf8f2);color:inherit;border:1px solid #bbb} #source-hash{overflow-wrap:anywhere;font-size:.7rem}
