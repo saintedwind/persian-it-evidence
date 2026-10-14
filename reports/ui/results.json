@@ -1,0 +1,16 @@
+{
+  "checks": [
+    "12 public guides load",
+    "printer query selects expected source",
+    "close/reopen preserves edited ticket",
+    "source change discards late draft and hides prior ticket",
+    "busy feedback and question edit reset draft",
+    "unsupported query offers editable escalation",
+    "390px layout has no horizontal overflow",
+    "real Persian collection, source receipt, revision link and 390px reference layout",
+    "no uncaught browser errors"
+  ],
+  "model": "mocked",
+  "browser": "Chromium",
+  "errors": []
+}
