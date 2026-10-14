@@ -4,7 +4,7 @@ A Persian support handbook: find a runbook, inspect its source, and prepare a su
 
 **v0.5 — attributed Persian references and an optional multilingual retrieval experiment.** The 12 public runbooks are synthetic examples, not an organization's approved procedures. Questions are not stored and ticket drafts are not submitted.
 
-[Acceptance evidence](reports/RELEASE_CHECKS.md) · [Desktop](reports/handbook-desktop.png) · [Mobile](reports/handbook-mobile.png)
+[Verified v0.5 CI](https://github.com/saintedwind/persian-it-evidence/actions/runs/38568779781) · [Current validation](reports/VALIDATION_V05.md) · [Earlier acceptance evidence](reports/RELEASE_CHECKS.md) · [Desktop](reports/handbook-desktop.png) · [Mobile](reports/handbook-mobile.png)
 
 ![Persian reference collection: source text, revision and text receipt](reports/ui/reference-desktop.png)
 
