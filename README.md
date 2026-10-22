@@ -2,13 +2,19 @@
 
 A Persian support handbook: find a runbook, inspect its source, and prepare a support ticket when the issue remains unresolved.
 
-**v0.5 — attributed Persian references and an optional multilingual retrieval experiment.** The 12 public runbooks are synthetic examples, not an organization's approved procedures. Questions are not stored and ticket drafts are not submitted.
+**v0.6 — 34 attributed Persian references, verified import receipts and a graphical evidence desk.** The 12 public runbooks are synthetic examples, not an organization's approved procedures. Questions are not stored and ticket drafts are not submitted.
 
 [Verified v0.5 CI](https://github.com/saintedwind/persian-it-evidence/actions/runs/38568779781) · [Current validation](reports/VALIDATION_V05.md) · [Earlier acceptance evidence](reports/RELEASE_CHECKS.md) · [Desktop](reports/handbook-desktop.png) · [Mobile](reports/handbook-mobile.png)
 
 ![Persian reference collection: source text, revision and text receipt](reports/ui/reference-desktop.png)
 
 ## Run
+
+### Graphical demo
+
+Optional local synthesis is now available through `run_with_answer.py`: retrieve a source, then click **ساخت پاسخ مستند**. The verified Qwen3-1.7B Q8_0 model writes a Persian draft with a source-exact quote; the original source remains visible. No paid API is used. See [setup, real inference evidence and limitations](reports/LOCAL_SYNTHESIS.md). Quote matching does not verify all generated claims.
+
+After starting the server, open **http://127.0.0.1:8765/demo** for the graphical evidence desk: real Persian reference texts, ranked sources, source receipts and explicit abstention. On Windows, `run-visual-demo.ps1` starts the same server. It uses the existing retrieval engine rather than canned responses. See [verification and screenshots](reports/VISUAL_DEMO.md).
 
 Requires Python 3.11+, with no package installation or service credentials.
 
@@ -48,6 +54,7 @@ Public access is enforced before scoring and before building the directory. The 
 | `GET /api/documents?id=IT-004` | Public document, or 404 for absent/restricted IDs |
 | `POST /api/ask` | JSON containing `question` and optional `collection` (`sample` or `reference`); ranked excerpts and status |
 | `POST /api/draft` | Explicit optional local sentence selection; bounded question and output |
+| `POST /api/answer` | Optional local Persian synthesis with source ID and checked exact quotation; up to 400 question characters |
 
 The browser creates ticket drafts locally. Clipboard permission depends on the browser; text remains selectable when automatic copying is unavailable.
 
@@ -76,7 +83,7 @@ The regression gate now preserves each of the 22 previously passing cases, inclu
 
 ## Limits
 
-The sample corpus has 12 public examples and one synthetic restricted fixture; a separate collection contains six attributed Persian encyclopedia introductions. Indirect wording can fail; topic words can also retrieve an irrelevant procedure. There is no organization login, ingestion workflow, document approval, editing service or ticket-system integration. The standard-library HTTP server binds to loopback and is intended for local use, not public deployment. No customer adoption or savings are claimed.
+The sample corpus has 12 public examples and one synthetic restricted fixture; a separate collection contains 34 attributed Persian encyclopedia introductions. Indirect wording can fail; topic words can also retrieve an irrelevant procedure. There is no organization login, ingestion workflow, document approval, editing service or ticket-system integration. The standard-library HTTP server binds to loopback and is intended for local use, not public deployment. No customer adoption or savings are claimed.
 
 Maintained by Peyman Gholamhosseini. Independent project; not an Azarab product or deployment.
 
@@ -132,3 +139,13 @@ The small model's free-form Persian output was unreliable in initial trials. The
 Limits: 400-character question, one public source up to 1,800 characters, 2,048-token runtime context, 96 output tokens, one inference at a time, 90-second timeout, no automatic retries. Invalid source IDs, sentence indices, duplicate selections and truncated outputs produce no draft. Unknown questions skip inference. The endpoint is fixed to loopback and bypasses proxy settings.
 
 See `reports/local-model-smoke.json` for actual inference results and `reports/LOCAL_MODEL.md` for limitations. Earlier free-form failures remain in separate reports. No organization data was used. Model license: Apache-2.0; runtime license: MIT, retained with their distributions. Download bandwidth, disk, RAM and electricity are still required.
+
+## Expanded reference collection
+
+The local v0.6 collection contains 34 actual Persian reference introductions across six topic categories, with 28 raw API receipts and preserved original source bytes. Source-exact validation and live HTTP checks passed. See [scope, ingestion, development results and remaining coverage gaps](reports/REFERENCE_EXPANSION_V2.md). Source and recorded evidence are included in this repository.
+
+## Local synthesis release checks
+
+66 unit/API tests passed locally. Actual Qwen3-1.7B CPU inference produced three Persian drafts and two pre-inference abstentions. The browser verified the explicit generation button, returned quote and source ID. Model weights are deliberately excluded; the launcher verifies the documented official weight checksum. See [real inference results and limitations](reports/LOCAL_SYNTHESIS.md).
+
+![Actual Persian draft from the local model with source quotation](reports/rag-local-model-answer.png)

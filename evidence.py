@@ -16,6 +16,7 @@ STOP = set('از به در با برای و یا که را یک این آن اس
 def normalize(text: str) -> str:
     text = unicodedata.normalize('NFKC', text).lower()
     text = text.translate(str.maketrans('يكۀؤإأ', 'یکهواا'))
+    text = text.translate(str.maketrans('۰۱۲۳۴۵۶۷۸۹٠١٢٣٤٥٦٧٨٩٫', '01234567890123456789.'))
     text = re.sub(r'[\u064b-\u065f\u0670\u0640]', '', text)
     return re.sub(r'\s+', ' ', text.replace('\u200c', ' ')).strip()
 
@@ -26,7 +27,18 @@ def tokens(text: str) -> list[str]:
 
 def identifiers(text):
     """Opaque letter/digit IDs must match literally; similarity cannot invent them."""
-    return set(re.findall(r'\b[a-z][a-z_-]*\d+\b', normalize(text)))
+    normalized = normalize(text)
+    return (set(re.findall(r'\b[a-z][a-z_-]*\d+\b', normalized))
+            | set(re.findall(r'(?<!\d)\d{2,}(?:\.\d+)+(?!\d)', normalized)))
+
+
+def requests_private_value(question):
+    """Narrow request guard; not a general intent or confidentiality classifier."""
+    q = normalize(question)
+    credential = re.search(r'(کلید خصوصی|رمز|پسورد|گذرواژه)', q)
+    owner = re.search(r'(سرور|شرکت|سازمان|مدیر|همکار|کارکنان|حساب)', q)
+    value_request = re.search(r'(را بده|رو بده|بگو|چیست|چیه|اعلام کن)', q)
+    return bool(credential and owner and value_request)
 
 
 @dataclass(frozen=True)
@@ -89,13 +101,14 @@ class Index:
             if score:
                 rows.append({'id': doc.id, 'title': doc.title, 'score': round(score, 6),
                              'coverage': len(query & bag.keys()) / len(query),
-                             'excerpt': doc.text, 'source': doc.source, **self.receipt(doc)})
+                             'excerpt': doc.text, 'source': doc.source, **self.receipt(doc),
+                             **getattr(self, 'reference_metadata', {}).get(doc.id, {})})
         return sorted(rows, key=lambda r: (-r['score'], r['id']))[:limit]
 
     def answer(self, question: str, scope: str = 'public') -> dict:
         hits = self.search(question, scope)
         # Development heuristic, not calibrated probability of correctness.
-        accepted = bool(hits and hits[0]['coverage'] >= .45)
+        accepted = bool(hits and hits[0]['coverage'] >= .45 and not requests_private_value(question))
         sources = hits[:1] if accepted else []
         return {'mode': 'extractive-bm25', 'status': 'evidence_found' if accepted else 'insufficient_evidence',
                 'answer': sources[0]['excerpt'] if accepted else 'در منابع مجاز، شواهد کافی پیدا نشد.',

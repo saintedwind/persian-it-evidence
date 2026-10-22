@@ -7,6 +7,7 @@ from urllib.parse import urlsplit, parse_qs
 from pathlib import Path
 from evidence import Index
 from local_draft import draft, enabled
+from local_answer import answer as synthesize, enabled as answer_enabled
 
 ROOT = Path(__file__).resolve().parent
 INDEX = Index.load()
@@ -22,9 +23,12 @@ def get_index(collection='sample'):
     else:
         raise ValueError('Unknown collection')
     if os.environ.get('HANDBOOK_RETRIEVER', 'lexical') == 'hybrid':
+        metadata = getattr(index, 'reference_metadata', None)
         from semantic import Encoder, SemanticIndex
         settings = json.loads((ROOT/'data/semantic-settings.json').read_text(encoding='utf8'))
         index = SemanticIndex(index.documents, get_encoder(), settings['threshold'], settings['margin'], index.dataset)
+        if metadata is not None:
+            index.reference_metadata = metadata
     return index
 
 
@@ -62,18 +66,22 @@ class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
         url = urlsplit(self.path)
         routes = {'/': ('index.html', 'text/html; charset=utf-8'),
+                  '/demo': ('demo.html', 'text/html; charset=utf-8'),
+                  '/demo.js': ('demo.js', 'application/javascript; charset=utf-8'),
+                  '/demo.css': ('demo.css', 'text/css; charset=utf-8'),
                   '/app.js': ('app.js', 'application/javascript; charset=utf-8'),
                   '/style.css': ('style.css', 'text/css; charset=utf-8'),
                   '/Gandom.woff2': ('Gandom.woff2', 'font/woff2')}
         if url.path == '/health':
-            return self.send(200, {'status': 'ok', 'version':'0.5.0',
-                'retriever': os.environ.get('HANDBOOK_RETRIEVER','lexical'), 'local_draft': enabled()})
+            return self.send(200, {'status': 'ok', 'version':'0.6.0',
+                'retriever': os.environ.get('HANDBOOK_RETRIEVER','lexical'), 'local_draft': enabled(), 'local_answer':answer_enabled()})
         if url.path == '/api/documents':
             try:
                 index = get_index(parse_qs(url.query).get('collection',['sample'])[0])
             except ValueError:
                 return self.send(400, {'error':'Unknown collection'})
-            documents = [{'id': d.id, 'title': d.title, 'text': d.text, 'source': d.source, **index.receipt(d)}
+            documents = [{'id': d.id, 'title': d.title, 'text': d.text, 'source': d.source, **index.receipt(d),
+                          **getattr(index, 'reference_metadata', {}).get(d.id, {})}
                          for d in index.documents if d.scope == 'public']
             doc_id = parse_qs(url.query).get('id', [None])[0]
             if doc_id is not None:
@@ -86,7 +94,7 @@ class Handler(BaseHTTPRequestHandler):
         self.send(200, (ROOT / 'web' / file).read_bytes(), mime)
 
     def do_POST(self):
-        if self.path not in {'/api/ask', '/api/draft'}:
+        if self.path not in {'/api/ask', '/api/draft', '/api/answer'}:
             return self.send(404, {'error': 'Not found'})
         host = self.headers.get('Host', '')
         permitted = {f'127.0.0.1:{self.server.server_port}', f'localhost:{self.server.server_port}'}
@@ -106,7 +114,10 @@ class Handler(BaseHTTPRequestHandler):
                 return self.send(400, {'error': 'Only question and optional collection are allowed'})
             index = get_index(data.get('collection','sample'))
             # The browser cannot select staff access; trusted application decides scope.
-            self.send(200, draft(index, data['question']) if self.path == '/api/draft' else index.answer(data['question'], scope='public'))
+            result = (synthesize(index, data['question']) if self.path == '/api/answer' else
+                      draft(index, data['question']) if self.path == '/api/draft' else
+                      index.answer(data['question'], scope='public'))
+            self.send(200, result)
         except (ValueError, TypeError, UnicodeDecodeError):
             self.send(400, {'error': 'Invalid JSON or question'})
 
