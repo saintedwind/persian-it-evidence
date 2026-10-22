@@ -13,7 +13,7 @@ import test_evidence
 class ReferenceTests(unittest.TestCase):
     def test_reference_inventory_and_receipts(self):
         index = load_reference()
-        self.assertEqual(len(index.documents), 6)
+        self.assertEqual(len(index.documents), 34)
         for doc in index.documents:
             self.assertTrue(doc.source.startswith('https://fa.wikipedia.org/w/index.php?oldid='))
             receipt = index.receipt(doc)
@@ -63,8 +63,8 @@ class ReferenceHttpTests(unittest.TestCase):
     def test_reference_catalog_and_original_source(self):
         with build_opener(ProxyHandler({})).open(self.url+'/api/documents?collection=reference') as r:
             data = json.load(r)
-        self.assertEqual(len(data['documents']),6)
-        self.assertEqual(data['dataset'],'public-persian-reference/v1')
+        self.assertEqual(len(data['documents']),34)
+        self.assertEqual(data['dataset'],'public-persian-reference/v2')
         self.assertTrue(data['corpus_sha256'])
 
     def test_unknown_collection_is_rejected(self):

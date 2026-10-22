@@ -76,7 +76,7 @@ const assert = require('node:assert/strict');
     checks.push('390px layout has no horizontal overflow');
     await page.locator('#collection').selectOption('reference');
     await page.locator('.catalog-item').nth(5).waitFor();
-    assert.equal(await page.locator('.catalog-item').count(),6);
+    assert.equal(await page.locator('.catalog-item').count(),34);
     await page.locator('#question').fill('فیشینگ چیست');
     await page.locator('#search-button').click();
     await page.locator('#doc-id').filter({hasText:'REF-PHISHING'}).waitFor();
