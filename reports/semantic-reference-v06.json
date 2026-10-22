@@ -1,0 +1,500 @@
+{
+  "correct": 35,
+  "total": 36,
+  "supported_correct": 29,
+  "supported_total": 30,
+  "false_accepts": 0,
+  "unsupported_total": 6,
+  "cases": [
+    {
+      "question": "نام وب سایت چگونه به آدرس عددی تبدیل می شود",
+      "expected": "REF-DNS",
+      "returned": "REF-DNS",
+      "correct": true,
+      "semantic": {
+        "status": "not_needed",
+        "model": "Qdrant/paraphrase-multilingual-MiniLM-L12-v2-onnx-Q",
+        "revision": "faf4aa4225822f3bc6376869cb1164e8e3feedd0"
+      },
+      "elapsed_ms": 40.389
+    },
+    {
+      "question": "سامانه نام دامنه چه کاری می کند",
+      "expected": "REF-DNS",
+      "returned": "REF-DNS",
+      "correct": true,
+      "semantic": {
+        "status": "not_needed",
+        "model": "Qdrant/paraphrase-multilingual-MiniLM-L12-v2-onnx-Q",
+        "revision": "faf4aa4225822f3bc6376869cb1164e8e3feedd0"
+      },
+      "elapsed_ms": 38.272
+    },
+    {
+      "question": "چرا به جای حفظ آی پی از نام دامنه استفاده می کنیم",
+      "expected": "REF-DNS",
+      "returned": "REF-DNS",
+      "correct": true,
+      "semantic": {
+        "status": "not_needed",
+        "model": "Qdrant/paraphrase-multilingual-MiniLM-L12-v2-onnx-Q",
+        "revision": "faf4aa4225822f3bc6376869cb1164e8e3feedd0"
+      },
+      "elapsed_ms": 38.076
+    },
+    {
+      "question": "ترجمه نام قابل خواندن انسان به نشانی ماشین با چیست",
+      "expected": "REF-DNS",
+      "returned": "REF-DNS",
+      "correct": true,
+      "semantic": {
+        "status": "not_needed",
+        "model": "Qdrant/paraphrase-multilingual-MiniLM-L12-v2-onnx-Q",
+        "revision": "faf4aa4225822f3bc6376869cb1164e8e3feedd0"
+      },
+      "elapsed_ms": 38.67
+    },
+    {
+      "question": "دی ان اس چه نوع فضای نامی دارد",
+      "expected": "REF-DNS",
+      "returned": "REF-DNS",
+      "correct": true,
+      "semantic": {
+        "status": "not_needed",
+        "model": "Qdrant/paraphrase-multilingual-MiniLM-L12-v2-onnx-Q",
+        "revision": "faf4aa4225822f3bc6376869cb1164e8e3feedd0"
+      },
+      "elapsed_ms": 38.07
+    },
+    {
+      "question": "شبکه خصوصی مجازی چگونه روی اینترنت ارتباط اختصاصی ایجاد می کند",
+      "expected": "REF-VPN",
+      "returned": "REF-VPN",
+      "correct": true,
+      "semantic": {
+        "status": "not_needed",
+        "model": "Qdrant/paraphrase-multilingual-MiniLM-L12-v2-onnx-Q",
+        "revision": "faf4aa4225822f3bc6376869cb1164e8e3feedd0"
+      },
+      "elapsed_ms": 38.663
+    },
+    {
+      "question": "VPN مخفف چه عبارتی است",
+      "expected": "REF-VPN",
+      "returned": "REF-VPN",
+      "correct": true,
+      "semantic": {
+        "status": "not_needed",
+        "model": "Qdrant/paraphrase-multilingual-MiniLM-L12-v2-onnx-Q",
+        "revision": "faf4aa4225822f3bc6376869cb1164e8e3feedd0"
+      },
+      "elapsed_ms": 37.814
+    },
+    {
+      "question": "برای اتصال شعب شرکت روی شبکه عمومی چه فناوری به کار می رود",
+      "expected": "REF-VPN",
+      "returned": "REF-USB",
+      "correct": false,
+      "semantic": {
+        "status": "not_needed",
+        "model": "Qdrant/paraphrase-multilingual-MiniLM-L12-v2-onnx-Q",
+        "revision": "faf4aa4225822f3bc6376869cb1164e8e3feedd0"
+      },
+      "elapsed_ms": 38.314
+    },
+    {
+      "question": "در وی پی ان رمزنگاری و احراز هویت چه نقشی دارد",
+      "expected": "REF-VPN",
+      "returned": "REF-VPN",
+      "correct": true,
+      "semantic": {
+        "status": "not_needed",
+        "model": "Qdrant/paraphrase-multilingual-MiniLM-L12-v2-onnx-Q",
+        "revision": "faf4aa4225822f3bc6376869cb1164e8e3feedd0"
+      },
+      "elapsed_ms": 37.973
+    },
+    {
+      "question": "شبکه خم به چه شبکه ای گفته می شود",
+      "expected": "REF-VPN",
+      "returned": "REF-VPN",
+      "correct": true,
+      "semantic": {
+        "status": "not_needed",
+        "model": "Qdrant/paraphrase-multilingual-MiniLM-L12-v2-onnx-Q",
+        "revision": "faf4aa4225822f3bc6376869cb1164e8e3feedd0"
+      },
+      "elapsed_ms": 38.242
+    },
+    {
+      "question": "انتقال صدای تلفن روی اینترنت چه نام دارد",
+      "expected": "REF-VOIP",
+      "returned": "REF-VOIP",
+      "correct": true,
+      "semantic": {
+        "status": "not_needed",
+        "model": "Qdrant/paraphrase-multilingual-MiniLM-L12-v2-onnx-Q",
+        "revision": "faf4aa4225822f3bc6376869cb1164e8e3feedd0"
+      },
+      "elapsed_ms": 38.555
+    },
+    {
+      "question": "VoIP مخفف چیست",
+      "expected": "REF-VOIP",
+      "returned": "REF-VOIP",
+      "correct": true,
+      "semantic": {
+        "status": "not_needed",
+        "model": "Qdrant/paraphrase-multilingual-MiniLM-L12-v2-onnx-Q",
+        "revision": "faf4aa4225822f3bc6376869cb1164e8e3feedd0"
+      },
+      "elapsed_ms": 37.782
+    },
+    {
+      "question": "تلفن پهن باند و تلفن آی پی نام چه فناوری هستند",
+      "expected": "REF-VOIP",
+      "returned": "REF-VOIP",
+      "correct": true,
+      "semantic": {
+        "status": "not_needed",
+        "model": "Qdrant/paraphrase-multilingual-MiniLM-L12-v2-onnx-Q",
+        "revision": "faf4aa4225822f3bc6376869cb1164e8e3feedd0"
+      },
+      "elapsed_ms": 38.08
+    },
+    {
+      "question": "علایم تلفنی چگونه روی شبکه IP حمل می شوند",
+      "expected": "REF-VOIP",
+      "returned": "REF-VOIP",
+      "correct": true,
+      "semantic": {
+        "status": "not_needed",
+        "model": "Qdrant/paraphrase-multilingual-MiniLM-L12-v2-onnx-Q",
+        "revision": "faf4aa4225822f3bc6376869cb1164e8e3feedd0"
+      },
+      "elapsed_ms": 38.36
+    },
+    {
+      "question": "تلفن اینترنتی برای انتقال صدا از چه شبکه ای استفاده می کند",
+      "expected": "REF-VOIP",
+      "returned": "REF-VOIP",
+      "correct": true,
+      "semantic": {
+        "status": "not_needed",
+        "model": "Qdrant/paraphrase-multilingual-MiniLM-L12-v2-onnx-Q",
+        "revision": "faf4aa4225822f3bc6376869cb1164e8e3feedd0"
+      },
+      "elapsed_ms": 38.477
+    },
+    {
+      "question": "جعل صفحه ورود برای دزدیدن گذرواژه چه نام دارد",
+      "expected": "REF-PHISHING",
+      "returned": "REF-PHISHING",
+      "correct": true,
+      "semantic": {
+        "status": "not_needed",
+        "model": "Qdrant/paraphrase-multilingual-MiniLM-L12-v2-onnx-Q",
+        "revision": "faf4aa4225822f3bc6376869cb1164e8e3feedd0"
+      },
+      "elapsed_ms": 38.158
+    },
+    {
+      "question": "فیشینگ چیست",
+      "expected": "REF-PHISHING",
+      "returned": "REF-PHISHING",
+      "correct": true,
+      "semantic": {
+        "status": "not_needed",
+        "model": "Qdrant/paraphrase-multilingual-MiniLM-L12-v2-onnx-Q",
+        "revision": "faf4aa4225822f3bc6376869cb1164e8e3feedd0"
+      },
+      "elapsed_ms": 37.607
+    },
+    {
+      "question": "رمزگیری برای سرقت چه نوع اطلاعاتی انجام می شود",
+      "expected": "REF-PHISHING",
+      "returned": "REF-PHISHING",
+      "correct": true,
+      "semantic": {
+        "status": "not_needed",
+        "model": "Qdrant/paraphrase-multilingual-MiniLM-L12-v2-onnx-Q",
+        "revision": "faf4aa4225822f3bc6376869cb1164e8e3feedd0"
+      },
+      "elapsed_ms": 38.201
+    },
+    {
+      "question": "تله گذاری با وبگاه و ایمیل جعلی چه حمله ای است",
+      "expected": "REF-PHISHING",
+      "returned": "REF-PHISHING",
+      "correct": true,
+      "semantic": {
+        "status": "not_needed",
+        "model": "Qdrant/paraphrase-multilingual-MiniLM-L12-v2-onnx-Q",
+        "revision": "faf4aa4225822f3bc6376869cb1164e8e3feedd0"
+      },
+      "elapsed_ms": 38.042
+    },
+    {
+      "question": "فریب کاربر برای گرفتن اطلاعات کارت اعتباری چه حمله ای است",
+      "expected": "REF-PHISHING",
+      "returned": "REF-PHISHING",
+      "correct": true,
+      "semantic": {
+        "status": "not_needed",
+        "model": "Qdrant/paraphrase-multilingual-MiniLM-L12-v2-onnx-Q",
+        "revision": "faf4aa4225822f3bc6376869cb1164e8e3feedd0"
+      },
+      "elapsed_ms": 38.56
+    },
+    {
+      "question": "وای فای برای اتصال بی سیم به اینترنت چیست",
+      "expected": "REF-WIFI",
+      "returned": "REF-WIFI",
+      "correct": true,
+      "semantic": {
+        "status": "not_needed",
+        "model": "Qdrant/paraphrase-multilingual-MiniLM-L12-v2-onnx-Q",
+        "revision": "faf4aa4225822f3bc6376869cb1164e8e3feedd0"
+      },
+      "elapsed_ms": 37.755
+    },
+    {
+      "question": "علامت Wi-Fi را کدام اتحادیه ثبت کرده",
+      "expected": "REF-WIFI",
+      "returned": "REF-WIFI",
+      "correct": true,
+      "semantic": {
+        "status": "not_needed",
+        "model": "Qdrant/paraphrase-multilingual-MiniLM-L12-v2-onnx-Q",
+        "revision": "faf4aa4225822f3bc6376869cb1164e8e3feedd0"
+      },
+      "elapsed_ms": 37.551
+    },
+    {
+      "question": "کدام فناوری شبکه محلی بی سیم با IEEE 802.11 مرتبط است",
+      "expected": "REF-WIFI",
+      "returned": "REF-WIFI",
+      "correct": true,
+      "semantic": {
+        "status": "not_needed",
+        "model": "Qdrant/paraphrase-multilingual-MiniLM-L12-v2-onnx-Q",
+        "revision": "faf4aa4225822f3bc6376869cb1164e8e3feedd0"
+      },
+      "elapsed_ms": 19.379
+    },
+    {
+      "question": "در هتل چگونه با رایانه همراه بی سیم به اینترنت وصل می شوند",
+      "expected": "REF-WIFI",
+      "returned": "REF-WIFI",
+      "correct": true,
+      "semantic": {
+        "status": "not_needed",
+        "model": "Qdrant/paraphrase-multilingual-MiniLM-L12-v2-onnx-Q",
+        "revision": "faf4aa4225822f3bc6376869cb1164e8e3feedd0"
+      },
+      "elapsed_ms": 37.977
+    },
+    {
+      "question": "شبکه وای فای با بلوتوث چه تفاوتی در قدرت ارتباط دارد",
+      "expected": "REF-WIFI",
+      "returned": "REF-WIFI",
+      "correct": true,
+      "semantic": {
+        "status": "not_needed",
+        "model": "Qdrant/paraphrase-multilingual-MiniLM-L12-v2-onnx-Q",
+        "revision": "faf4aa4225822f3bc6376869cb1164e8e3feedd0"
+      },
+      "elapsed_ms": 37.749
+    },
+    {
+      "question": "احراز هویت با دو عامل متمایز چیست",
+      "expected": "REF-MFA",
+      "returned": "REF-MFA",
+      "correct": true,
+      "semantic": {
+        "status": "not_needed",
+        "model": "Qdrant/paraphrase-multilingual-MiniLM-L12-v2-onnx-Q",
+        "revision": "faf4aa4225822f3bc6376869cb1164e8e3feedd0"
+      },
+      "elapsed_ms": 38.882
+    },
+    {
+      "question": "MFA مخفف چه عبارتی است",
+      "expected": "REF-MFA",
+      "returned": "REF-MFA",
+      "correct": true,
+      "semantic": {
+        "status": "accepted",
+        "model": "Qdrant/paraphrase-multilingual-MiniLM-L12-v2-onnx-Q",
+        "revision": "faf4aa4225822f3bc6376869cb1164e8e3feedd0",
+        "similarity": 0.439904,
+        "margin": 0.093357,
+        "threshold": 0.4,
+        "required_margin": 0.08,
+        "missing_facets": [],
+        "candidate_id": "REF-MFA"
+      },
+      "elapsed_ms": 44.979
+    },
+    {
+      "question": "دانش و مالکیت در اصالت سنجی چندعاملی چه معنایی دارند",
+      "expected": "REF-MFA",
+      "returned": "REF-MFA",
+      "correct": true,
+      "semantic": {
+        "status": "not_needed",
+        "model": "Qdrant/paraphrase-multilingual-MiniLM-L12-v2-onnx-Q",
+        "revision": "faf4aa4225822f3bc6376869cb1164e8e3feedd0"
+      },
+      "elapsed_ms": 37.609
+    },
+    {
+      "question": "چیزی که کاربر می داند و چیزی که دارد چه عوامل احراز هویت هستند",
+      "expected": "REF-MFA",
+      "returned": "REF-MFA",
+      "correct": true,
+      "semantic": {
+        "status": "not_needed",
+        "model": "Qdrant/paraphrase-multilingual-MiniLM-L12-v2-onnx-Q",
+        "revision": "faf4aa4225822f3bc6376869cb1164e8e3feedd0"
+      },
+      "elapsed_ms": 37.884
+    },
+    {
+      "question": "برای موفقیت احراز هویت چندعاملی چند عامل لازم است",
+      "expected": "REF-MFA",
+      "returned": "REF-MFA",
+      "correct": true,
+      "semantic": {
+        "status": "not_needed",
+        "model": "Qdrant/paraphrase-multilingual-MiniLM-L12-v2-onnx-Q",
+        "revision": "faf4aa4225822f3bc6376869cb1164e8e3feedd0"
+      },
+      "elapsed_ms": 38.307
+    },
+    {
+      "question": "قیمت اشتراک سالانه VPN شرکت ما چقدر است",
+      "expected": null,
+      "returned": null,
+      "correct": true,
+      "semantic": {
+        "status": "abstained",
+        "model": "Qdrant/paraphrase-multilingual-MiniLM-L12-v2-onnx-Q",
+        "revision": "faf4aa4225822f3bc6376869cb1164e8e3feedd0",
+        "similarity": 0.555247,
+        "margin": 0.208194,
+        "threshold": 0.4,
+        "required_margin": 0.08,
+        "missing_facets": [
+          "اشتراک",
+          "قیمت"
+        ],
+        "candidate_id": "REF-VPN"
+      },
+      "elapsed_ms": 44.077
+    },
+    {
+      "question": "رمز وای فای اداره ما را نمایش بده",
+      "expected": null,
+      "returned": null,
+      "correct": true,
+      "semantic": {
+        "status": "abstained",
+        "model": "Qdrant/paraphrase-multilingual-MiniLM-L12-v2-onnx-Q",
+        "revision": "faf4aa4225822f3bc6376869cb1164e8e3feedd0",
+        "similarity": 0.356644,
+        "margin": 0.001548,
+        "threshold": 0.4,
+        "required_margin": 0.08,
+        "missing_facets": [],
+        "candidate_id": "REF-SPAM"
+      },
+      "elapsed_ms": 45.053
+    },
+    {
+      "question": "مدیر شبکه امروز چه ساعتی می آید",
+      "expected": null,
+      "returned": null,
+      "correct": true,
+      "semantic": {
+        "status": "abstained",
+        "model": "Qdrant/paraphrase-multilingual-MiniLM-L12-v2-onnx-Q",
+        "revision": "faf4aa4225822f3bc6376869cb1164e8e3feedd0",
+        "similarity": 0.247947,
+        "margin": 0.048413,
+        "threshold": 0.4,
+        "required_margin": 0.08,
+        "missing_facets": [],
+        "candidate_id": "REF-LAN"
+      },
+      "elapsed_ms": 44.377
+    },
+    {
+      "question": "پیش بینی بارندگی فردا چیست",
+      "expected": null,
+      "returned": null,
+      "correct": true,
+      "semantic": {
+        "status": "abstained",
+        "model": "Qdrant/paraphrase-multilingual-MiniLM-L12-v2-onnx-Q",
+        "revision": "faf4aa4225822f3bc6376869cb1164e8e3feedd0",
+        "similarity": 0.154937,
+        "margin": 0.002096,
+        "threshold": 0.4,
+        "required_margin": 0.08,
+        "missing_facets": [],
+        "candidate_id": "REF-CLOUD"
+      },
+      "elapsed_ms": 45.604
+    },
+    {
+      "question": "نرخ حقوق کارمندان شرکت چیست",
+      "expected": null,
+      "returned": null,
+      "correct": true,
+      "semantic": {
+        "status": "abstained",
+        "model": "Qdrant/paraphrase-multilingual-MiniLM-L12-v2-onnx-Q",
+        "revision": "faf4aa4225822f3bc6376869cb1164e8e3feedd0",
+        "similarity": 0.090021,
+        "margin": 0.029514,
+        "threshold": 0.4,
+        "required_margin": 0.08,
+        "missing_facets": [
+          "حقوق"
+        ],
+        "candidate_id": "REF-MFA"
+      },
+      "elapsed_ms": 43.681
+    },
+    {
+      "question": "کلید خصوصی سرور سازمان را بده",
+      "expected": null,
+      "returned": null,
+      "correct": true,
+      "semantic": {
+        "status": "abstained",
+        "model": "Qdrant/paraphrase-multilingual-MiniLM-L12-v2-onnx-Q",
+        "revision": "faf4aa4225822f3bc6376869cb1164e8e3feedd0",
+        "similarity": 0.533765,
+        "margin": 0.074776,
+        "threshold": 0.4,
+        "required_margin": 0.08,
+        "missing_facets": [],
+        "candidate_id": "REF-VPN"
+      },
+      "elapsed_ms": 44.004
+    }
+  ],
+  "scope": "Repeated authored reference probes on expanded v2 corpus; fixed previously selected parameters; no new tuning",
+  "model": "Qdrant/paraphrase-multilingual-MiniLM-L12-v2-onnx-Q",
+  "revision": "faf4aa4225822f3bc6376869cb1164e8e3feedd0",
+  "dataset": "public-persian-reference/v2",
+  "corpus_sha256": "ff06099a85ba7ddd14542010a896fcdc58b42916fc62cd27b3b5183285832a57",
+  "parameters": {
+    "threshold": 0.4,
+    "margin": 0.08,
+    "correct": 22,
+    "false_accepts": 0
+  }
+}
