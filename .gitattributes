@@ -1,1 +1,3 @@
 data/persian-reference/*.txt -text
+data/reference-receipts/*.json -text
+data/reference-expansion-cases.json -text
