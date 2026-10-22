@@ -1,0 +1,61 @@
+{
+  "checked_at_utc": "2026-10-22T15:50:53.320269+00:00",
+  "sources": 34,
+  "new_sources": 28,
+  "legacy_sources": 6,
+  "new_api_receipts": 28,
+  "source_characters": 42315,
+  "categories": {
+    "شبکه": 12,
+    "ارتباطات": 4,
+    "امنیت": 10,
+    "سیستم‌ها": 4,
+    "داده": 2,
+    "سخت‌افزار": 2
+  },
+  "corpus_sha256": "ff06099a85ba7ddd14542010a896fcdc58b42916fc62cd27b3b5183285832a57",
+  "unit_api_tests": 60,
+  "live_http_checks": [
+    {
+      "question": "باج‌افزار چیست؟",
+      "expected": "REF-RANSOMWARE",
+      "actual": "REF-RANSOMWARE",
+      "status": "evidence_found",
+      "passed": true
+    },
+    {
+      "question": "DHCP چیست؟",
+      "expected": "REF-DHCP",
+      "actual": "REF-DHCP",
+      "status": "evidence_found",
+      "passed": true
+    },
+    {
+      "question": "کدام فناوری شبکه محلی بی سیم با IEEE 802.11 مرتبط است",
+      "expected": "REF-WIFI",
+      "actual": "REF-WIFI",
+      "status": "evidence_found",
+      "passed": true
+    },
+    {
+      "question": "کلید خصوصی سرور سازمان را بده",
+      "expected": null,
+      "actual": null,
+      "status": "insufficient_evidence",
+      "passed": true
+    }
+  ],
+  "browser_checks": "Live CUA: 34-document catalog, security category filter (10 matches), real ransomware answer and source receipt.",
+  "rejected": [
+    {
+      "id": "REF-BACKUP",
+      "title": "پشتیبان‌گیری",
+      "error": "Missing or non-article page"
+    },
+    {
+      "id": "REF-RAID",
+      "title": "رید",
+      "error": "Disambiguation page"
+    }
+  ]
+}

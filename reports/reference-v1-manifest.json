@@ -1,0 +1,73 @@
+{
+  "retrieved_at": "2026-10-14T12:37:55.870010+00:00",
+  "method": "MediaWiki API exintro=1 explainttext=1; unchanged intro extracts, not full articles",
+  "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "sources": [
+    {
+      "id": "REF-DNS",
+      "title": "سامانه نام دامنه",
+      "file": "REF-DNS.txt",
+      "sha256": "e1e2fe8c359e671017d8b6cfb0a70f26999615570622e657e9451c26b62d18c3",
+      "source": "https://fa.wikipedia.org/w/index.php?oldid=44355203",
+      "history": "https://fa.wikipedia.org/w/index.php?curid=210598&action=history",
+      "revision": 44355203,
+      "license": "CC-BY-SA-4.0",
+      "authors": "Persian Wikipedia contributors"
+    },
+    {
+      "id": "REF-VPN",
+      "title": "شبکه خصوصی مجازی",
+      "file": "REF-VPN.txt",
+      "sha256": "a6d88b6eda0fdccabd770f087bc23c5eacfc6f0a9896cd3e9816dfe550e7948d",
+      "source": "https://fa.wikipedia.org/w/index.php?oldid=41687342",
+      "history": "https://fa.wikipedia.org/w/index.php?curid=146485&action=history",
+      "revision": 41687342,
+      "license": "CC-BY-SA-4.0",
+      "authors": "Persian Wikipedia contributors"
+    },
+    {
+      "id": "REF-VOIP",
+      "title": "صدا روی پروتکل اینترنت",
+      "file": "REF-VOIP.txt",
+      "sha256": "dedfd2318c970110da1bc00ef05dfe25585cd1f85489b53bb577ea5db7abe5eb",
+      "source": "https://fa.wikipedia.org/w/index.php?oldid=43430375",
+      "history": "https://fa.wikipedia.org/w/index.php?curid=171958&action=history",
+      "revision": 43430375,
+      "license": "CC-BY-SA-4.0",
+      "authors": "Persian Wikipedia contributors"
+    },
+    {
+      "id": "REF-PHISHING",
+      "title": "فیشینگ",
+      "file": "REF-PHISHING.txt",
+      "sha256": "f6b3a6bb76060185e285af9fc07f064ddb7a94932d36f6425c53b3df224f7878",
+      "source": "https://fa.wikipedia.org/w/index.php?oldid=44453391",
+      "history": "https://fa.wikipedia.org/w/index.php?curid=173710&action=history",
+      "revision": 44453391,
+      "license": "CC-BY-SA-4.0",
+      "authors": "Persian Wikipedia contributors"
+    },
+    {
+      "id": "REF-WIFI",
+      "title": "وای-فای",
+      "file": "REF-WIFI.txt",
+      "sha256": "dafcf0b7cd2e0df70f8d2a6faf8a721375b177e1a431c7c7b837b2743337b4fe",
+      "source": "https://fa.wikipedia.org/w/index.php?oldid=43685155",
+      "history": "https://fa.wikipedia.org/w/index.php?curid=166797&action=history",
+      "revision": 43685155,
+      "license": "CC-BY-SA-4.0",
+      "authors": "Persian Wikipedia contributors"
+    },
+    {
+      "id": "REF-MFA",
+      "title": "اصالت‌سنجی چندعاملی",
+      "file": "REF-MFA.txt",
+      "sha256": "0db7479b26125704a9eb031e3c27deade3ebad73ad5dc0b1367df421a71df3d5",
+      "source": "https://fa.wikipedia.org/w/index.php?oldid=44322175",
+      "history": "https://fa.wikipedia.org/w/index.php?curid=4607422&action=history",
+      "revision": 44322175,
+      "license": "CC-BY-SA-4.0",
+      "authors": "Persian Wikipedia contributors"
+    }
+  ]
+}

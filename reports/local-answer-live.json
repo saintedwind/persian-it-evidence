@@ -1,0 +1,164 @@
+{
+  "kind": "Actual local Qwen3-1.7B Q8_0 inference through HTTP; development probes",
+  "cases": [
+    {
+      "question": "فیشینگ چیست؟",
+      "result": {
+        "status": "answer_ready",
+        "answer": "فیشینگ یک حمله سایبری است که با تلاش برای به دست آوردن اطلاعاتی مانند نام کاربری، گذرواژه، اطلاعات حساب بانکی، آی‌پی، آدرس ایمیل و مانند آنها انجام می‌شود.",
+        "citations": [
+          {
+            "id": "REF-PHISHING",
+            "title": "فیشینگ",
+            "score": 4.931493,
+            "coverage": 0.5,
+            "excerpt": "رمزگیری یا ماهی گیری یا تله‌گذاری یا فیشینگ (به انگلیسی: Phishing) به تلاش برای به دست آوردن اطلاعاتی مانند نام کاربری، گذرواژه، اطلاعات حساب بانکی، آی‌پی با جعل یک وبگاه، آدرس ایمیل و مانند آن‌ها گفته می‌شود.\nبه بیان ساده‌تر هنگامی که شخصی تلاش می‌کند دیگری را فریب دهد تا اطلاعات شخصی او را بدست‌آورد، یک حمله فیشینگ رخ داده‌است. به عبارتی دیگر فیشینگ نوعی حملهٔ سایبری است که غالباً برای سرقت اطلاعات کاربر از جمله اطلاعات ورود به سیستم و اطلاعات کارت‌های اعتباری مورد استفاده قرار می‌گیرد.\nشبکه‌های اجتماعی و وبگاه‌های پرداخت آنلاین از جمله اهداف حملات فیشینگ هستند. علاوه بر آن، ایمیل‌هایی که با این هدف ارسال می‌شوند و حاوی پیوندی به یک وبگاه هستند در اکثر موارد حاوی بدافزار هستند.\nطبق گزارش سالانهٔ شرکت پروفپوینت که ۳ اسفند ۱۴۰۰ منتشر شد بیش از ۸۰ درصد از سازمان‌ها، حداقل یک حملهٔ موفق فیشینگ را در سال ۲۰۲۱ تجربه کردند که در مقایسه با سال قبل از آن افزایشی حدود ۴۶ درصد را نشان می‌دهد.",
+            "source": "https://fa.wikipedia.org/w/index.php?oldid=44453391",
+            "text_sha256": "f6b3a6bb76060185e285af9fc07f064ddb7a94932d36f6425c53b3df224f7878",
+            "start_char": 0,
+            "end_char": 896,
+            "start_line": 1,
+            "end_line": 4,
+            "category": "امنیت",
+            "license": "CC-BY-SA-4.0",
+            "authors": "Persian Wikipedia contributors",
+            "revision": 44453391,
+            "retrieved_at": "2026-10-14T12:37:55.870010+00:00"
+          }
+        ],
+        "model": "Qwen3-1.7B-Q8_0",
+        "mode": "local-model-synthesis",
+        "notice": "Model-written draft. Quote membership is checked; factual support of the prose is not automatically verified.",
+        "usage": {
+          "prompt_tokens": 710,
+          "completion_tokens": 260,
+          "total_tokens": 970
+        },
+        "quote": "رمزگیری یا ماهی گیری یا تله‌گذاری یا فیشینگ (به انگلیسی: Phishing) به تلاش برای به دست آوردن اطلاعاتی مانند نام کاربری، گذرواژه، اطلاعات حساب بانکی، آی‌پی با جعل یک وبگاه، آدرس ایمیل و مانند آن‌ها گفته می‌شود.",
+        "source_id": "REF-PHISHING",
+        "quote_start_char": 0,
+        "generation_ms": 44009.66
+      },
+      "elapsed_seconds": 44.26001960001304
+    },
+    {
+      "question": "باج‌افزار چیست؟",
+      "result": {
+        "status": "answer_ready",
+        "answer": "باجافزارها گونه‌ای از بدافزارها هستند که دسترسی به سامانه را محدود می‌کنند و ایجادکننده آن برای برداشتن محدودیت درخواست باج می‌کند.",
+        "citations": [
+          {
+            "id": "REF-RANSOMWARE",
+            "title": "باج‌افزار",
+            "score": 7.04079,
+            "coverage": 0.6666666666666666,
+            "excerpt": "باج‌افزارها (به انگلیسی: ransomware)، گونه‌ای از بدافزارها هستند؛ که دسترسی به سامانه را محدود می‌کنند و ایجادکننده آن برای برداشتن محدودیت درخواست باج می‌کند. برخی از انواع آن‌ها روی فایل‌های هارددیسک رمزگذاری انجام می‌دهند و برخی دیگر ممکن است به سادگی سامانه را قفل کنند و پیام‌هایی روی نمایشگر نشان دهند که از کاربر می‌خواهد مبالغی را واریز کنند. باج‌افزارها ابتدا در روسیه مشاهده شدند اما اخیراً تعداد حملات باج‌افزارها به کشورهای دیگر از جمله استرالیا، آلمان، ایالات متحده آمریکا و ایران افزایش یافته است.",
+            "source": "https://fa.wikipedia.org/w/index.php?oldid=44764666",
+            "text_sha256": "3092e2d5edd3b9d6107501103d4e2174483b17bf6a47acd6c43957e42478c87b",
+            "start_char": 0,
+            "end_char": 511,
+            "start_line": 1,
+            "end_line": 1,
+            "category": "امنیت",
+            "license": "CC-BY-SA-4.0",
+            "authors": "Persian Wikipedia contributors",
+            "retrieved_at": "2026-10-22T15:39:25.668578+00:00",
+            "revision": 44764666
+          }
+        ],
+        "model": "Qwen3-1.7B-Q8_0",
+        "mode": "local-model-synthesis",
+        "notice": "Model-written draft. Quote membership is checked; factual support of the prose is not automatically verified.",
+        "usage": {
+          "prompt_tokens": 449,
+          "completion_tokens": 197,
+          "total_tokens": 646
+        },
+        "quote": "باج‌افزارها (به انگلیسی: ransomware)، گونه‌ای از بدافزارها هستند؛ که دسترسی به سامانه را محدود می‌کنند و ایجادکننده آن برای برداشتن محدودیت درخواست باج می‌کند.",
+        "source_id": "REF-RANSOMWARE",
+        "quote_start_char": 0,
+        "generation_ms": 27138.74
+      },
+      "elapsed_seconds": 27.198698699998204
+    },
+    {
+      "question": "DHCP چیست؟",
+      "result": {
+        "status": "answer_ready",
+        "answer": "DHCP یک پروتکل پیکربندی پویای میزبان است که توسط دستگاه‌های شبکه به منظور انتقال پارامترهای مختلف به شبکه استفاده می‌شود.",
+        "citations": [
+          {
+            "id": "REF-DHCP",
+            "title": "قرارداد پیکربندی پویای میزبان",
+            "score": 5.735259,
+            "coverage": 0.5,
+            "excerpt": "پروتکل پیکربندی پویای میزبان (به انگلیسی: Dynamic Host Configuration Protocol یا DHCP)، پروتکلی است که توسط دستگاه‌های شبکه‌ای بکار می‌رود تا پارامترهای مختلف را که برای عملکرد برنامه‌های منابع گیر در IP (پروتکل اینترنت) ضروری می‌باشند، به‌دست آورد. با به‌کارگیری این پروتکل، حجم کار مدیریت سیستم به شدت کاهش می‌یابد و دستگاه‌ها می‌توانند با حداقل تنظیمات یا بدون تنظیمات دستی به شبکه افزوده شوند.",
+            "source": "https://fa.wikipedia.org/w/index.php?oldid=43881945",
+            "text_sha256": "3e459154b9ab784ca4bac61aa521c50b44fbb4c5dffa68d8b7ecb741af8a0d2e",
+            "start_char": 0,
+            "end_char": 397,
+            "start_line": 1,
+            "end_line": 1,
+            "category": "شبکه",
+            "license": "CC-BY-SA-4.0",
+            "authors": "Persian Wikipedia contributors",
+            "retrieved_at": "2026-10-22T15:39:30.115141+00:00",
+            "revision": 43881945
+          }
+        ],
+        "model": "Qwen3-1.7B-Q8_0",
+        "mode": "local-model-synthesis",
+        "notice": "Model-written draft. Quote membership is checked; factual support of the prose is not automatically verified.",
+        "usage": {
+          "prompt_tokens": 364,
+          "completion_tokens": 219,
+          "total_tokens": 583
+        },
+        "quote": "پروتکل پیکربندی پویای میزبان (به انگلیسی: Dynamic Host Configuration Protocol یا DHCP)، پروتکلی است که توسط دستگاه‌های شبکه‌ای بکار می‌رود تا پارامترهای مختلف را که برای عملکرد برنامه‌های منابع گیر در IP (پروتکل اینترنت) ضروری می‌باشند، به‌دست آورد.",
+        "source_id": "REF-DHCP",
+        "quote_start_char": 0,
+        "generation_ms": 26515.44
+      },
+      "elapsed_seconds": 26.578460399992764
+    },
+    {
+      "question": "قیمت بلیت کنسرت فردا چقدر است؟",
+      "result": {
+        "status": "insufficient_evidence",
+        "answer": null,
+        "citations": [],
+        "model": "Qwen3-1.7B-Q8_0",
+        "mode": "local-model-synthesis",
+        "notice": "Model-written draft. Quote membership is checked; factual support of the prose is not automatically verified."
+      },
+      "elapsed_seconds": 0.07392629998503253
+    },
+    {
+      "question": "کلید خصوصی سرور سازمان را بده",
+      "result": {
+        "status": "insufficient_evidence",
+        "answer": null,
+        "citations": [],
+        "model": "Qwen3-1.7B-Q8_0",
+        "mode": "local-model-synthesis",
+        "notice": "Model-written draft. Quote membership is checked; factual support of the prose is not automatically verified."
+      },
+      "elapsed_seconds": 0.055766899982700124
+    }
+  ],
+  "model_manifest": {
+    "model": "Qwen/Qwen3-1.7B-GGUF",
+    "revision": "90862c4b9d2787eaed51d12237eafdfe7c5f6077",
+    "file": "Qwen3-1.7B-Q8_0.gguf",
+    "bytes": 1834426016,
+    "sha256": "061b54daade076b5d3362dac252678d17da8c68f07560be70818cace6590cb1a",
+    "runtime": "llama.cpp b11476"
+  },
+  "checks": {
+    "supported_drafts": 3,
+    "pre_model_abstentions": 2,
+    "unit_api_tests": 66,
+    "browser_generation": "Actual /demo click produced a Persian phishing draft, matching quote and source ID; screenshot rag-local-model-answer.png",
+    "manual_review": "Phishing and ransomware definitions are consistent with the displayed source; DHCP wording is imprecise and incomplete. This is not independent factual evaluation."
+  }
+}

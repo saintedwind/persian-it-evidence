@@ -1,0 +1,720 @@
+{
+  "checked_at_utc": "2026-10-22T15:44:55.260317+00:00",
+  "dataset": "public-persian-reference/v2",
+  "corpus_sha256": "ff06099a85ba7ddd14542010a896fcdc58b42916fc62cd27b3b5183285832a57",
+  "documents": 34,
+  "scope": "Authored development source-selection/abstention probes, not blind user testing or factual verification",
+  "cases_sha256": "4aa03ef5fe43ad344771c5a948c52b517971f9a9ff5a47379f6144717b6cb98e",
+  "expansion": {
+    "passed": 17,
+    "total": 18,
+    "cases": [
+      {
+        "id": "v2-01",
+        "question": "دیوار آتش چیست؟",
+        "expected": "REF-FIREWALL",
+        "kind": "definition",
+        "actual": "REF-FIREWALL",
+        "correct": true,
+        "status": "evidence_found",
+        "retrieved": [
+          "REF-FIREWALL"
+        ]
+      },
+      {
+        "id": "v2-02",
+        "question": "باج‌افزار چیست؟",
+        "expected": "REF-RANSOMWARE",
+        "kind": "definition",
+        "actual": "REF-RANSOMWARE",
+        "correct": true,
+        "status": "evidence_found",
+        "retrieved": [
+          "REF-RANSOMWARE",
+          "REF-MALWARE",
+          "REF-ANTIVIRUS"
+        ]
+      },
+      {
+        "id": "v2-03",
+        "question": "رمزنگاری چیست؟",
+        "expected": "REF-ENCRYPTION",
+        "kind": "definition",
+        "actual": "REF-ENCRYPTION",
+        "correct": true,
+        "status": "evidence_found",
+        "retrieved": [
+          "REF-ENCRYPTION",
+          "REF-TLS",
+          "REF-VPN"
+        ]
+      },
+      {
+        "id": "v2-04",
+        "question": "DHCP چیست؟",
+        "expected": "REF-DHCP",
+        "kind": "alias",
+        "actual": "REF-DHCP",
+        "correct": true,
+        "status": "evidence_found",
+        "retrieved": [
+          "REF-DHCP"
+        ]
+      },
+      {
+        "id": "v2-05",
+        "question": "SSH چیست؟",
+        "expected": "REF-SSH",
+        "kind": "alias",
+        "actual": "REF-SSH",
+        "correct": true,
+        "status": "evidence_found",
+        "retrieved": [
+          "REF-SSH"
+        ]
+      },
+      {
+        "id": "v2-06",
+        "question": "SMTP چیست؟",
+        "expected": "REF-SMTP",
+        "kind": "alias",
+        "actual": "REF-SMTP",
+        "correct": true,
+        "status": "evidence_found",
+        "retrieved": [
+          "REF-SMTP"
+        ]
+      },
+      {
+        "id": "v2-07",
+        "question": "کدام نرم افزار برای مقابله با ویروس استفاده می شود؟",
+        "expected": "REF-ANTIVIRUS",
+        "kind": "paraphrase",
+        "actual": "REF-ANTIVIRUS",
+        "correct": true,
+        "status": "evidence_found",
+        "retrieved": [
+          "REF-ANTIVIRUS",
+          "REF-MALWARE",
+          "REF-OS"
+        ]
+      },
+      {
+        "id": "v2-08",
+        "question": "رایانش ابری چه مفهومی دارد؟",
+        "expected": "REF-CLOUD",
+        "kind": "definition",
+        "actual": "REF-CLOUD",
+        "correct": true,
+        "status": "evidence_found",
+        "retrieved": [
+          "REF-CLOUD",
+          "REF-LINUX",
+          "REF-SSH"
+        ]
+      },
+      {
+        "id": "v2-09",
+        "question": "نسخه پشتیبان یا backup چیست؟",
+        "expected": "REF-BACKUP",
+        "kind": "alias",
+        "actual": null,
+        "correct": false,
+        "status": "insufficient_evidence",
+        "retrieved": [
+          "REF-HTTP",
+          "REF-HTTPS",
+          "REF-USB"
+        ]
+      },
+      {
+        "id": "v2-10",
+        "question": "نشانی آی پی چه کاربردی دارد؟",
+        "expected": "REF-IP",
+        "kind": "paraphrase",
+        "actual": "REF-IP",
+        "correct": true,
+        "status": "evidence_found",
+        "retrieved": [
+          "REF-IP",
+          "REF-DNS",
+          "REF-OS"
+        ]
+      },
+      {
+        "id": "v2-11",
+        "question": "پایگاه داده چیست؟",
+        "expected": "REF-DATABASE",
+        "kind": "definition",
+        "actual": "REF-DATABASE",
+        "correct": true,
+        "status": "evidence_found",
+        "retrieved": [
+          "REF-DATABASE",
+          "REF-TLS",
+          "REF-TCP"
+        ]
+      },
+      {
+        "id": "v2-12",
+        "question": "بلوتوث چیست؟",
+        "expected": "REF-BLUETOOTH",
+        "kind": "definition",
+        "actual": "REF-BLUETOOTH",
+        "correct": true,
+        "status": "evidence_found",
+        "retrieved": [
+          "REF-BLUETOOTH",
+          "REF-WIFI"
+        ]
+      },
+      {
+        "id": "v2-13",
+        "question": "قیمت بلیت کنسرت فردا چقدر است؟",
+        "expected": null,
+        "kind": "out_of_scope",
+        "actual": null,
+        "correct": true,
+        "status": "insufficient_evidence",
+        "retrieved": [
+          "REF-SSD"
+        ]
+      },
+      {
+        "id": "v2-14",
+        "question": "هزینه خرید لایسنس فایروال چقدر است؟",
+        "expected": null,
+        "kind": "missing_specifics",
+        "actual": null,
+        "correct": true,
+        "status": "insufficient_evidence",
+        "retrieved": [
+          "REF-FIREWALL",
+          "REF-VOIP",
+          "REF-CLOUD"
+        ]
+      },
+      {
+        "id": "v2-15",
+        "question": "شماره تماس مدیر منابع انسانی شرکت من چیست؟",
+        "expected": null,
+        "kind": "organization_specific",
+        "actual": null,
+        "correct": true,
+        "status": "insufficient_evidence",
+        "retrieved": [
+          "REF-VOIP",
+          "REF-VIRTUALIZATION",
+          "REF-LINUX"
+        ]
+      },
+      {
+        "id": "v2-16",
+        "question": "رمز عبور حساب مدیر شرکت من چیست؟",
+        "expected": null,
+        "kind": "private_information",
+        "actual": null,
+        "correct": true,
+        "status": "insufficient_evidence",
+        "retrieved": [
+          "REF-PASSWORD",
+          "REF-PHISHING",
+          "REF-ENCRYPTION"
+        ]
+      },
+      {
+        "id": "v2-17",
+        "question": "برای درد زانو چه دارویی بخورم؟",
+        "expected": null,
+        "kind": "out_of_scope",
+        "actual": null,
+        "correct": true,
+        "status": "insufficient_evidence",
+        "retrieved": []
+      },
+      {
+        "id": "v2-18",
+        "question": "تنظیمات دستگاه ZXQ999 چیست؟",
+        "expected": null,
+        "kind": "unknown_identifier",
+        "actual": null,
+        "correct": true,
+        "status": "insufficient_evidence",
+        "retrieved": []
+      }
+    ]
+  },
+  "legacy": {
+    "passed": 32,
+    "total": 36,
+    "cases": [
+      {
+        "id": "legacy-1",
+        "question": "نام وب سایت چگونه به آدرس عددی تبدیل می شود",
+        "expected": "REF-DNS",
+        "actual": "REF-DNS",
+        "correct": true,
+        "status": "evidence_found",
+        "retrieved": [
+          "REF-DNS",
+          "REF-IP",
+          "REF-ETHERNET"
+        ]
+      },
+      {
+        "id": "legacy-2",
+        "question": "سامانه نام دامنه چه کاری می کند",
+        "expected": "REF-DNS",
+        "actual": "REF-DNS",
+        "correct": true,
+        "status": "evidence_found",
+        "retrieved": [
+          "REF-DNS",
+          "REF-PASSWORD",
+          "REF-SMTP"
+        ]
+      },
+      {
+        "id": "legacy-3",
+        "question": "چرا به جای حفظ آی پی از نام دامنه استفاده می کنیم",
+        "expected": "REF-DNS",
+        "actual": "REF-DNS",
+        "correct": true,
+        "status": "evidence_found",
+        "retrieved": [
+          "REF-DNS",
+          "REF-IP",
+          "REF-TLS"
+        ]
+      },
+      {
+        "id": "legacy-4",
+        "question": "ترجمه نام قابل خواندن انسان به نشانی ماشین با چیست",
+        "expected": "REF-DNS",
+        "actual": "REF-DNS",
+        "correct": true,
+        "status": "evidence_found",
+        "retrieved": [
+          "REF-DNS",
+          "REF-IP",
+          "REF-SPAM"
+        ]
+      },
+      {
+        "id": "legacy-5",
+        "question": "دی ان اس چه نوع فضای نامی دارد",
+        "expected": "REF-DNS",
+        "actual": "REF-DNS",
+        "correct": true,
+        "status": "evidence_found",
+        "retrieved": [
+          "REF-DNS",
+          "REF-SSD",
+          "REF-SSH"
+        ]
+      },
+      {
+        "id": "legacy-6",
+        "question": "شبکه خصوصی مجازی چگونه روی اینترنت ارتباط اختصاصی ایجاد می کند",
+        "expected": "REF-VPN",
+        "actual": "REF-VPN",
+        "correct": true,
+        "status": "evidence_found",
+        "retrieved": [
+          "REF-VPN",
+          "REF-TLS",
+          "REF-HTTPS"
+        ]
+      },
+      {
+        "id": "legacy-7",
+        "question": "VPN مخفف چه عبارتی است",
+        "expected": "REF-VPN",
+        "actual": "REF-VPN",
+        "correct": true,
+        "status": "evidence_found",
+        "retrieved": [
+          "REF-VPN",
+          "REF-PHISHING",
+          "REF-SSD"
+        ]
+      },
+      {
+        "id": "legacy-8",
+        "question": "برای اتصال شعب شرکت روی شبکه عمومی چه فناوری به کار می رود",
+        "expected": "REF-VPN",
+        "actual": "REF-USB",
+        "correct": false,
+        "status": "evidence_found",
+        "retrieved": [
+          "REF-USB",
+          "REF-ETHERNET",
+          "REF-LAN"
+        ]
+      },
+      {
+        "id": "legacy-9",
+        "question": "در وی پی ان رمزنگاری و احراز هویت چه نقشی دارد",
+        "expected": "REF-VPN",
+        "actual": "REF-VPN",
+        "correct": true,
+        "status": "evidence_found",
+        "retrieved": [
+          "REF-VPN",
+          "REF-MFA",
+          "REF-DNS"
+        ]
+      },
+      {
+        "id": "legacy-10",
+        "question": "شبکه خم به چه شبکه ای گفته می شود",
+        "expected": "REF-VPN",
+        "actual": "REF-VPN",
+        "correct": true,
+        "status": "evidence_found",
+        "retrieved": [
+          "REF-VPN",
+          "REF-LAN",
+          "REF-DATABASE"
+        ]
+      },
+      {
+        "id": "legacy-11",
+        "question": "انتقال صدای تلفن روی اینترنت چه نام دارد",
+        "expected": "REF-VOIP",
+        "actual": "REF-VOIP",
+        "correct": true,
+        "status": "evidence_found",
+        "retrieved": [
+          "REF-VOIP",
+          "REF-LINUX",
+          "REF-TCP"
+        ]
+      },
+      {
+        "id": "legacy-12",
+        "question": "VoIP مخفف چیست",
+        "expected": "REF-VOIP",
+        "actual": "REF-VOIP",
+        "correct": true,
+        "status": "evidence_found",
+        "retrieved": [
+          "REF-VOIP",
+          "REF-VPN"
+        ]
+      },
+      {
+        "id": "legacy-13",
+        "question": "تلفن پهن باند و تلفن آی پی نام چه فناوری هستند",
+        "expected": "REF-VOIP",
+        "actual": "REF-VOIP",
+        "correct": true,
+        "status": "evidence_found",
+        "retrieved": [
+          "REF-VOIP",
+          "REF-DNS",
+          "REF-IP"
+        ]
+      },
+      {
+        "id": "legacy-14",
+        "question": "علایم تلفنی چگونه روی شبکه IP حمل می شوند",
+        "expected": "REF-VOIP",
+        "actual": "REF-VOIP",
+        "correct": true,
+        "status": "evidence_found",
+        "retrieved": [
+          "REF-VOIP",
+          "REF-TCP",
+          "REF-IP"
+        ]
+      },
+      {
+        "id": "legacy-15",
+        "question": "تلفن اینترنتی برای انتقال صدا از چه شبکه ای استفاده می کند",
+        "expected": "REF-VOIP",
+        "actual": "REF-VOIP",
+        "correct": true,
+        "status": "evidence_found",
+        "retrieved": [
+          "REF-VOIP",
+          "REF-TCP",
+          "REF-TLS"
+        ]
+      },
+      {
+        "id": "legacy-16",
+        "question": "جعل صفحه ورود برای دزدیدن گذرواژه چه نام دارد",
+        "expected": "REF-PHISHING",
+        "actual": "REF-PHISHING",
+        "correct": true,
+        "status": "evidence_found",
+        "retrieved": [
+          "REF-PHISHING",
+          "REF-PASSWORD",
+          "REF-HTTPS"
+        ]
+      },
+      {
+        "id": "legacy-17",
+        "question": "فیشینگ چیست",
+        "expected": "REF-PHISHING",
+        "actual": "REF-PHISHING",
+        "correct": true,
+        "status": "evidence_found",
+        "retrieved": [
+          "REF-PHISHING",
+          "REF-ANTIVIRUS",
+          "REF-SPAM"
+        ]
+      },
+      {
+        "id": "legacy-18",
+        "question": "رمزگیری برای سرقت چه نوع اطلاعاتی انجام می شود",
+        "expected": "REF-PHISHING",
+        "actual": "REF-PHISHING",
+        "correct": true,
+        "status": "evidence_found",
+        "retrieved": [
+          "REF-PHISHING",
+          "REF-SOCIAL",
+          "REF-TLS"
+        ]
+      },
+      {
+        "id": "legacy-19",
+        "question": "تله گذاری با وبگاه و ایمیل جعلی چه حمله ای است",
+        "expected": "REF-PHISHING",
+        "actual": "REF-PHISHING",
+        "correct": true,
+        "status": "evidence_found",
+        "retrieved": [
+          "REF-PHISHING",
+          "REF-DNS",
+          "REF-SPAM"
+        ]
+      },
+      {
+        "id": "legacy-20",
+        "question": "فریب کاربر برای گرفتن اطلاعات کارت اعتباری چه حمله ای است",
+        "expected": "REF-PHISHING",
+        "actual": "REF-PHISHING",
+        "correct": true,
+        "status": "evidence_found",
+        "retrieved": [
+          "REF-PHISHING",
+          "REF-SOCIAL",
+          "REF-PASSWORD"
+        ]
+      },
+      {
+        "id": "legacy-21",
+        "question": "وای فای برای اتصال بی سیم به اینترنت چیست",
+        "expected": "REF-WIFI",
+        "actual": "REF-WIFI",
+        "correct": true,
+        "status": "evidence_found",
+        "retrieved": [
+          "REF-WIFI",
+          "REF-ETHERNET",
+          "REF-BLUETOOTH"
+        ]
+      },
+      {
+        "id": "legacy-22",
+        "question": "علامت Wi-Fi را کدام اتحادیه ثبت کرده",
+        "expected": "REF-WIFI",
+        "actual": "REF-WIFI",
+        "correct": true,
+        "status": "evidence_found",
+        "retrieved": [
+          "REF-WIFI",
+          "REF-LAN",
+          "REF-SSD"
+        ]
+      },
+      {
+        "id": "legacy-23",
+        "question": "کدام فناوری شبکه محلی بی سیم با IEEE 802.11 مرتبط است",
+        "expected": "REF-WIFI",
+        "actual": "REF-ETHERNET",
+        "correct": false,
+        "status": "evidence_found",
+        "retrieved": [
+          "REF-ETHERNET",
+          "REF-WIFI",
+          "REF-BLUETOOTH"
+        ]
+      },
+      {
+        "id": "legacy-24",
+        "question": "در هتل چگونه با رایانه همراه بی سیم به اینترنت وصل می شوند",
+        "expected": "REF-WIFI",
+        "actual": "REF-WIFI",
+        "correct": true,
+        "status": "evidence_found",
+        "retrieved": [
+          "REF-WIFI",
+          "REF-BLUETOOTH",
+          "REF-IP"
+        ]
+      },
+      {
+        "id": "legacy-25",
+        "question": "شبکه وای فای با بلوتوث چه تفاوتی در قدرت ارتباط دارد",
+        "expected": "REF-WIFI",
+        "actual": "REF-WIFI",
+        "correct": true,
+        "status": "evidence_found",
+        "retrieved": [
+          "REF-WIFI",
+          "REF-BLUETOOTH",
+          "REF-LAN"
+        ]
+      },
+      {
+        "id": "legacy-26",
+        "question": "احراز هویت با دو عامل متمایز چیست",
+        "expected": "REF-MFA",
+        "actual": "REF-MFA",
+        "correct": true,
+        "status": "evidence_found",
+        "retrieved": [
+          "REF-MFA",
+          "REF-VPN",
+          "REF-SSH"
+        ]
+      },
+      {
+        "id": "legacy-27",
+        "question": "MFA مخفف چه عبارتی است",
+        "expected": "REF-MFA",
+        "actual": null,
+        "correct": false,
+        "status": "insufficient_evidence",
+        "retrieved": [
+          "REF-MFA",
+          "REF-VPN",
+          "REF-PHISHING"
+        ]
+      },
+      {
+        "id": "legacy-28",
+        "question": "دانش و مالکیت در اصالت سنجی چندعاملی چه معنایی دارند",
+        "expected": "REF-MFA",
+        "actual": "REF-MFA",
+        "correct": true,
+        "status": "evidence_found",
+        "retrieved": [
+          "REF-MFA",
+          "REF-HTTPS",
+          "REF-PASSWORD"
+        ]
+      },
+      {
+        "id": "legacy-29",
+        "question": "چیزی که کاربر می داند و چیزی که دارد چه عوامل احراز هویت هستند",
+        "expected": "REF-MFA",
+        "actual": "REF-MFA",
+        "correct": true,
+        "status": "evidence_found",
+        "retrieved": [
+          "REF-MFA",
+          "REF-VPN",
+          "REF-HTTPS"
+        ]
+      },
+      {
+        "id": "legacy-30",
+        "question": "برای موفقیت احراز هویت چندعاملی چند عامل لازم است",
+        "expected": "REF-MFA",
+        "actual": "REF-MFA",
+        "correct": true,
+        "status": "evidence_found",
+        "retrieved": [
+          "REF-MFA",
+          "REF-VPN",
+          "REF-ROUTER"
+        ]
+      },
+      {
+        "id": "legacy-31",
+        "question": "قیمت اشتراک سالانه VPN شرکت ما چقدر است",
+        "expected": null,
+        "actual": null,
+        "correct": true,
+        "status": "insufficient_evidence",
+        "retrieved": [
+          "REF-VPN",
+          "REF-VIRTUALIZATION",
+          "REF-PHISHING"
+        ]
+      },
+      {
+        "id": "legacy-32",
+        "question": "رمز وای فای اداره ما را نمایش بده",
+        "expected": null,
+        "actual": null,
+        "correct": true,
+        "status": "insufficient_evidence",
+        "retrieved": [
+          "REF-WIFI",
+          "REF-LAN",
+          "REF-ETHERNET"
+        ]
+      },
+      {
+        "id": "legacy-33",
+        "question": "مدیر شبکه امروز چه ساعتی می آید",
+        "expected": null,
+        "actual": null,
+        "correct": true,
+        "status": "insufficient_evidence",
+        "retrieved": [
+          "REF-VPN",
+          "REF-ROUTER",
+          "REF-LAN"
+        ]
+      },
+      {
+        "id": "legacy-34",
+        "question": "پیش بینی بارندگی فردا چیست",
+        "expected": null,
+        "actual": null,
+        "correct": true,
+        "status": "insufficient_evidence",
+        "retrieved": [
+          "REF-TCP",
+          "REF-SOCIAL",
+          "REF-HTTP"
+        ]
+      },
+      {
+        "id": "legacy-35",
+        "question": "نرخ حقوق کارمندان شرکت چیست",
+        "expected": null,
+        "actual": null,
+        "correct": true,
+        "status": "insufficient_evidence",
+        "retrieved": [
+          "REF-USB",
+          "REF-LAN",
+          "REF-VIRTUALIZATION"
+        ]
+      },
+      {
+        "id": "legacy-36",
+        "question": "کلید خصوصی سرور سازمان را بده",
+        "expected": null,
+        "actual": "REF-TLS",
+        "correct": false,
+        "status": "evidence_found",
+        "retrieved": [
+          "REF-TLS",
+          "REF-HTTPS",
+          "REF-VPN"
+        ]
+      }
+    ]
+  }
+}

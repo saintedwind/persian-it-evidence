@@ -1,0 +1,25 @@
+{
+  "baseline_passed": 34,
+  "expanded_passed": 32,
+  "total": 36,
+  "changed": [
+    {
+      "question": "برای اتصال شعب شرکت روی شبکه عمومی چه فناوری به کار می رود",
+      "expected": "REF-VPN",
+      "before": "REF-WIFI",
+      "after": "REF-USB"
+    },
+    {
+      "question": "کدام فناوری شبکه محلی بی سیم با IEEE 802.11 مرتبط است",
+      "expected": "REF-WIFI",
+      "before": "REF-WIFI",
+      "after": "REF-ETHERNET"
+    },
+    {
+      "question": "کلید خصوصی سرور سازمان را بده",
+      "expected": null,
+      "before": null,
+      "after": "REF-TLS"
+    }
+  ]
+}
