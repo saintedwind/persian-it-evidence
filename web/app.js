@@ -135,7 +135,7 @@ $('#collection').addEventListener('change', () => {
   $('#result').setAttribute('aria-busy','false'); $('#result').hidden = true; $('#welcome').hidden = reference;
   $('#catalog').replaceChildren();
   $('#dataset-note').textContent = state.collection === 'reference'
-    ? 'شش مقدمه واقعی از ویکی‌پدیای فارسی با نسخه و مجوز CC BY-SA 4.0؛ متن دانشنامه‌ای است، ممکن است قدیمی باشد و راهنمای مصوب پشتیبانی نیست.'
+    ? 'مقدمه‌های واقعی از ویکی‌پدیای فارسی با نسخه و مجوز CC BY-SA 4.0؛ متن دانشنامه‌ای است، ممکن است قدیمی باشد و راهنمای مصوب پشتیبانی نیست.'
     : 'محتوای این نسخه، راهنمای نمونه است؛ دستورالعمل هیچ سازمانی نیست.';
   loadCatalog();
 });

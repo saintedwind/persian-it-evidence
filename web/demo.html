@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>میز شواهد — دموی دفتر پشتیبانی</title><link rel="stylesheet" href="/demo.css"></head>
+<body>
+<a class="skip" href="#question">رفتن به پرسش</a>
+<div class="workspace">
+<aside class="rail">
+ <a class="brand" href="/"><span class="brand-icon">د</span><span>دفتر پشتیبانی<small>میز شواهد / نسخه نمایشی</small></span></a>
+ <div class="rail-caption">فضای کار</div>
+ <div class="active-nav"><span>◈</span> پرسش از منابع <span class="live-dot"></span></div>
+ <label class="rail-caption" for="collection">مجموعه اسناد</label>
+ <select id="collection"><option value="reference">منابع واقعی فارسی</option><option value="sample">راهنماهای نمونه پشتیبانی</option></select>
+ <p id="collection-note" class="muted">متن‌های واقعی با نسخه مشخص و پیوند منبع؛ بدون دسترسی به اطلاعات سازمانی.</p>
+ <div class="catalog-head"><span>اسناد قابل بررسی</span><span id="count">—</span></div>
+ <label class="catalog-filter-label" for="catalog-filter">جست‌وجو در فهرست اسناد</label><input id="catalog-filter" type="search" placeholder="عنوان یا موضوع سند…" autocomplete="off">
+ <div id="catalog" class="catalog" aria-live="polite">در حال دریافت فهرست…</div>
+ <button id="retry" class="quiet" hidden>دریافت دوباره فهرست</button>
+ <div class="rail-foot"><span class="live-dot"></span> اجرا روی همین دستگاه<p>پرسش‌ها ذخیره نمی‌شوند.</p><a href="/">بازگشت به دفتر راهنما ←</a></div>
+</aside>
+<main>
+ <header class="topbar"><span>دفتر / میز شواهد</span><span class="connection" id="connection">در حال اتصال</span></header>
+ <section class="intro"><div class="eyebrow">از پرسش تا منبع قابل بررسی</div><h1>پاسخ را همراه با سند ببینید.</h1><p>پرسشی بنویسید؛ متن مرتبط را پیدا کنید و پیش از استفاده، اصل منبع را بخوانید.</p></section>
+ <section class="query-card" aria-label="پرسش از اسناد">
+ <form id="ask"><label for="question">چه چیزی را می‌خواهید بدانید؟</label><textarea id="question" rows="2" maxlength="2000" placeholder="مثلاً: فیشینگ چیست؟" required></textarea><div class="query-bottom"><span>فقط در مجموعه انتخاب‌شده جست‌وجو می‌شود.</span><button id="submit" type="submit">پیدا کردن شواهد <span>←</span></button></div></form>
+ <div class="examples"><span>امتحان کنید</span><button type="button" data-query="فیشینگ چیست؟">فیشینگ چیست؟</button><button type="button" data-query="سامانه نام دامنه چیست؟">سامانه نام دامنه</button><button type="button" data-query="احراز هویت چندعاملی چیست؟">احراز هویت چندعاملی</button></div>
+ </section>
+ <div class="process" aria-label="مسیر پردازش"><div class="process-node" id="step-query"><b>۰۱</b><span>پرسش شما<small>ورودی فارسی</small></span></div><i>←</i><div class="process-node" id="step-search"><b>۰۲</b><span>بازیابی اسناد<small>مجموعه عمومی</small></span></div><i>←</i><div class="process-node" id="step-evidence"><b>۰۳</b><span>بررسی شواهد<small>پذیرش یا خودداری</small></span></div><i>←</i><div class="process-node" id="step-source"><b>۰۴</b><span>متن و استناد<small>قابل تطبیق با منبع</small></span></div></div>
+ <div id="notice" role="status" aria-live="polite"></div>
+ <section class="answer-card model-panel" id="model-panel" hidden aria-live="polite"><div class="answer-head"><span>پاسخ مدل محلی · پیش‌نویس نیازمند بررسی</span><button class="quiet" id="generate" type="button">ساخت پاسخ مستند</button></div><p id="model-status">پس از بازیابی منبع، می‌توانید پاسخ کوتاه مدل را دریافت کنید.</p><p id="model-answer"></p><blockquote id="model-quote" hidden></blockquote><p id="model-meta" class="score-note"></p></section>
+ <section id="empty" class="welcome"><div class="paper-mark">⌕</div><h2>هر پاسخ، یک مسیر بازگشت به سند.</h2><p>از پرسش‌های بالا شروع کنید یا یک سند را از فهرست باز کنید.<br>این دمو واقعاً به موتور بازیابی پروژه متصل است؛ پاسخ آماده نمایش نمی‌دهد.</p><div class="welcome-tags"><span>منبع نسخه‌دار</span><span>متن بدون بازنویسی</span><span>خودداری در نبود شواهد</span></div></section>
+ <section id="results" hidden aria-busy="false" tabindex="-1">
+ <div class="result-heading"><h2 id="result-title">نتیجه بررسی</h2><span id="elapsed" class="pill"></span></div>
+ <div class="result-grid"><article class="answer-card"><div class="answer-head"><span id="answer-label">متن بازیابی‌شده</span><button id="copy" type="button" class="quiet">کپی متن و استناد</button></div><h3 id="answer-title"></h3><p id="answer"></p><div id="answer-note" class="answer-note"></div></article>
+ <aside class="sources-card"><div class="sources-head"><h3>شواهد بازیابی</h3><span id="hit-count"></span></div><div id="hits"></div><p class="score-note">امتیاز بازیابی، احتمال درست‌بودن پاسخ نیست.</p></aside></div>
+ <details class="receipt"><summary>رسید منبع و جزئیات اجرا</summary><dl id="receipt"></dl></details>
+ </section>
+ <footer class="footer"><span>پیمان غلامحسینی · Persian IT Evidence</span><span>متن اصلی منبع و پیش‌نویس اختیاری مدل، جداگانه نمایش داده می‌شوند.</span></footer>
+</main></div>
+<dialog id="source-dialog"><div class="dialog-head"><h2 id="source-title">سند</h2><button id="close-source" class="quiet" type="button">بستن ×</button></div><p id="source-text"></p><div id="source-meta"></div></dialog>
+<script src="/demo.js" defer></script>
+</body></html>
