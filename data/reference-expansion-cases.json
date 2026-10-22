@@ -1,0 +1,23 @@
+{
+ "purpose":"Development checks declared before retrieval on expanded corpus; authored functional probes, not an independent user benchmark",
+ "cases":[
+  {"id":"v2-01","question":"دیوار آتش چیست؟","expected":"REF-FIREWALL","kind":"definition"},
+  {"id":"v2-02","question":"باج‌افزار چیست؟","expected":"REF-RANSOMWARE","kind":"definition"},
+  {"id":"v2-03","question":"رمزنگاری چیست؟","expected":"REF-ENCRYPTION","kind":"definition"},
+  {"id":"v2-04","question":"DHCP چیست؟","expected":"REF-DHCP","kind":"alias"},
+  {"id":"v2-05","question":"SSH چیست؟","expected":"REF-SSH","kind":"alias"},
+  {"id":"v2-06","question":"SMTP چیست؟","expected":"REF-SMTP","kind":"alias"},
+  {"id":"v2-07","question":"کدام نرم افزار برای مقابله با ویروس استفاده می شود؟","expected":"REF-ANTIVIRUS","kind":"paraphrase"},
+  {"id":"v2-08","question":"رایانش ابری چه مفهومی دارد؟","expected":"REF-CLOUD","kind":"definition"},
+  {"id":"v2-09","question":"نسخه پشتیبان یا backup چیست؟","expected":"REF-BACKUP","kind":"alias"},
+  {"id":"v2-10","question":"نشانی آی پی چه کاربردی دارد؟","expected":"REF-IP","kind":"paraphrase"},
+  {"id":"v2-11","question":"پایگاه داده چیست؟","expected":"REF-DATABASE","kind":"definition"},
+  {"id":"v2-12","question":"بلوتوث چیست؟","expected":"REF-BLUETOOTH","kind":"definition"},
+  {"id":"v2-13","question":"قیمت بلیت کنسرت فردا چقدر است؟","expected":null,"kind":"out_of_scope"},
+  {"id":"v2-14","question":"هزینه خرید لایسنس فایروال چقدر است؟","expected":null,"kind":"missing_specifics"},
+  {"id":"v2-15","question":"شماره تماس مدیر منابع انسانی شرکت من چیست؟","expected":null,"kind":"organization_specific"},
+  {"id":"v2-16","question":"رمز عبور حساب مدیر شرکت من چیست؟","expected":null,"kind":"private_information"},
+  {"id":"v2-17","question":"برای درد زانو چه دارویی بخورم؟","expected":null,"kind":"out_of_scope"},
+  {"id":"v2-18","question":"تنظیمات دستگاه ZXQ999 چیست؟","expected":null,"kind":"unknown_identifier"}
+ ]
+}
