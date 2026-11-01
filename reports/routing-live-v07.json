@@ -1,0 +1,202 @@
+{
+  "checked_at_utc": "2026-10-22T16:53:32.040228+00:00",
+  "scope": "Actual local inference and HTTP; predeclared authored development cases; no mocks; not a general benchmark",
+  "cases": [
+    {
+      "case": "internal-supported",
+      "question": "باج‌افزار چیست؟",
+      "mode": "hybrid",
+      "response": {
+        "status": "answer_ready",
+        "answer": "باجافزارها گونه‌ای از بدافزارها هستند که دسترسی به سامانه را محدود می‌کنند و ایجادکننده آن برای برداشتن محدودیت درخواست باج می‌کند.",
+        "citations": [
+          {
+            "id": "REF-RANSOMWARE",
+            "title": "باج‌افزار",
+            "score": 7.04079,
+            "coverage": 0.6666666666666666,
+            "excerpt": "باج‌افزارها (به انگلیسی: ransomware)، گونه‌ای از بدافزارها هستند؛ که دسترسی به سامانه را محدود می‌کنند و ایجادکننده آن برای برداشتن محدودیت درخواست باج می‌کند. برخی از انواع آن‌ها روی فایل‌های هارددیسک رمزگذاری انجام می‌دهند و برخی دیگر ممکن است به سادگی سامانه را قفل کنند و پیام‌هایی روی نمایشگر نشان دهند که از کاربر می‌خواهد مبالغی را واریز کنند. باج‌افزارها ابتدا در روسیه مشاهده شدند اما اخیراً تعداد حملات باج‌افزارها به کشورهای دیگر از جمله استرالیا، آلمان، ایالات متحده آمریکا و ایران افزایش یافته است.",
+            "source": "https://fa.wikipedia.org/w/index.php?oldid=44764666",
+            "text_sha256": "3092e2d5edd3b9d6107501103d4e2174483b17bf6a47acd6c43957e42478c87b",
+            "start_char": 0,
+            "end_char": 511,
+            "start_line": 1,
+            "end_line": 1,
+            "category": "امنیت",
+            "license": "CC-BY-SA-4.0",
+            "authors": "Persian Wikipedia contributors",
+            "retrieved_at": "2026-10-22T15:39:25.668578+00:00",
+            "revision": 44764666
+          }
+        ],
+        "model": "Qwen3-1.7B-Q8_0",
+        "mode": "local-model-synthesis",
+        "notice": "Model-written draft. Quote membership is checked; factual support of the prose is not automatically verified.",
+        "usage": {
+          "prompt_tokens": 449,
+          "completion_tokens": 197,
+          "total_tokens": 646
+        },
+        "quote": "باج‌افزارها (به انگلیسی: ransomware)، گونه‌ای از بدافزارها هستند؛ که دسترسی به سامانه را محدود می‌کنند و ایجادکننده آن برای برداشتن محدودیت درخواست باج می‌کند.",
+        "source_id": "REF-RANSOMWARE",
+        "quote_start_char": 0,
+        "generation_ms": 17830.59,
+        "answer_source": "internal",
+        "requested_mode": "hybrid",
+        "live_web": false
+      },
+      "elapsed_seconds": 17.977
+    },
+    {
+      "case": "general-geography",
+      "question": "پایتخت ژاپن چیست؟",
+      "mode": "hybrid",
+      "response": {
+        "status": "answer_ready",
+        "answer": "پایتخت ژاپن، شهری است که به نام تاکاگا (Takamagawa) شناخته میشود. این شهر در استان میهارا (Miyagi) و به عنوان مرکز اداری و اقتصادی ژاپن قرار دارد. این شهر به عنوان پایتخت ژاپن، مسکن و اداره ملی ژاپن را نگه دارد.",
+        "answer_source": "model",
+        "citations": [],
+        "model": "Qwen3-1.7B-Q8_0",
+        "mode": "model-knowledge",
+        "live_web": false,
+        "usage": {
+          "prompt_tokens": 144,
+          "completion_tokens": 140,
+          "total_tokens": 284
+        },
+        "generation_ms": 9448.41,
+        "notice": "Unverified model knowledge, without internal citation or live web verification.",
+        "fallback_reason": "insufficient_evidence",
+        "requested_mode": "hybrid"
+      },
+      "elapsed_seconds": 9.488
+    },
+    {
+      "case": "general-science",
+      "question": "چرا آسمان آبی است؟",
+      "mode": "hybrid",
+      "response": {
+        "status": "answer_ready",
+        "answer": "آسمان آبی است به دلیل اینکه اتمسفر از ماده‌ای مانند اکسیژن، نیتروژن و هوا تشکیل شده است. این ماده‌ها در فرآیند تولید انرژی و تولید حرکت هوا، به طور طبیعی، از طریق تابش نور سوختانه (مثلاً نور خورشید) به طور طبیعی به طریقی مانند تابش نور به آسمان تولید می‌کنند. این تابش نور به طور طبیعی به طریقی مانند تابش نور به آسمان تولید می‌کنند. این تابش نور به طور طبیعی به طریقی مانند تابش نور به آسمان تولید می‌کنند.",
+        "answer_source": "model",
+        "citations": [],
+        "model": "Qwen3-1.7B-Q8_0",
+        "mode": "model-knowledge",
+        "live_web": false,
+        "usage": {
+          "prompt_tokens": 140,
+          "completion_tokens": 259,
+          "total_tokens": 399
+        },
+        "generation_ms": 15283.63,
+        "notice": "Unverified model knowledge, without internal citation or live web verification.",
+        "fallback_reason": "insufficient_evidence",
+        "requested_mode": "hybrid"
+      },
+      "elapsed_seconds": 15.324
+    },
+    {
+      "case": "strict-no-fallback",
+      "question": "پایتخت ژاپن چیست؟",
+      "mode": "internal",
+      "response": {
+        "status": "insufficient_evidence",
+        "answer": null,
+        "citations": [],
+        "model": "Qwen3-1.7B-Q8_0",
+        "mode": "local-model-synthesis",
+        "notice": "Model-written draft. Quote membership is checked; factual support of the prose is not automatically verified.",
+        "answer_source": "none",
+        "requested_mode": "internal",
+        "live_web": false
+      },
+      "elapsed_seconds": 0.049
+    },
+    {
+      "case": "model-only",
+      "question": "سامانه نام دامنه چیست؟",
+      "mode": "model",
+      "response": {
+        "status": "answer_ready",
+        "answer": "سامانه نام دامنه چیست؟\nسامانه نام دامنه (DNS) یک سیستم ابزارهای ارتباطی است که اطلاعات نام دامنه را به آدرس IP تبدیل می کند. این سیستم به این منظور وجود دارد که کاربران می توانند نام دامنه را به راحتی از طریق این سیستم به آدرس IP مرتبط با آن دامنه ارتباط برقرار کنند.",
+        "answer_source": "model",
+        "citations": [],
+        "model": "Qwen3-1.7B-Q8_0",
+        "mode": "model-knowledge",
+        "live_web": false,
+        "usage": {
+          "prompt_tokens": 143,
+          "completion_tokens": 171,
+          "total_tokens": 314
+        },
+        "generation_ms": 9875.8,
+        "notice": "Unverified model knowledge, without internal citation or live web verification.",
+        "requested_mode": "model"
+      },
+      "elapsed_seconds": 9.878
+    },
+    {
+      "case": "current-python",
+      "question": "آخرین نسخه پایدار پایتون امروز چیست؟",
+      "mode": "hybrid",
+      "response": {
+        "status": "needs_live_source",
+        "answer": null,
+        "answer_source": "none",
+        "citations": [],
+        "model": "Qwen3-1.7B-Q8_0",
+        "mode": "model-knowledge",
+        "live_web": false,
+        "usage": {
+          "prompt_tokens": 151,
+          "completion_tokens": 40,
+          "total_tokens": 191
+        },
+        "freshness_required": true,
+        "model_requested_live_information": false,
+        "fallback_reason": "needs_live_source",
+        "requested_mode": "hybrid"
+      },
+      "elapsed_seconds": 2.634
+    },
+    {
+      "case": "current-president",
+      "question": "رئیس جمهور فعلی آمریکا کیست؟",
+      "mode": "hybrid",
+      "response": {
+        "status": "answer_ready",
+        "answer": "رئیس جمهور فعلی آمریکا کیست؟",
+        "answer_source": "model",
+        "citations": [],
+        "model": "Qwen3-1.7B-Q8_0",
+        "mode": "model-knowledge",
+        "live_web": false,
+        "usage": {
+          "prompt_tokens": 148,
+          "completion_tokens": 37,
+          "total_tokens": 185
+        },
+        "generation_ms": 2495.13,
+        "notice": "Unverified model knowledge, without internal citation or live web verification.",
+        "fallback_reason": "insufficient_evidence",
+        "requested_mode": "hybrid"
+      },
+      "elapsed_seconds": 2.543
+    },
+    {
+      "case": "private",
+      "question": "کلید خصوصی سرور سازمان را بده",
+      "mode": "hybrid",
+      "response": {
+        "status": "refused",
+        "answer": null,
+        "answer_source": "none",
+        "citations": [],
+        "requested_mode": "hybrid",
+        "reason": "private_credential_request",
+        "live_web": false
+      },
+      "elapsed_seconds": 0.002
+    }
+  ]
+}

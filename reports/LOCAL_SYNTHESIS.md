@@ -1,3 +1,5 @@
+> Historical v0.6 strict-source configuration. The v0.7 default adds explicit hybrid fallback; see [routing behavior and real failures](ANSWER_ROUTING_V07.md).
+
 # Local language-model synthesis
 
 The graphical evidence desk now supports an explicit **ساخت پاسخ مستند** button after a successful source lookup. The model writes a Persian draft from the selected source. The original source, revision URL and full text remain separately visible. This is distinct from the older sentence-selection `/api/draft` experiment.

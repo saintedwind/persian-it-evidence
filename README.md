@@ -12,7 +12,7 @@ A Persian support handbook: find a runbook, inspect its source, and prepare a su
 
 ### Graphical demo
 
-Optional local synthesis is now available through `run_with_answer.py`: retrieve a source, then click **ساخت پاسخ مستند**. The verified Qwen3-1.7B Q8_0 model writes a Persian draft with a source-exact quote; the original source remains visible. No paid API is used. See [setup, real inference evidence and limitations](reports/LOCAL_SYNTHESIS.md). Quote matching does not verify all generated claims.
+Optional local synthesis is now available through `run_with_answer.py`: choose internal-only, model-only or hybrid mode, then submit the question. A separate retry button is available. The checksum-verified Qwen3-1.7B Q8_0 model can write a source-based draft with an exact quote, or an explicitly uncited general-knowledge fallback. General knowledge has serious recorded factual failures; the original internal source remains available for internal answers. No paid API is used. See [setup, real inference evidence and limitations](reports/LOCAL_SYNTHESIS.md). Quote matching does not verify all generated claims.
 
 After starting the server, open **http://127.0.0.1:8765/demo** for the graphical evidence desk: real Persian reference texts, ranked sources, source receipts and explicit abstention. On Windows, `run-visual-demo.ps1` starts the same server. It uses the existing retrieval engine rather than canned responses. See [verification and screenshots](reports/VISUAL_DEMO.md).
 
@@ -54,7 +54,7 @@ Public access is enforced before scoring and before building the directory. The 
 | `GET /api/documents?id=IT-004` | Public document, or 404 for absent/restricted IDs |
 | `POST /api/ask` | JSON containing `question` and optional `collection` (`sample` or `reference`); ranked excerpts and status |
 | `POST /api/draft` | Explicit optional local sentence selection; bounded question and output |
-| `POST /api/answer` | Optional local Persian synthesis with source ID and checked exact quotation; up to 400 question characters |
+| `POST /api/answer` | Optional internal/model/hybrid routing with explicit origin and citation separation; up to 400 question characters |
 
 The browser creates ticket drafts locally. Clipboard permission depends on the browser; text remains selectable when automatic copying is unavailable.
 
@@ -149,3 +149,9 @@ The local v0.6 collection contains 34 actual Persian reference introductions acr
 66 unit/API tests passed locally. Actual Qwen3-1.7B CPU inference produced three Persian drafts and two pre-inference abstentions. The browser verified the explicit generation button, returned quote and source ID. Model weights are deliberately excluded; the launcher verifies the documented official weight checksum. See [real inference results and limitations](reports/LOCAL_SYNTHESIS.md).
 
 ![Actual Persian draft from the local model with source quotation](reports/rag-local-model-answer.png)
+
+## v0.7: explicit answer origin
+
+The demo now offers internal-only, model-only and hybrid fallback modes. Hybrid attempts a grounded answer first and uses uncited model knowledge only when evidence is insufficient; origin labels distinguish internal/model/none. Current-fact requests require live sources rather than displaying unverified current assertions. The implementation and recorded test evidence are included in this repository. Real tests exposed serious general-knowledge errors in the small model; see [full routing test report](reports/ANSWER_ROUTING_V07.md).
+
+Publication audit and retained limitations: [2026-11-01](reports/PUBLICATION_2026-11-01.md).

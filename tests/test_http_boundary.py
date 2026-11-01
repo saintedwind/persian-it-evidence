@@ -1,8 +1,10 @@
 import json
+from http.client import HTTPConnection
 import unittest
 from urllib.request import Request, build_opener, ProxyHandler
 from urllib.error import HTTPError
 from unittest.mock import patch
+from urllib.parse import urlsplit
 import test_evidence
 
 
@@ -40,7 +42,21 @@ class HttpBoundaryTests(unittest.TestCase):
         call.assert_called_once()
 
     def test_chunked_body_rejected(self):
-        with patch('server.draft') as call, self.assertRaises(HTTPError) as error:
-            self.request({'Transfer-Encoding':'chunked'})
-        self.assertEqual(error.exception.code, 400)
+        address = urlsplit(self.url)
+        connection = HTTPConnection(address.hostname, address.port, timeout=3)
+        try:
+            with patch('server.draft') as call:
+                connection.putrequest('POST', '/api/draft')
+                connection.putheader('Content-Type', 'application/json')
+                connection.putheader('Transfer-Encoding', 'chunked')
+                # Unsupported framing must be rejected from the headers alone.
+                # Sending a body with urllib races the server's early close and
+                # can hide the 400 response behind a client-side BrokenPipeError.
+                connection.endheaders()
+                response = connection.getresponse()
+                self.assertEqual(response.status, 400)
+                self.assertEqual(json.load(response),
+                                 {'error': 'Transfer encoding is not supported'})
+        finally:
+            connection.close()
         call.assert_not_called()

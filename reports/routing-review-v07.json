@@ -1,0 +1,97 @@
+{
+  "checked_at_utc": "2026-10-22T16:59:00.743551+00:00",
+  "initial_cases": 8,
+  "corrected_cases": 2,
+  "unit_api_tests": 76,
+  "model_manifest": {
+    "model": "Qwen/Qwen3-1.7B-GGUF",
+    "revision": "90862c4b9d2787eaed51d12237eafdfe7c5f6077",
+    "file": "Qwen3-1.7B-Q8_0.gguf",
+    "bytes": 1834426016,
+    "sha256": "061b54daade076b5d3362dac252678d17da8c68f07560be70818cace6590cb1a",
+    "runtime": "llama.cpp b11476"
+  },
+  "code_sha256": {
+    "answer_router.py": "73a293d0f88a2eaf66d1f6335d33a0500a0846062335aeaf666a040b180d758b",
+    "local_answer.py": "4675302dbda256a23aab5aeb8a7cbc5fed36fcec64a44f09eca428c6c6c6f4c7",
+    "server.py": "49db1e32e4d86fb2966dea3e6eec824772c1fb9f03fb5a5c763629c028e18f21"
+  },
+  "reviews": [
+    {
+      "case": "internal-supported",
+      "status": "answer_ready",
+      "source": "internal",
+      "review": "Main ransomware definition consistent with source; quote checked. Not independent full entailment review.",
+      "elapsed_seconds": 17.977
+    },
+    {
+      "case": "general-geography",
+      "status": "answer_ready",
+      "source": "model",
+      "review": "FAIL: invented Takamagawa/Miyagi as Japanese capital. Official Japanese source identifies Tokyo.",
+      "elapsed_seconds": 9.488
+    },
+    {
+      "case": "general-science",
+      "status": "answer_ready",
+      "source": "model",
+      "review": "FAIL: repetitive, scientifically wrong text instead of atmospheric scattering explanation.",
+      "elapsed_seconds": 15.324
+    },
+    {
+      "case": "strict-no-fallback",
+      "status": "insufficient_evidence",
+      "source": "none",
+      "review": "Expected abstention; no general model fallback in internal-only mode.",
+      "elapsed_seconds": 0.049
+    },
+    {
+      "case": "model-only",
+      "status": "answer_ready",
+      "source": "model",
+      "review": "DNS name-to-IP idea present, wording imprecise; no internal citation attached.",
+      "elapsed_seconds": 9.878
+    },
+    {
+      "case": "current-python",
+      "status": "needs_live_source",
+      "source": "none",
+      "review": "No current assertion displayed; live-source requirement reported.",
+      "elapsed_seconds": 2.634
+    },
+    {
+      "case": "current-president",
+      "status": "answer_ready",
+      "source": "model",
+      "review": "Initial FAIL: question echo was displayed as model answer. Corrected freshness guard later returned needs_live_source.",
+      "elapsed_seconds": 2.543
+    },
+    {
+      "case": "private",
+      "status": "refused",
+      "source": "none",
+      "review": "Refused before inference by narrow credential request guard.",
+      "elapsed_seconds": 0.002
+    }
+  ],
+  "external_manual_check_sources": [
+    {
+      "url": "https://www.mofa.go.jp/policy/economy/summit/2008/venue/tokyo_01.html",
+      "finding": "Tokyo is the Japanese capital"
+    },
+    {
+      "url": "https://spaceplace.nasa.gov/blue-sky/en/",
+      "finding": "Blue light is scattered more strongly by atmospheric gases"
+    },
+    {
+      "url": "https://www.python.org/downloads/",
+      "finding": "Checked independently; latest listed stable release at audit was 3.15.1, October 21 2026"
+    },
+    {
+      "url": "https://www.whitehouse.gov/administration/",
+      "finding": "Checked independently; identifies President Donald J. Trump"
+    }
+  ],
+  "source_check_boundary": "These web pages were checked manually by the development assistant; the running application has NO live web retrieval and did not consume them.",
+  "quality_conclusion": "Routing works, but the 1.7B model is not reliable for general knowledge. Do not equate contract checks, labels or unit tests with factual accuracy."
+}
