@@ -4,6 +4,7 @@ const number = n => new Intl.NumberFormat('fa-IR', {maximumFractionDigits: 2}).f
 let sequence = 0, catalogSequence = 0, controller = null, selected = null;
 let documents = [];
 let modelEnabled = false, modelController = null, modelSequence = 0, answeredQuestion = '', answeredCollection = '';
+let answeredMode = 'hybrid';
 const collection = () => $('#collection').value;
 const safeSource = value => /^https:\/\/fa\.wikipedia\.org\/w\/index\.php\?oldid=\d+$/.test(value);
 function steps(done = [], working = '') {
@@ -67,9 +68,9 @@ function render(data, duration) {
   selected = accepted ? data.citations[0] : null;
   $('#empty').hidden = true; $('#results').hidden = false;
   $('#elapsed').textContent = number(duration) + ' میلی‌ثانیه · زمان درخواست';
-  $('#result-title').textContent = accepted ? 'شواهد مرتبط پیدا شد' : 'شواهد کافی پیدا نشد';
-  $('#answer-label').textContent = accepted ? 'نقل عین متن از منبع' : 'خودداری از پاسخ';
-  $('#answer-title').textContent = accepted ? selected.title : 'به‌جای حدس، به منبع بیشتری نیاز داریم.';
+  $('#result-title').textContent = accepted ? 'نتیجه منابع داخلی: شواهد مرتبط پیدا شد' : 'نتیجه منابع داخلی: شواهد کافی پیدا نشد';
+  $('#answer-label').textContent = accepted ? 'نقل عین متن از منبع' : 'بدون پاسخ مستند داخلی';
+  $('#answer-title').textContent = accepted ? selected.title : 'در این مجموعه، پاسخ مستندی پیدا نشد.';
   $('#answer').textContent = data.answer;
   $('#copy').hidden = !accepted;
   $('#answer-note').textContent = !accepted ? 'هیچ منبعی به‌عنوان پاسخ تأیید نشد. پرسش را دقیق‌تر کنید یا مجموعه مناسب‌تری انتخاب کنید.' : collection() === 'reference'
@@ -103,9 +104,12 @@ async function ask(question) {
     const data = await jsonFetch('/api/ask', {method:'POST', headers:{'Content-Type':'application/json'}, signal:active.signal, body:JSON.stringify({question, collection:corpus})});
     if (run !== sequence) return;
     render(data, performance.now() - started); $('#notice').textContent = '';
-    answeredQuestion = question; answeredCollection = corpus;
-    $('#model-panel').hidden = !(modelEnabled && data.status === 'evidence_found');
-    $('#model-status').textContent = 'متن منبع پایین صفحه می‌ماند. برای ساخت پاسخ کوتاه، دکمه را بزنید.';
+    answeredQuestion = question; answeredCollection = corpus; answeredMode = $('#answer-mode').value;
+    if(answeredMode === 'model') $('#results').hidden = true;
+    $('#model-panel').hidden = !modelEnabled;
+    $('#model-origin').textContent = 'روش انتخاب‌شده: ' + $('#answer-mode').selectedOptions[0].textContent;
+    $('#model-status').textContent = answeredMode === 'hybrid' ? 'ابتدا منابع داخلی بررسی می‌شوند؛ در نبود شواهد کافی، دانش مدل با برچسب جدا به کار می‌رود.' : answeredMode === 'model' ? 'مدل فقط از دانش عمومی خود پاسخ می‌دهد؛ منابع داخلی در پاسخ استفاده نمی‌شوند.' : 'مدل فقط از متن منبع استفاده می‌کند؛ بدون شواهد پاسخ نمی‌دهد.';
+    if(modelEnabled && question.length <= 400) $('#generate').click();
   } catch (error) {
     if (run !== sequence) return;
     steps(['query']); $('#notice').textContent = 'ارتباط با برنامه برقرار نشد یا مهلت درخواست تمام شد. دوباره تلاش کنید.';
@@ -155,6 +159,7 @@ $('#collection').addEventListener('change', () => {
   catalog();
 });
 $('#retry').addEventListener('click', catalog);
+$('#answer-mode').addEventListener('change', invalidate);
 $('#close-source').addEventListener('click', () => $('#source-dialog').close());
 $('#copy').addEventListener('click', async () => {
   if (!selected) return;
@@ -166,17 +171,20 @@ catalog();
 $('#generate').addEventListener('click', async () => {
   if(!answeredQuestion || answeredQuestion.length > 400) { $('#model-status').textContent = 'برای پاسخ مدل، پرسش باید حداکثر ۴۰۰ نویسه باشد.'; return; }
   const run=++modelSequence; modelController=new AbortController(); const active=modelController;
-  const timeout=setTimeout(()=>active.abort(),95000);
+  const timeout=setTimeout(()=>active.abort(),185000);
   $('#generate').disabled=true; $('#model-answer').textContent=''; $('#model-quote').hidden=true;
-  $('#model-meta').textContent=''; $('#model-status').textContent='مدل محلی در حال آماده‌کردن پاسخ است؛ ممکن است تا ۹۰ ثانیه طول بکشد…';
+  $('#model-meta').textContent=''; $('#model-status').textContent='در حال آماده‌کردن پاسخ؛ در حالت هیبرید ممکن است تا سه دقیقه طول بکشد…';
   const messages={insufficient_evidence:'مدل شواهد کافی تشخیص نداد؛ متن اصلی را بررسی کنید.',invalid_output:'خروجی مدل با قرارداد منبع و نقل‌قول تطبیق نداشت و نمایش داده نشد.',incomplete:'پاسخ مدل ناتمام بود و نمایش داده نشد.',busy:'مدل مشغول درخواست دیگری است؛ کمی بعد دوباره تلاش کنید.',source_too_long:'این منبع برای پردازش فعلی طولانی است.',unavailable:'مدل در دسترس نیست؛ بازیابی منابع همچنان کار می‌کند.'};
   try {
-    const data=await jsonFetch('/api/answer',{method:'POST',signal:active.signal,headers:{'Content-Type':'application/json'},body:JSON.stringify({question:answeredQuestion,collection:answeredCollection})});
+    const data=await jsonFetch('/api/answer',{method:'POST',signal:active.signal,headers:{'Content-Type':'application/json'},body:JSON.stringify({question:answeredQuestion,collection:answeredCollection,mode:answeredMode})});
     if(run!==modelSequence)return;
-    if(data.status!=='answer_ready'){ $('#model-status').textContent=messages[data.status] || 'پاسخ قابل نمایش دریافت نشد.'; return; }
-    $('#model-status').textContent='پیش‌نویس مدل؛ انطباق معنایی پاسخ را با منبع بررسی کنید.';
-    $('#model-answer').textContent=data.answer; $('#model-quote').textContent='نقل‌قول از منبع: «'+data.quote+'»'; $('#model-quote').hidden=false;
-    $('#model-meta').textContent=data.model+' · '+data.source_id+' · '+number(data.generation_ms/1000)+' ثانیه · نقل‌قول با متن منبع تطبیق دارد؛ صحت همه ادعاها تضمین نمی‌شود.';
+    if(data.status!=='answer_ready'){ $('#model-origin').textContent='پاسخی ارائه نشد'; $('#model-status').textContent=data.status==='needs_live_source' ? 'این پرسش به اطلاعات تازه و منبع آنلاین نیاز دارد. مدل محلی جست‌وجوی زنده ندارد؛ پاسخ قطعی روز ارائه نمی‌شود.' : data.status==='refused' ? 'درخواست اطلاعات ورود خصوصی پاسخ داده نمی‌شود.' : messages[data.status] || 'پاسخ قابل نمایش دریافت نشد.'; return; }
+    const internal=data.answer_source==='internal';
+    $('#model-origin').textContent=internal ? 'منبع پاسخ: داده‌های داخلی' : 'منبع پاسخ: دانش مدل · بدون استناد داخلی';
+    $('#model-status').textContent=internal ? 'پیش‌نویس مدل بر اساس منبع؛ انطباق معنایی پاسخ را بررسی کنید.' : 'پاسخ از دانش عمومی مدل است. این مدل کوچک در آزمون‌های واقعی خطای دانشی داشت؛ پاسخ با اسناد یا اینترنت اعتبارسنجی نشده است.';
+    $('#model-answer').textContent=data.answer;
+    if(internal){$('#model-quote').textContent='نقل‌قول از منبع: «'+data.quote+'»';$('#model-quote').hidden=false;}
+    $('#model-meta').textContent=data.model+' · '+(internal ? data.source_id : 'بدون منبع بیرونی')+' · '+number(data.generation_ms/1000)+' ثانیه · '+(internal ? 'نقل‌قول با متن منبع تطبیق دارد؛ صحت همه ادعاها تضمین نمی‌شود.' : 'دانش مدل ممکن است نادرست یا قدیمی باشد؛ جست‌وجوی زنده انجام نشده است.');
   }catch{if(run===modelSequence)$('#model-status').textContent='ارتباط با مدل قطع شد یا مهلت پاسخ پایان یافت.';}
   finally{clearTimeout(timeout);if(run===modelSequence)$('#generate').disabled=false;}
 });
