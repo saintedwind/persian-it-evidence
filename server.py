@@ -8,6 +8,7 @@ from pathlib import Path
 from evidence import Index
 from local_draft import draft, enabled
 from local_answer import answer as synthesize, enabled as answer_enabled
+from answer_router import respond
 
 ROOT = Path(__file__).resolve().parent
 INDEX = Index.load()
@@ -110,11 +111,12 @@ class Handler(BaseHTTPRequestHandler):
             if not 0 < size <= 16000:
                 return self.send(413, {'error': 'Request size must be 1–16000 bytes'})
             data = json.loads(self.rfile.read(size))
-            if not isinstance(data, dict) or 'question' not in data or set(data) - {'question','collection'}:
+            allowed={'question','collection','mode'} if self.path=='/api/answer' else {'question','collection'}
+            if not isinstance(data, dict) or 'question' not in data or set(data) - allowed:
                 return self.send(400, {'error': 'Only question and optional collection are allowed'})
             index = get_index(data.get('collection','sample'))
             # The browser cannot select staff access; trusted application decides scope.
-            result = (synthesize(index, data['question']) if self.path == '/api/answer' else
+            result = (respond(index, data['question'],data.get('mode','hybrid')) if self.path == '/api/answer' else
                       draft(index, data['question']) if self.path == '/api/draft' else
                       index.answer(data['question'], scope='public'))
             self.send(200, result)
