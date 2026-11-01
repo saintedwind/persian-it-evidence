@@ -1,0 +1,66 @@
+{
+  "scope": "Actual HTTP after final freshness and echo guards; original failures retained separately",
+  "cases": [
+    {
+      "question": "رئیس جمهور فعلی آمریکا کیست؟",
+      "response": {
+        "status": "needs_live_source",
+        "answer": null,
+        "answer_source": "none",
+        "citations": [],
+        "model": "Qwen3-1.7B-Q8_0",
+        "mode": "model-knowledge",
+        "live_web": false,
+        "usage": {
+          "prompt_tokens": 148,
+          "completion_tokens": 37,
+          "total_tokens": 185
+        },
+        "freshness_required": true,
+        "model_requested_live_information": false,
+        "fallback_reason": "needs_live_source",
+        "requested_mode": "hybrid"
+      },
+      "elapsed_seconds": 3.882
+    },
+    {
+      "question": "دو به اضافه دو چند است؟",
+      "response": {
+        "status": "invalid_output",
+        "answer": null,
+        "citations": [
+          {
+            "id": "REF-ROUTER",
+            "title": "روتر",
+            "score": 4.755744,
+            "coverage": 0.6666666666666666,
+            "excerpt": "مسیریاب، رهیاب یا رُوتِر (به انگلیسی: Router) دستگاهی از تجهیزات شبکهٔ رایانه‌ای است که بسته‌های داده (Data Packets) را در یک شبکه برای رسیدن به مقصدشان، هدایت می‌کند. مسیریابی در لایهٔ سوم مدل مرجع OSI (لایهٔ شبکه) رخ می‌دهد. مسیریاب جهت اتصال دو یا چند شبکه محلی به هم یا اتصال چندین خط شبکه بزرگ به هم مورد استفاده قرار می‌گیرند. مسیریاب می‌تواند انواع مختلف شبکه را به هم وصل کند. یک مسیریاب، یک سیستم‌عامل اختصاصی (مانند IOS از سیسکو یا JUNOS از ژونیپر نتوکرز و …)، حافظه فلش، NVRAM , RAM و یک یا دو پردازشگر دارد.",
+            "source": "https://fa.wikipedia.org/w/index.php?oldid=42870088",
+            "text_sha256": "686db187cd5597006ab77918126f58a5c40a345fc95f0b0e11fb276d5290a706",
+            "start_char": 0,
+            "end_char": 519,
+            "start_line": 1,
+            "end_line": 1,
+            "category": "شبکه",
+            "license": "CC-BY-SA-4.0",
+            "authors": "Persian Wikipedia contributors",
+            "retrieved_at": "2026-10-22T15:40:30.462508+00:00",
+            "revision": 42870088
+          }
+        ],
+        "model": "Qwen3-1.7B-Q8_0",
+        "mode": "local-model-synthesis",
+        "notice": "Model-written draft. Quote membership is checked; factual support of the prose is not automatically verified.",
+        "usage": {
+          "prompt_tokens": 466,
+          "completion_tokens": 41,
+          "total_tokens": 507
+        },
+        "answer_source": "none",
+        "requested_mode": "hybrid",
+        "live_web": false
+      },
+      "elapsed_seconds": 8.336
+    }
+  ]
+}
